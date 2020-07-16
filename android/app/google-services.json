@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "983064977469",
+    "firebase_url": "https://sign-in-4ee03.firebaseio.com",
+    "project_id": "sign-in-4ee03",
+    "storage_bucket": "sign-in-4ee03.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983064977469:android:84f366499580b0aa098a54",
+        "android_client_info": {
+          "package_name": "com.example.fitility"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "983064977469-hvqjsnv8lt5vs6hmeit43m0045rtdshr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fitility",
+            "certificate_hash": "35f1f96f855c353d9be213233114878af87e569e"
+          }
+        },
+        {
+          "client_id": "983064977469-igi8n73tfbeuid92jug7ace28aktjivg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkgX_ZJuW5Cxx3U9fD6DVU_auJGq3GB-8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "983064977469-igi8n73tfbeuid92jug7ace28aktjivg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

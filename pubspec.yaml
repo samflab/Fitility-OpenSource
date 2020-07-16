@@ -1,0 +1,33 @@
+name: fitility
+description: A new Flutter application.
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  adobe_xd: ^0.1.4
+  flutter_svg:
+  cupertino_icons: ^0.1.2
+  http: ^0.12.1
+  shared_preferences: ^0.5.8
+  firebase_auth: ^0.16.1
+  google_sign_in: ^4.5.1
+  firebase_core: ^0.4.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+  uses-material-design: true
+  assets:
+   - images/girl.png
+   - images/logo.png
+   - images/google.png
+   - images/arrow.png
+  fonts:
+    - family: Rubik
+      fonts:
+      - asset: fonts/Rubik-Light.ttf
