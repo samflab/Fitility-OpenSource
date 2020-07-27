@@ -26,8 +26,17 @@ flutter:
    - images/girl.png
    - images/logo.png
    - images/google.png
-   - images/arrow.png
+   - images/box.png
+   - images/pic1.png
+   - images/pic2.png
+   - images/pic3.png
+   - images/meal.png
+   - images/line.png
+   - images/dumble.png
   fonts:
     - family: Rubik
       fonts:
       - asset: fonts/Rubik-Light.ttf
+    - family: Fitility
+      fonts:
+      - asset: icons/Fitility.ttf

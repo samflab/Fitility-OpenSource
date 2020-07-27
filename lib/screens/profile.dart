@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fitility/screens/fitility_login.dart';
+import 'package:fitility/screens/login.dart';
 import 'package:fitility/services/google_signin.dart';
 
 class Profile extends StatelessWidget {
@@ -33,7 +33,7 @@ class Profile extends StatelessWidget {
                 signOutGoogle();
                 Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) {
-                  return Login();
+                  return Signin();
                 }), ModalRoute.withName('/'));
               },
               color: Colors.deepPurple,
