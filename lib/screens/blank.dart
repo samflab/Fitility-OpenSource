@@ -14,7 +14,7 @@ class Blank extends StatefulWidget {
 
 class _BlankState extends State<Blank> {
   int _currentIndex = 0;
-  final List<Widget> _tabs = [Home(), Dance(), Workout(), Diet(), Plans()];
+  final List<Widget> _tabs = [Home(), Workout(), Dance(), Diet(), Plans()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,10 +75,18 @@ class _BlankState extends State<Blank> {
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
-            icon: new Icon(Fitility.browser,
-                color: Colors.red.shade700, size: 23.0),
+            icon: Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: new Icon(
+                Fitility.browser,
+                color: Colors.red.shade700,
+                size: 23.0,
+              ),
+            ),
             title: Padding(
-              padding: const EdgeInsets.only(top: 5.0),
+              padding: const EdgeInsets.only(
+                top: 7.0,
+              ),
               child: new Text(
                 'Home',
                 style: TextStyle(
@@ -90,30 +98,42 @@ class _BlankState extends State<Blank> {
             ),
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Fitility.diners_club,
-                color: Colors.red.shade700, size: 30.0),
+            icon: Padding(
+              padding: const EdgeInsets.only(
+                top: 8.0,
+                right: 18.0,
+              ),
+              child: new Icon(
+                Fitility.gym,
+                color: Colors.red.shade700,
+                size: 22.0,
+              ),
+            ),
             title: Padding(
-              padding: const EdgeInsets.only(top: 5.0),
-              child: new Text(
-                'Dance',
+              padding: const EdgeInsets.only(
+                top: 8.0,
+                right: 5.0,
+              ),
+              child: Text(
+                'Workout',
                 style: TextStyle(
                   fontFamily: 'Rubik',
-                  fontSize: 10,
                   color: Colors.red.shade700,
+                  fontSize: 10,
                 ),
               ),
             ),
           ),
           BottomNavigationBarItem(
             icon: Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: new Icon(Fitility.gym,
-                  color: Colors.red.shade700, size: 22.0),
+              padding: const EdgeInsets.only(top: 5.0),
+              child: new Icon(Fitility.diners_club,
+                  color: Colors.red.shade700, size: 30.0),
             ),
             title: Padding(
-              padding: const EdgeInsets.only(left: 18.0, top: 5.0),
+              padding: const EdgeInsets.only(top: 5.0),
               child: new Text(
-                'Workout',
+                'Dance',
                 style: TextStyle(
                   fontFamily: 'Rubik',
                   fontSize: 10,

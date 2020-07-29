@@ -9,7 +9,6 @@ dependencies:
   flutter:
     sdk: flutter
   adobe_xd: ^0.1.4
-  flutter_svg:
   cupertino_icons: ^0.1.2
   http: ^0.12.1
   shared_preferences: ^0.5.8
@@ -33,10 +32,11 @@ flutter:
    - images/meal.png
    - images/line.png
    - images/dumble.png
+   - images/lineh.png
   fonts:
     - family: Rubik
       fonts:
-      - asset: fonts/Rubik-Light.ttf
+      - asset: fonts/Rubik-Regular.ttf
     - family: Fitility
       fonts:
       - asset: icons/Fitility.ttf

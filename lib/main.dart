@@ -1,4 +1,4 @@
-import 'package:fitility/screens/settings.dart';
+import 'package:fitility/screens/blank.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -11,6 +11,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Settings(),);
+    return MaterialApp(
+      home: Blank(),
+    );
   }
 }

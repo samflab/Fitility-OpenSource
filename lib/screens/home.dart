@@ -24,12 +24,32 @@ class _HomeState extends State<Home> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: SizedBox(
+                          height: 41.0,
+                          child: RaisedButton(
+                            onPressed: () {},
+                            color: Colors.white,
+                            elevation: 5.0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Text(
+                              'Workout',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'Rubik Regular',
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 20.0),
+                          padding: const EdgeInsets.only(left: 5.0),
                           child: SizedBox(
                             height: 41.0,
-                            width: 90.0,
                             child: RaisedButton(
                               onPressed: () {},
                               color: Colors.white,
@@ -53,31 +73,6 @@ class _HomeState extends State<Home> {
                           padding: const EdgeInsets.only(left: 5.0),
                           child: SizedBox(
                             height: 41.0,
-                            width: 90.0,
-                            child: RaisedButton(
-                              onPressed: () {},
-                              color: Colors.white,
-                              elevation: 5.0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Text(
-                                'Workout',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: 'Rubik Regular',
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 5.0),
-                          child: SizedBox(
-                            height: 41.0,
-                            width: 90.0,
                             child: RaisedButton(
                               onPressed: () {},
                               color: Colors.white,
@@ -96,26 +91,22 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       ),
-                      Expanded(
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.only(left: 5.0, right: 19.0),
-                          child: SizedBox(
-                            height: 41.0,
-                            width: 90.0,
-                            child: RaisedButton(
-                              onPressed: () {},
-                              color: Colors.white,
-                              elevation: 5.0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Text(
-                                'Plans',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: 'Rubik Regular',
-                                ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5.0, right: 19.0),
+                        child: SizedBox(
+                          height: 41.0,
+                          child: RaisedButton(
+                            onPressed: () {},
+                            color: Colors.white,
+                            elevation: 5.0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Text(
+                              'Plans',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'Rubik Regular',
                               ),
                             ),
                           ),
