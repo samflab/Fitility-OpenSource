@@ -1,9 +1,11 @@
 import 'package:fitility/screens/blank.dart';
 import 'package:fitility/screens/forgot_password.dart';
+//import 'package:fitility/screens/home.dart';
 import 'package:fitility/screens/sign_up.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fitility/services/validation.dart';
 
 class Signin extends StatefulWidget {
   @override
@@ -12,116 +14,14 @@ class Signin extends StatefulWidget {
 
 class _SigninState extends State<Signin> {
   final _formKey = GlobalKey<FormState>();
-  // ignore: unused_field
+  TextEditingController emailController;
+  TextEditingController passwordController;
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  Future userLogin() async {
-    String email = emailController.text;
-    String password = passwordController.text;
-    print(email);
-    print(password);
-
-    var url = 'https://solonian-radios.000webhostapp.com/login_user.php';
-    var data = {'email': email, 'password': password};
-
-    var response = await http.post(url, body: json.encode(data));
-    var message = jsonDecode(response.body);
-
-    if (message == 'Login Matched') {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => Blank(),
-        ),
-      );
-    } else {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Container(
-              height: 150,
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'Couldn\'t login you in, try again later.',
-                        style: TextStyle(
-                          fontFamily: 'Rubik Regular',
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 30.0, top: 18.0, right: 30.0, bottom: 18.0),
-                      child: SizedBox(
-                        child: RaisedButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          splashColor: Colors.red,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: EdgeInsets.all(0.0),
-                          elevation: 3.0,
-                          child: Ink(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Colors.red.shade700,
-                                  Colors.red.shade900
-                                ],
-                                begin: Alignment(0.0, -1.0),
-                                end: Alignment(0.0, 1.0),
-                                stops: [0.0, 1.0],
-                              ),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 15.0, bottom: 15.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Center(
-                                      child: Text(
-                                        'Okay',
-                                        style: TextStyle(
-                                          fontFamily: 'Rubik',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.grey.shade100,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      );
-    }
+  @override
+  void initState() {
+    emailController = new TextEditingController();
+    passwordController = new TextEditingController();
+    super.initState();
   }
 
   @override
@@ -239,9 +139,7 @@ class _SigninState extends State<Signin> {
                               ),
                             ),
                           ),
-                          validator: (value) => value.isEmpty
-                              ? 'This field can\'t be empty'
-                              : null,
+                          validator: emailValidator,
                         ),
                       ),
                       SizedBox(
@@ -293,8 +191,8 @@ class _SigninState extends State<Signin> {
                               ),
                             ),
                           ),
-                          validator: (value) => value.isEmpty
-                              ? 'This field can\'t be empty'
+                          validator: (value) => value.length < 8
+                              ? 'The password must be more than 8 characters'
                               : null,
                         ),
                       ),
@@ -311,7 +209,25 @@ class _SigninState extends State<Signin> {
                       splashColor: Colors.red,
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          userLogin();
+                          FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
+                                  email: emailController.text,
+                                  password: passwordController.text)
+                              .then((authResult) => Firestore.instance
+                                  .collection("users")
+                                  .document(authResult.user.uid)
+                                  .get()
+                                  .then(
+                                    (DocumentSnapshot result) =>
+                                        Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Blank(),
+                                      ),
+                                    ),
+                                  )
+                                  .catchError((err) => print(err)))
+                              .catchError((err) => print(err));
                         }
                       },
                       shape: RoundedRectangleBorder(

@@ -1,8 +1,9 @@
-import 'package:fitility/screens/login.dart';
 import 'package:fitility/screens/profile.dart';
+import 'package:fitility/services/validation.dart';
+import 'login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:fitility/services/google_signin.dart';
 
 class Register extends StatefulWidget {
@@ -11,220 +12,22 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  //defining a form key to access the state of the form globally
   final _formKey = GlobalKey<FormState>();
+  TextEditingController firstnameController;
+  TextEditingController lastnameController;
+  TextEditingController emailController;
+  TextEditingController numberController;
+  TextEditingController passwordController;
 
-//adding text editing controllers to the textformfields
-  final firstnameController = TextEditingController();
-  final lastnameController = TextEditingController();
-  final emailController = TextEditingController();
-  final numberController = TextEditingController();
-  final passwordController = TextEditingController();
+  @override
+  initState() {
+    firstnameController = new TextEditingController();
+    lastnameController = new TextEditingController();
+    emailController = new TextEditingController();
+    numberController = new TextEditingController();
+    passwordController = new TextEditingController();
 
-// function for users to register on the app
-  Future userRegistration() async {
-    String fname = firstnameController.text;
-    String lname = lastnameController.text;
-    String email = emailController.text;
-    String number = numberController.text;
-    String password = passwordController.text;
-
-    print(fname);
-    print(lname);
-    print(email);
-    print(number);
-    print(password);
-
-    var url = 'https://solonian-radios.000webhostapp.com/register.php';
-    var data = {
-      'fname': fname,
-      'lname': lname,
-      'email': email,
-      'number': number,
-      'password': password
-    };
-    var response = await http.post(url, body: json.encode(data));
-    var message = jsonDecode(response.body);
-    if (message == 'User Registered Successfully') {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Container(
-              height: 150,
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'Registration successful',
-                        style: TextStyle(
-                          fontFamily: 'Rubik Regular',
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 30.0, top: 18.0, right: 30.0, bottom: 18.0),
-                      child: SizedBox(
-                        child: RaisedButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          splashColor: Colors.red,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: EdgeInsets.all(0.0),
-                          elevation: 3.0,
-                          child: Ink(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Colors.red.shade700,
-                                  Colors.red.shade900
-                                ],
-                                begin: Alignment(0.0, -1.0),
-                                end: Alignment(0.0, 1.0),
-                                stops: [0.0, 1.0],
-                              ),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 15.0, bottom: 15.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Center(
-                                      child: Text(
-                                        'Okay',
-                                        style: TextStyle(
-                                          fontFamily: 'Rubik',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.grey.shade100,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      );
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Signin()));
-      firstnameController.text = "";
-      lastnameController.text = "";
-      emailController.text = "";
-      numberController.text = "";
-      passwordController.text = "";
-    } else {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Container(
-              height: 150,
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'Couldn\'t register, try again later.',
-                        style: TextStyle(
-                          fontFamily: 'Rubik Regular',
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 30.0, top: 18.0, right: 30.0, bottom: 18.0),
-                      child: SizedBox(
-                        child: RaisedButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          splashColor: Colors.red,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: EdgeInsets.all(0.0),
-                          elevation: 3.0,
-                          child: Ink(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Colors.red.shade700,
-                                  Colors.red.shade900
-                                ],
-                                begin: Alignment(0.0, -1.0),
-                                end: Alignment(0.0, 1.0),
-                                stops: [0.0, 1.0],
-                              ),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 15.0, bottom: 15.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Center(
-                                      child: Text(
-                                        'Okay',
-                                        style: TextStyle(
-                                          fontFamily: 'Rubik',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: Colors.grey.shade100,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      );
-    }
+    super.initState();
   }
 
   @override
@@ -360,9 +163,7 @@ class _RegisterState extends State<Register> {
                                           width: 1.5,
                                         )),
                                   ),
-                                  validator: (value) => value.isEmpty
-                                      ? 'First name can\'t be empty'
-                                      : null,
+                                  validator: nameValidate,
                                 ),
                               ),
                             ),
@@ -379,56 +180,55 @@ class _RegisterState extends State<Register> {
                                   controller: lastnameController,
                                   autocorrect: true,
                                   decoration: InputDecoration(
-                                      contentPadding: new EdgeInsets.symmetric(
-                                          vertical: 15.0, horizontal: 10.0),
-                                      hintText: 'Last Name',
-                                      fillColor: Colors.white,
-                                      filled: true,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(
-                                          color: Colors.black,
-                                          width: 1.0,
-                                        ),
+                                    contentPadding: new EdgeInsets.symmetric(
+                                        vertical: 15.0, horizontal: 10.0),
+                                    hintText: 'Last Name',
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(
+                                        color: Colors.black,
+                                        width: 1.0,
                                       ),
-                                      disabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(
-                                          color: Colors.black,
-                                          width: 1.0,
-                                        ),
+                                    ),
+                                    disabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(
+                                        color: Colors.black,
+                                        width: 1.0,
                                       ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(
-                                          color: Colors.black,
-                                          width: 1.0,
-                                        ),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(
+                                        color: Colors.black,
+                                        width: 1.0,
                                       ),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(
-                                          color: Colors.black,
-                                          width: 1.0,
-                                        ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(
+                                        color: Colors.black,
+                                        width: 1.0,
                                       ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(
-                                          color: Colors.black,
-                                          width: 1.5,
-                                        ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(
+                                        color: Colors.black,
+                                        width: 1.5,
                                       ),
-                                      errorBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          borderSide: BorderSide(
-                                            color: Colors.black,
-                                            width: 1.5,
-                                          ))),
-                                  validator: (value) => value.isEmpty
-                                      ? 'This field can\'t be empty'
-                                      : null,
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(
+                                        color: Colors.black,
+                                        width: 1.5,
+                                      ),
+                                    ),
+                                  ),
+                                  validator: nameValidate,
                                 ),
                               ),
                             ),
@@ -491,9 +291,7 @@ class _RegisterState extends State<Register> {
                                   width: 1.5,
                                 )),
                           ),
-                          validator: (value) => value.isEmpty
-                              ? 'This field can\'t be empty'
-                              : null,
+                          validator: emailValidator,
                         ),
                       ),
                       SizedBox(height: 10.0),
@@ -504,55 +302,55 @@ class _RegisterState extends State<Register> {
                           controller: numberController,
                           autocorrect: true,
                           decoration: InputDecoration(
-                              contentPadding: new EdgeInsets.symmetric(
-                                  vertical: 15.0, horizontal: 10.0),
-                              hintText: 'Phone',
-                              fillColor: Colors.white,
-                              filled: true,
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                  width: 1.0,
-                                ),
+                            contentPadding: new EdgeInsets.symmetric(
+                                vertical: 15.0, horizontal: 10.0),
+                            hintText: 'Phone',
+                            fillColor: Colors.white,
+                            filled: true,
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1.0,
                               ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                  width: 1.0,
-                                ),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1.0,
                               ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                  width: 1.5,
-                                ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1.5,
                               ),
-                              disabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                  width: 1.0,
-                                ),
+                            ),
+                            disabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1.0,
                               ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                  width: 1.0,
-                                ),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1.0,
                               ),
-                              errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(
-                                    color: Colors.black,
-                                    width: 1.5,
-                                  ))),
-                          validator: (value) => value.isEmpty
-                              ? 'Please enter your phone number'
-                              : null,
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1.5,
+                              ),
+                            ),
+                          ),
+                          validator: validateMobile,
                         ),
                       ),
                       SizedBox(
@@ -566,55 +364,55 @@ class _RegisterState extends State<Register> {
                           autocorrect: true,
                           obscureText: true,
                           decoration: InputDecoration(
-                              contentPadding: new EdgeInsets.symmetric(
-                                  vertical: 15.0, horizontal: 10.0),
-                              hintText: 'Password',
-                              fillColor: Colors.white,
-                              filled: true,
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                  width: 1.0,
-                                ),
+                            contentPadding: new EdgeInsets.symmetric(
+                                vertical: 15.0, horizontal: 10.0),
+                            hintText: 'Password',
+                            fillColor: Colors.white,
+                            filled: true,
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1.0,
                               ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                  width: 1.5,
-                                ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1.5,
                               ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                  width: 1.5,
-                                ),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1.5,
                               ),
-                              disabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                  width: 1.0,
-                                ),
+                            ),
+                            disabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1.0,
                               ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                  width: 1.0,
-                                ),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1.0,
                               ),
-                              errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(
-                                    color: Colors.black,
-                                    width: 1.5,
-                                  ))),
-                          validator: (value) => value.length < 8
-                              ? 'Minimum length of the password is 8'
-                              : null,
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1.5,
+                              ),
+                            ),
+                          ),
+                          validator: passwordValidate,
                         ),
                       ),
                     ],
@@ -628,9 +426,36 @@ class _RegisterState extends State<Register> {
                     child: RaisedButton(
                       splashColor: Colors.red,
                       onPressed: () {
-                        //if all the fields are validated then user registration function will execute
-                        if (_formKey.currentState.validate())
-                          userRegistration();
+                        if (_formKey.currentState.validate()) {
+                          FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                                  email: emailController.text,
+                                  password: passwordController.text)
+                              .then((authResult) => Firestore.instance
+                                  .collection("users")
+                                  .document(authResult.user.uid)
+                                  .setData({
+                                    "uid": authResult.user.uid,
+                                    "firstname": firstnameController.text,
+                                    "lastname": lastnameController.text,
+                                    "phone": numberController.text,
+                                    "email": emailController.text
+                                  })
+                                  .then((result) => [
+                                        Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => Signin()),
+                                            (_) => false),
+                                        firstnameController.clear(),
+                                        lastnameController.clear(),
+                                        emailController.clear(),
+                                        numberController.clear(),
+                                        passwordController.clear()
+                                      ])
+                                  .catchError((err) => print(err)))
+                              .catchError((err) => print(err));
+                        }
                       },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
@@ -650,7 +475,6 @@ class _RegisterState extends State<Register> {
                           padding:
                               const EdgeInsets.only(top: 15.0, bottom: 15.0),
                           child: Row(
-                            // width: MediaQuery.of(context).size.width * 0.79,
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[

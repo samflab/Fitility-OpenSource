@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fitility/services/get_initials.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -12,15 +13,21 @@ class _SettingsState extends State<Settings> {
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
-  var name = 'Masudha Meher';
-
+  FirebaseUser currentUser;
   @override
   void initState() {
-    super.initState();
+    this.getCurrentUser();
     nameController.text = name;
     emailController.text = 'kasturimeh@gmail.com';
     phoneController.text = '9711843904';
     passwordController.text = 'masudha1';
+    super.initState();
+  }
+
+  var name = 'Masudha Meher';
+
+  void getCurrentUser() async {
+    currentUser = await FirebaseAuth.instance.currentUser();
   }
 
   @override
@@ -344,6 +351,53 @@ class _SettingsState extends State<Settings> {
                             ),
                           )
                         ],
+                      ),
+                    ),
+                  ),
+                  RaisedButton(
+                    onPressed: () {
+                      FirebaseAuth.instance
+                          .signOut()
+                          .then((result) =>
+                              Navigator.pushReplacementNamed(context, "/login"))
+                          .catchError((err) => print(err));
+                    },
+                    splashColor: Colors.red,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    padding: EdgeInsets.all(0.0),
+                    elevation: 3.0,
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Colors.red.shade700, Colors.red.shade900],
+                          begin: Alignment(0.0, -1.0),
+                          end: Alignment(0.0, 1.0),
+                          stops: [0.0, 1.0],
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Expanded(
+                              child: Center(
+                                child: Text(
+                                  'Logout',
+                                  style: TextStyle(
+                                    fontFamily: 'Rubik Medium',
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey.shade100,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

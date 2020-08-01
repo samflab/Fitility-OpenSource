@@ -8,13 +8,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  adobe_xd: ^0.1.4
   cupertino_icons: ^0.1.2
   http: ^0.12.1
-  shared_preferences: ^0.5.8
-  firebase_auth: ^0.16.1
+  firebase_auth:
   google_sign_in: ^4.5.1
   firebase_core: ^0.4.5
+  cloud_firestore:
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:
