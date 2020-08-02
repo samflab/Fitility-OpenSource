@@ -23,4 +23,17 @@ returns the splashscreen and the named routes
 ## icons/fitility_icons.dart :
  this page has the list of custom icons which are not available in flutter.
  
+ ## screens/onboarding.dart :
+ This screen will appear when the user installs the app for the very first time. You can also call this one time intro screen.
+ 
+ ## screens/sign_up.dart :
+ This is self explanatory, a page where a new user can register himself, otherwise login.
+ 
+ ## screens/login.dart :
+ Self explanatory, again, a page where a user can login himself into the app.
+ 
+ ## screens/home.dart :
+ The first page that appears after the user logs into the app.
+ 
+ 
 
