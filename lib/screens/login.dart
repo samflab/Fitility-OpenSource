@@ -101,7 +101,7 @@ class _SigninState extends State<Signin> {
                           decoration: InputDecoration(
                             contentPadding: new EdgeInsets.symmetric(
                                 vertical: 15.0, horizontal: 10.0),
-                            hintText: 'Email',
+                            labelText: 'Email',
                             fillColor: Colors.white,
                             filled: true,
                             border: OutlineInputBorder(
@@ -153,7 +153,7 @@ class _SigninState extends State<Signin> {
                           decoration: InputDecoration(
                             contentPadding: new EdgeInsets.symmetric(
                                 vertical: 15.0, horizontal: 10.0),
-                            hintText: 'Password',
+                            labelText: 'Password',
                             fillColor: Colors.white,
                             filled: true,
                             enabledBorder: OutlineInputBorder(

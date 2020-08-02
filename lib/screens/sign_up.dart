@@ -117,7 +117,7 @@ class _RegisterState extends State<Register> {
                                   controller: firstnameController,
                                   autocorrect: true,
                                   decoration: InputDecoration(
-                                    hintText: 'First Name',
+                                    labelText: 'First Name',
                                     contentPadding: new EdgeInsets.symmetric(
                                         vertical: 15.0, horizontal: 10.0),
                                     fillColor: Colors.white,
@@ -182,7 +182,7 @@ class _RegisterState extends State<Register> {
                                   decoration: InputDecoration(
                                     contentPadding: new EdgeInsets.symmetric(
                                         vertical: 15.0, horizontal: 10.0),
-                                    hintText: 'Last Name',
+                                    labelText: 'Last Name',
                                     fillColor: Colors.white,
                                     filled: true,
                                     enabledBorder: OutlineInputBorder(
@@ -247,7 +247,7 @@ class _RegisterState extends State<Register> {
                           decoration: InputDecoration(
                             contentPadding: new EdgeInsets.symmetric(
                                 vertical: 15.0, horizontal: 10.0),
-                            hintText: 'Email',
+                            labelText: 'Email',
                             fillColor: Colors.white,
                             filled: true,
                             enabledBorder: OutlineInputBorder(
@@ -304,7 +304,7 @@ class _RegisterState extends State<Register> {
                           decoration: InputDecoration(
                             contentPadding: new EdgeInsets.symmetric(
                                 vertical: 15.0, horizontal: 10.0),
-                            hintText: 'Phone',
+                            labelText: 'Phone',
                             fillColor: Colors.white,
                             filled: true,
                             enabledBorder: OutlineInputBorder(
@@ -366,7 +366,7 @@ class _RegisterState extends State<Register> {
                           decoration: InputDecoration(
                             contentPadding: new EdgeInsets.symmetric(
                                 vertical: 15.0, horizontal: 10.0),
-                            hintText: 'Password',
+                            labelText: 'Password',
                             fillColor: Colors.white,
                             filled: true,
                             enabledBorder: OutlineInputBorder(

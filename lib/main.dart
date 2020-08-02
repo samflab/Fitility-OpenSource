@@ -4,14 +4,22 @@ import 'package:fitility/screens/login.dart';
 import 'package:fitility/screens/onboarding.dart';
 import 'package:fitility/screens/settings.dart';
 import 'package:fitility/screens/sign_up.dart';
+import 'package:fitility/screens/splashscreen.dart';
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: StartPage(), routes: <String, WidgetBuilder>{
+    return MaterialApp(home: SplashScreen(), routes: <String, WidgetBuilder>{
+      '/splash': (BuildContext context) => SplashScreen(),
       '/onboarding': (BuildContext context) => StartPage(),
       '/signup': (BuildContext context) => Register(),
       '/login': (BuildContext context) => Signin(),
