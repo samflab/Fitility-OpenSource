@@ -1,4 +1,5 @@
-import 'package:fitility/screens/profile.dart';
+import 'package:fitility/screens/blank.dart';
+//import 'package:fitility/screens/profile.dart';
 import 'package:fitility/services/validation.dart';
 import 'login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -566,7 +567,7 @@ class _RegisterState extends State<Register> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
-                  return Profile();
+                  return Blank();
                 },
               ),
             );

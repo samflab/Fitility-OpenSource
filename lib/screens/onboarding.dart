@@ -1,5 +1,6 @@
+import 'package:fitility/screens/blank.dart';
 import 'package:fitility/screens/login.dart';
-import 'package:fitility/screens/profile.dart';
+//import 'package:fitility/screens/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fitility/screens/sign_up.dart';
 import 'package:flutter/material.dart';
@@ -208,7 +209,7 @@ class _StartPageState extends State<StartPage> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
-                  return Profile();
+                  return Blank();
                 },
               ),
             );

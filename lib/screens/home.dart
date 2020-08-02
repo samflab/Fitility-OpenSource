@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-//import 'package:fitility/screens/login.dart';
 
 class Home extends StatefulWidget {
   @override
