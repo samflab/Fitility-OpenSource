@@ -1,5 +1,6 @@
 import 'package:fitility/screens/blank.dart';
 import 'package:fitility/screens/login.dart';
+import 'package:fitility/services/transition.dart';
 //import 'package:fitility/screens/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fitility/screens/sign_up.dart';
@@ -106,9 +107,7 @@ class _StartPageState extends State<StartPage> {
                       splashColor: Colors.red,
                       onPressed: () {
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Register()),
-                        );
+                            context, SlideLeftRoute(page: Register()));
                       },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
@@ -167,9 +166,7 @@ class _StartPageState extends State<StartPage> {
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => Signin()),
-                      );
+                      Navigator.push(context, SlideLeftRoute(page: Signin()));
                     },
                     child: Text(
                       'Login',

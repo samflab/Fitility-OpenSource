@@ -1,4 +1,5 @@
 import 'package:fitility/screens/settings.dart';
+import 'package:fitility/services/transition.dart';
 import 'package:flutter/material.dart';
 import 'package:fitility/icons/fitility_icons.dart';
 import 'package:fitility/screens/dance.dart';
@@ -26,8 +27,8 @@ class _BlankState extends State<Blank> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => Settings(),
+              FadeRoute(
+                page: Settings(),
               ),
             );
           },

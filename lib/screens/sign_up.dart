@@ -1,4 +1,5 @@
 import 'package:fitility/screens/blank.dart';
+import 'package:fitility/services/transition.dart';
 //import 'package:fitility/screens/profile.dart';
 import 'package:fitility/services/validation.dart';
 import 'login.dart';
@@ -445,8 +446,7 @@ class _RegisterState extends State<Register> {
                                   .then((result) => [
                                         Navigator.pushAndRemoveUntil(
                                             context,
-                                            MaterialPageRoute(
-                                                builder: (context) => Signin()),
+                                            SlideLeftRoute(page: Signin()),
                                             (_) => false),
                                         firstnameController.clear(),
                                         lastnameController.clear(),
@@ -535,7 +535,7 @@ class _RegisterState extends State<Register> {
                     highlightColor: Colors.transparent,
                     onPressed: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => Signin()),
+                        SlideLeftRoute(page: Signin()),
                       );
                     },
                     child: Text(

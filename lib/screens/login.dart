@@ -1,6 +1,7 @@
 import 'package:fitility/screens/blank.dart';
 import 'package:fitility/screens/forgot_password.dart';
 import 'package:fitility/screens/sign_up.dart';
+import 'package:fitility/services/transition.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -220,8 +221,8 @@ class _SigninState extends State<Signin> {
                                     (DocumentSnapshot result) =>
                                         Navigator.pushReplacement(
                                       context,
-                                      MaterialPageRoute(
-                                        builder: (context) => Blank(),
+                                      FadeRoute(
+                                        page: Blank(),
                                       ),
                                     ),
                                   )
@@ -279,9 +280,7 @@ class _SigninState extends State<Signin> {
                       highlightColor: Colors.transparent,
                       onPressed: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Password()));
+                            context, SlideLeftRoute(page: Password()));
                       },
                       child: Text(
                         'Forgot Password?',
@@ -315,7 +314,7 @@ class _SigninState extends State<Signin> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Register()),
+                          SlideLeftRoute(page: Register()),
                         );
                       },
                       child: Text(
