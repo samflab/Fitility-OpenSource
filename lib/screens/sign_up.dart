@@ -351,7 +351,7 @@ class _RegisterState extends State<Register> {
                               ),
                             ),
                           ),
-                          validator: validateMobile,
+                          validator: mobileValidate,
                         ),
                       ),
                       SizedBox(

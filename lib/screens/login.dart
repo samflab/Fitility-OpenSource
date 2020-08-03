@@ -1,6 +1,5 @@
 import 'package:fitility/screens/blank.dart';
 import 'package:fitility/screens/forgot_password.dart';
-//import 'package:fitility/screens/home.dart';
 import 'package:fitility/screens/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';

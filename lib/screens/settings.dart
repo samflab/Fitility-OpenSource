@@ -358,9 +358,10 @@ class _SettingsState extends State<Settings> {
                     onPressed: () {
                       FirebaseAuth.instance
                           .signOut()
-                          .then((result) =>
-                              Navigator.pushReplacementNamed(context, "/login"))
+                          .then((result) => Navigator.pushReplacementNamed(
+                              context, "/splash"))
                           .catchError((err) => print(err));
+                      Navigator.pop(context);
                     },
                     splashColor: Colors.red,
                     shape: RoundedRectangleBorder(

@@ -11,7 +11,7 @@ String emailValidator(String value) {
   }
 }
 
-String validateMobile(String value) {
+String mobileValidate(String value) {
   String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
   RegExp regExp = new RegExp(patttern);
   if (value.length == 0) {

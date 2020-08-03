@@ -18,7 +18,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: SplashScreen(), routes: <String, WidgetBuilder>{
+    return MaterialApp(home: StartPage(), routes: <String, WidgetBuilder>{
       '/splash': (BuildContext context) => SplashScreen(),
       '/onboarding': (BuildContext context) => StartPage(),
       '/signup': (BuildContext context) => Register(),
