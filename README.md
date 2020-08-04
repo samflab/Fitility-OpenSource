@@ -1,4 +1,4 @@
-# fitility
+# Fitility
 
 A Flutter application for dance and fitness training.
 
