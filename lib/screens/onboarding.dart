@@ -1,7 +1,6 @@
 import 'package:fitility/screens/blank.dart';
 import 'package:fitility/screens/login.dart';
 import 'package:fitility/services/transition.dart';
-//import 'package:fitility/screens/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fitility/screens/sign_up.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +15,6 @@ class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
-        elevation: 0.0,
-      ),
       body: Stack(
         children: <Widget>[
           ///////////////////////////////////// BACKGROUND COLOUR //////////////////////////////////////////////////
@@ -44,7 +38,7 @@ class _StartPageState extends State<StartPage> {
               children: <Widget>[
                 ////////////////////////////// LOGO  /////////////////////////////////////////////////////////
                 Padding(
-                  padding: const EdgeInsets.only(left: 40.0),
+                  padding: const EdgeInsets.only(left: 40.0, top: 70.0),
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Image.asset(

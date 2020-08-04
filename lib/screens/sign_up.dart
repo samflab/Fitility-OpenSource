@@ -36,25 +36,6 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       /////////////////////////////////////////// BACK ARROW BUTTON ////////////////////////////////
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(left: 33.0, top: 18.0),
-            child: Icon(
-              Icons.arrow_back,
-            ),
-          ),
-        ),
-        elevation: 0.0,
-        iconTheme: IconThemeData(
-          color: Colors.black,
-        ),
-      ),
       body: Stack(
         children: <Widget>[
           ////////////////////////////////////// BACKGROUND IMAGE  ////////////////////////////////
@@ -77,7 +58,7 @@ class _RegisterState extends State<Register> {
               children: <Widget>[
                 ///////////////////////////////  LOGO  ////////////////////////////////////////////
                 Padding(
-                  padding: const EdgeInsets.only(left: 40.0),
+                  padding: const EdgeInsets.only(left: 40.0, top: 70.0),
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Image.asset(

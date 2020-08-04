@@ -27,25 +27,6 @@ class _SigninState extends State<Signin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
-        elevation: 0.0,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(left: 33.0, top: 18.0),
-            child: Icon(
-              Icons.arrow_back,
-            ),
-          ),
-        ),
-        iconTheme: IconThemeData(
-          color: Colors.black,
-        ),
-      ),
       body: Stack(
         children: <Widget>[
           Container(
@@ -67,7 +48,7 @@ class _SigninState extends State<Signin> {
             child: Column(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(left: 40.0),
+                  padding: const EdgeInsets.only(left: 40.0, top: 70.0),
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Image.asset(
