@@ -1,11 +1,13 @@
 import 'package:fitility/screens/blank.dart';
 import 'package:fitility/screens/forgot_password.dart';
 import 'package:fitility/screens/sign_up.dart';
+import 'package:fitility/services/authenticate.dart';
+import 'package:fitility/services/google_signin.dart';
 import 'package:fitility/services/transition.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitility/services/validation.dart';
+import 'package:flutter/services.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 class Signin extends StatefulWidget {
   @override
@@ -13,9 +15,12 @@ class Signin extends StatefulWidget {
 }
 
 class _SigninState extends State<Signin> {
+  ProgressDialog pr;
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController;
   TextEditingController passwordController;
+
+  final AuthService _auth = AuthService();
 
   @override
   void initState() {
@@ -26,6 +31,22 @@ class _SigninState extends State<Signin> {
 
   @override
   Widget build(BuildContext context) {
+    pr = new ProgressDialog(context);
+    pr.style(
+      borderRadius: 10.0,
+      backgroundColor: Colors.white,
+      progressWidget: Theme(
+        data: Theme.of(context).copyWith(accentColor: Colors.red.shade700),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: CircularProgressIndicator(),
+        ),
+      ),
+      elevation: 10.0,
+      insetAnimCurve: Curves.easeInOut,
+      progress: 0.0,
+      maxProgress: 100.0,
+    );
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -78,11 +99,18 @@ class _SigninState extends State<Signin> {
                         padding: const EdgeInsets.only(
                             left: 40.0, top: 12.0, right: 40.0),
                         child: TextFormField(
+                          autocorrect: true,
                           controller: emailController,
                           decoration: InputDecoration(
                             contentPadding: new EdgeInsets.symmetric(
                                 vertical: 15.0, horizontal: 10.0),
                             labelText: 'Email',
+                            labelStyle: TextStyle(
+                              color: Colors.black54,
+                            ),
+                            errorStyle: TextStyle(
+                              color: Colors.red.shade700,
+                            ),
                             fillColor: Colors.white,
                             filled: true,
                             border: OutlineInputBorder(
@@ -117,6 +145,13 @@ class _SigninState extends State<Signin> {
                               borderSide: BorderSide(
                                 color: Colors.black,
                                 width: 1.5,
+                              ),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1.0,
                               ),
                             ),
                           ),
@@ -135,6 +170,12 @@ class _SigninState extends State<Signin> {
                             contentPadding: new EdgeInsets.symmetric(
                                 vertical: 15.0, horizontal: 10.0),
                             labelText: 'Password',
+                            labelStyle: TextStyle(
+                              color: Colors.black54,
+                            ),
+                            errorStyle: TextStyle(
+                              color: Colors.red.shade700,
+                            ),
                             fillColor: Colors.white,
                             filled: true,
                             enabledBorder: OutlineInputBorder(
@@ -169,6 +210,13 @@ class _SigninState extends State<Signin> {
                               borderSide: BorderSide(
                                 color: Colors.black,
                                 width: 1.5,
+                              ),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1.0,
                               ),
                             ),
                           ),
@@ -188,27 +236,26 @@ class _SigninState extends State<Signin> {
                   child: SizedBox(
                     child: RaisedButton(
                       splashColor: Colors.red,
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState.validate()) {
-                          FirebaseAuth.instance
-                              .signInWithEmailAndPassword(
-                                  email: emailController.text,
-                                  password: passwordController.text)
-                              .then((authResult) => Firestore.instance
-                                  .collection("users")
-                                  .document(authResult.user.uid)
-                                  .get()
-                                  .then(
-                                    (DocumentSnapshot result) =>
-                                        Navigator.pushReplacement(
-                                      context,
-                                      FadeRoute(
-                                        page: Blank(),
-                                      ),
-                                    ),
-                                  )
-                                  .catchError((err) => print(err)))
-                              .catchError((err) => print(err));
+                          pr.show();
+                          // ignore: unused_local_variable
+                          String error = "";
+                          dynamic result =
+                              await _auth.loginWithEmailAndPassword(
+                                  emailController.text,
+                                  passwordController.text,
+                                  context);
+                          pr.hide();
+                          if (result.runtimeType == PlatformException) {
+                            if (result.message != null) {
+                              setState(() {
+                                error = result.message;
+                              });
+                            }
+                          }
+                        } else {
+                          pr.hide();
                         }
                       },
                       shape: RoundedRectangleBorder(
@@ -267,32 +314,26 @@ class _SigninState extends State<Signin> {
                         'Forgot Password?',
                         style: TextStyle(
                           fontFamily: 'Rubik Regular',
+                          fontWeight: FontWeight.w500,
                           fontSize: 16,
                         ),
                       ),
                     ),
                   ),
                 ),
-                Center(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 10.0),
-                    child: Text(
-                      'Don\'t have an account?',
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Don\'t have an account? ',
                       style: TextStyle(
                         fontFamily: 'Rubik Regular',
                         fontSize: 16,
                       ),
                     ),
-                  ),
-                ),
-                Center(
-                  child: Container(
-                    padding: EdgeInsets.only(
-                        left: 0.0, right: 0.0, top: 0.0, bottom: 0.0),
-                    child: FlatButton(
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onPressed: () {
+                    InkWell(
+                      onTap: () {
                         Navigator.push(
                           context,
                           SlideLeftRoute(page: Register()),
@@ -301,18 +342,68 @@ class _SigninState extends State<Signin> {
                       child: Text(
                         'Create Account',
                         style: TextStyle(
-                            fontFamily: 'Rubik Medium',
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.red.shade900),
+                          fontFamily: 'Rubik Medium',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.red.shade900,
+                        ),
                       ),
                     ),
-                  ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 270.0),
+                  child: _signInButtonGoogle(),
                 ),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _signInButtonGoogle() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 40.0, right: 40.0),
+      child: RaisedButton(
+        splashColor: Colors.grey,
+        onPressed: () {
+          signInWithGoogle().whenComplete(() {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return Blank();
+                },
+              ),
+            );
+          });
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          side: BorderSide(color: Colors.black),
+        ),
+        color: Colors.grey.shade100,
+        elevation: 3.0,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+          child: Row(
+            // mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Center(
+                child: Text(
+                  'Sign in with Google ',
+                  style: TextStyle(
+                    fontFamily: 'Rubik',
+                    fontSize: 17,
+                  ),
+                ),
+              ),
+              Image(image: AssetImage("images/google.png"), height: 30.0),
+            ],
+          ),
+        ),
       ),
     );
   }

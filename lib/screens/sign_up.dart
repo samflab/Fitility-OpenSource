@@ -1,10 +1,8 @@
 import 'package:fitility/screens/blank.dart';
+import 'package:fitility/services/authenticate.dart';
 import 'package:fitility/services/transition.dart';
-//import 'package:fitility/screens/profile.dart';
 import 'package:fitility/services/validation.dart';
 import 'login.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fitility/services/google_signin.dart';
 
@@ -20,6 +18,7 @@ class _RegisterState extends State<Register> {
   TextEditingController emailController;
   TextEditingController numberController;
   TextEditingController passwordController;
+  final AuthService _auth = AuthService();
 
   @override
   initState() {
@@ -408,35 +407,17 @@ class _RegisterState extends State<Register> {
                   child: SizedBox(
                     child: RaisedButton(
                       splashColor: Colors.red,
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState.validate()) {
-                          FirebaseAuth.instance
-                              .createUserWithEmailAndPassword(
-                                  email: emailController.text,
-                                  password: passwordController.text)
-                              .then((authResult) => Firestore.instance
-                                  .collection("users")
-                                  .document(authResult.user.uid)
-                                  .setData({
-                                    "uid": authResult.user.uid,
-                                    "firstname": firstnameController.text,
-                                    "lastname": lastnameController.text,
-                                    "phone": numberController.text,
-                                    "email": emailController.text
-                                  })
-                                  .then((result) => [
-                                        Navigator.pushAndRemoveUntil(
-                                            context,
-                                            SlideLeftRoute(page: Signin()),
-                                            (_) => false),
-                                        firstnameController.clear(),
-                                        lastnameController.clear(),
-                                        emailController.clear(),
-                                        numberController.clear(),
-                                        passwordController.clear()
-                                      ])
-                                  .catchError((err) => print(err)))
-                              .catchError((err) => print(err));
+                          dynamic result =
+                              await _auth.registerWithEmailAndPassword(
+                                  emailController.text,
+                                  passwordController.text,
+                                  firstnameController.text,
+                                  lastnameController.text,
+                                  numberController.text,
+                                  context);
+                          if (result == null) {}
                         }
                       },
                       shape: RoundedRectangleBorder(

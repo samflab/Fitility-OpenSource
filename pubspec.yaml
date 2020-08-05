@@ -17,6 +17,8 @@ dependencies:
   shared_preferences:
   provider: ^3.1.0
   toast: ^0.1.5
+  progress_dialog:
+  
 
 dev_dependencies:
   flutter_test:
