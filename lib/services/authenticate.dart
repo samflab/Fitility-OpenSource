@@ -11,7 +11,9 @@ class AuthService {
   var errorMessage = "";
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User _userFromFirebaseUser(FirebaseUser user) {
-    return user != null ? User(uid: user.uid) : null;
+    return user != null
+        ? User(uid: user.uid, email: user.email, name: user.displayName)
+        : null;
   }
 
   Stream<User> get user {
@@ -27,9 +29,8 @@ class AuthService {
       user = result.user;
       Firestore.instance.collection("users").document(user.uid).setData({
         "uid": user.uid,
-        "firstname": fname,
-        "lastname": lname,
-        "phone": number,
+        "displayName": fname + " " + lname,
+        "phoneNumber": number,
         "email": email
       });
 
@@ -51,14 +52,15 @@ class AuthService {
           errorMessage = "Your email is invalid";
           break;
         case "ERROR_EMAIL_ALREADY_IN_USE":
-          errorMessage = "Email is already in use on different account";
+          errorMessage =
+              "Email is already in use on different account, try logging in with Google.";
           break;
         case "ERROR_INVALID_CREDENTIAL":
-          errorMessage = "Your email is invalid";
+          errorMessage = "Your email is invalid.";
           break;
 
         default:
-          errorMessage = "An undefined Error happened.";
+          errorMessage = "An undefined error happened.";
       }
     }
     if (errorMessage != null) {

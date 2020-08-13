@@ -2,9 +2,11 @@ import 'package:fitility/screens/blank.dart';
 import 'package:fitility/services/authenticate.dart';
 import 'package:fitility/services/transition.dart';
 import 'package:fitility/services/validation.dart';
+import 'package:flutter/services.dart';
 import 'login.dart';
 import 'package:flutter/material.dart';
 import 'package:fitility/services/google_signin.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -12,6 +14,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  ProgressDialog pr;
   final _formKey = GlobalKey<FormState>();
   TextEditingController firstnameController;
   TextEditingController lastnameController;
@@ -33,6 +36,22 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
+    pr = new ProgressDialog(context);
+    pr.style(
+      borderRadius: 10.0,
+      backgroundColor: Colors.white,
+      progressWidget: Theme(
+        data: Theme.of(context).copyWith(accentColor: Colors.red.shade700),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: CircularProgressIndicator(),
+        ),
+      ),
+      elevation: 10.0,
+      insetAnimCurve: Curves.easeInOut,
+      progress: 0.0,
+      maxProgress: 100.0,
+    );
     return Scaffold(
       /////////////////////////////////////////// BACK ARROW BUTTON ////////////////////////////////
       body: Stack(
@@ -409,6 +428,9 @@ class _RegisterState extends State<Register> {
                       splashColor: Colors.red,
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
+                          pr.show();
+                          // ignore: unused_local_variable
+                          String error = "";
                           dynamic result =
                               await _auth.registerWithEmailAndPassword(
                                   emailController.text,
@@ -417,7 +439,16 @@ class _RegisterState extends State<Register> {
                                   lastnameController.text,
                                   numberController.text,
                                   context);
-                          if (result == null) {}
+                          pr.hide();
+                          if (result.runtimeType == PlatformException) {
+                            if (result.message != null) {
+                              setState(() {
+                                error = result.message;
+                              });
+                            }
+                          }
+                        } else {
+                          pr.hide();
                         }
                       },
                       shape: RoundedRectangleBorder(

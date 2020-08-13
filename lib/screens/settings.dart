@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fitility/services/get_initials.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,31 +9,33 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  String email = '';
+  String name = '';
   final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
-  FirebaseUser currentUser;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseUser user;
   @override
   void initState() {
-    this.getCurrentUser();
-    nameController.text = name;
-    emailController.text = 'kasturimeh@gmail.com';
-    phoneController.text = '9711843904';
-    passwordController.text = 'masudha1';
+    initUser();
     super.initState();
   }
 
-  var name = 'Masudha Meher';
-
-  void getCurrentUser() async {
-    currentUser = await FirebaseAuth.instance.currentUser();
+  initUser() async {
+    user = await _auth.currentUser();
+    if (user != null) {
+      email = user.email;
+    }
+    setState(() {
+      emailController.text = user.email;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    var output = getInitials(string: name, limitTo: 2);
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -71,38 +74,67 @@ class _SettingsState extends State<Settings> {
                   Container(
                     color: Colors.red.shade700,
                     height: 149.0,
-                    child: Column(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            CircleAvatar(
-                              child: Text(
-                                output,
-                                style: TextStyle(
-                                  fontFamily: 'Rubik',
-                                  fontSize: 31,
-                                  color: Colors.red.shade700,
-                                  //fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              radius: 35.0,
-                              backgroundColor: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 20.0,
-                            ),
-                            Text(
-                              name,
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 31,
-                                color: Colors.white,
-                                // fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
+                        StreamBuilder<QuerySnapshot>(
+                          stream: Firestore.instance
+                              .collection('users')
+                              .snapshots(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (snapshot.hasError)
+                              return new Text('Error: ${snapshot.error}');
+                            switch (snapshot.connectionState) {
+                              case ConnectionState.waiting:
+                                return new Text('Loading....');
+                              default:
+                                return new Column(
+                                  children: snapshot.data.documents
+                                      .map((DocumentSnapshot document) {
+                                    nameController.text =
+                                        document['displayName'];
+                                    phoneController.text =
+                                        document['phoneNumber'];
+                                    name = document['displayName'];
+                                    var output =
+                                        getInitials(string: name, limitTo: 2);
+                                    return Column(
+                                      children: <Widget>[
+                                        Row(
+                                          children: <Widget>[
+                                            new CircleAvatar(
+                                              child: Text(
+                                                output,
+                                                style: TextStyle(
+                                                  fontFamily: 'Rubik',
+                                                  fontSize: 31,
+                                                  color: Colors.red.shade700,
+                                                ),
+                                              ),
+                                              radius: 35.0,
+                                              backgroundColor: Colors.white,
+                                            ),
+                                            SizedBox(
+                                              width: 20.0,
+                                            ),
+                                            new Text(
+                                              document['displayName'],
+                                              style: TextStyle(
+                                                fontFamily: 'Rubik',
+                                                fontSize: 31,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    );
+                                  }).toList(),
+                                );
+                            }
+                          },
                         ),
                       ],
                     ),
@@ -240,50 +272,6 @@ class _SettingsState extends State<Settings> {
                                       border: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Colors.black,
-                                          width: 2.0,
-                                        ),
-                                      ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.black,
-                                          width: 2.0,
-                                        ),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.black,
-                                          width: 2.0,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 25.0, top: 20.0),
-                                  child: Text(
-                                    'Password',
-                                    style: TextStyle(
-                                      fontFamily: 'Rubik',
-                                      fontSize: 13,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 25.0, right: 90.0),
-                                  child: TextFormField(
-                                    controller: passwordController,
-                                    obscureText: true,
-                                    style: TextStyle(
-                                      fontFamily: 'Rubik',
-                                      fontSize: 20,
-                                    ),
-                                    decoration: InputDecoration(
-                                      hintText: 'Password',
-                                      border: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.black,
                                           width: 4.0,
                                         ),
                                       ),
@@ -354,50 +342,55 @@ class _SettingsState extends State<Settings> {
                       ),
                     ),
                   ),
-                  RaisedButton(
-                    onPressed: () {
-                      FirebaseAuth.instance
-                          .signOut()
-                          .then((result) => Navigator.pushReplacementNamed(
-                              context, "/splash"))
-                          .catchError((err) => print(err));
-                      Navigator.pop(context);
-                    },
-                    splashColor: Colors.red,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    padding: EdgeInsets.all(0.0),
-                    elevation: 3.0,
-                    child: Ink(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Colors.red.shade700, Colors.red.shade900],
-                          begin: Alignment(0.0, -1.0),
-                          end: Alignment(0.0, 1.0),
-                          stops: [0.0, 1.0],
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 26.0, right: 26.0, top: 20.0),
+                    child: RaisedButton(
+                      onPressed: () {
+                        FirebaseAuth.instance
+                            .signOut()
+                            .then((result) => Navigator.pushReplacementNamed(
+                                context, "/splash"))
+                            .catchError((err) => print(err));
+                        Navigator.pop(context);
+                      },
+                      splashColor: Colors.red,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      padding: EdgeInsets.all(0.0),
+                      elevation: 3.0,
+                      child: Ink(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Colors.red.shade700, Colors.red.shade900],
+                            begin: Alignment(0.0, -1.0),
+                            end: Alignment(0.0, 1.0),
+                            stops: [0.0, 1.0],
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Expanded(
-                              child: Center(
-                                child: Text(
-                                  'Logout',
-                                  style: TextStyle(
-                                    fontFamily: 'Rubik Medium',
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey.shade100,
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.only(top: 15.0, bottom: 15.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Expanded(
+                                child: Center(
+                                  child: Text(
+                                    'Logout',
+                                    style: TextStyle(
+                                      fontFamily: 'Rubik Medium',
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey.shade100,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
