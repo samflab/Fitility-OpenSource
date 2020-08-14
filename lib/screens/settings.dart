@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:fitility/services/get_initials.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:auro_avatar/auro_avatar.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -97,30 +97,25 @@ class _SettingsState extends State<Settings> {
                                         document['displayName'];
                                     phoneController.text =
                                         document['phoneNumber'];
-                                    name = document['displayName'];
-                                    var output =
-                                        getInitials(string: name, limitTo: 2);
+
                                     return Column(
                                       children: <Widget>[
                                         Row(
                                           children: <Widget>[
-                                            new CircleAvatar(
-                                              child: Text(
-                                                output,
-                                                style: TextStyle(
-                                                  fontFamily: 'Rubik',
-                                                  fontSize: 31,
-                                                  color: Colors.red.shade700,
-                                                ),
-                                              ),
-                                              radius: 35.0,
+                                            new InitialNameAvatar(
+                                              nameController.text,
+                                              circleAvatar: true,
                                               backgroundColor: Colors.white,
+                                              foregroundColor:
+                                                  Colors.red.shade700,
+                                              padding: 35.0,
+                                              textSize: 31.0,
                                             ),
                                             SizedBox(
                                               width: 20.0,
                                             ),
                                             new Text(
-                                              document['displayName'],
+                                              nameController.text,
                                               style: TextStyle(
                                                 fontFamily: 'Rubik',
                                                 fontSize: 31,
@@ -186,19 +181,19 @@ class _SettingsState extends State<Settings> {
                                       border: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Colors.black,
-                                          width: 2.0,
+                                          width: 1.5,
                                         ),
                                       ),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Colors.black,
-                                          width: 2.0,
+                                          width: 1.5,
                                         ),
                                       ),
                                       focusedBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Colors.black,
-                                          width: 2.0,
+                                          width: 1.5,
                                         ),
                                       ),
                                     ),
@@ -229,19 +224,19 @@ class _SettingsState extends State<Settings> {
                                       border: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Colors.black,
-                                          width: 2.0,
+                                          width: 1.5,
                                         ),
                                       ),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Colors.black,
-                                          width: 2.0,
+                                          width: 1.5,
                                         ),
                                       ),
                                       focusedBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Colors.black,
-                                          width: 2.0,
+                                          width: 1.5,
                                         ),
                                       ),
                                     ),
@@ -272,19 +267,19 @@ class _SettingsState extends State<Settings> {
                                       border: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Colors.black,
-                                          width: 4.0,
+                                          width: 3,
                                         ),
                                       ),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Colors.black,
-                                          width: 4.0,
+                                          width: 3,
                                         ),
                                       ),
                                       focusedBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Colors.black,
-                                          width: 4.0,
+                                          width: 3,
                                         ),
                                       ),
                                     ),
