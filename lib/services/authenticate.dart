@@ -10,6 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class AuthService {
   var errorMessage = "";
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
   User _userFromFirebaseUser(FirebaseUser user) {
     return user != null
         ? User(uid: user.uid, email: user.email, name: user.displayName)

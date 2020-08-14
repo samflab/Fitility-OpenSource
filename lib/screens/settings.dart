@@ -11,29 +11,18 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   String email = '';
   String name = '';
+  bool account = false;
+  bool support = false;
+  bool editName = false;
+  bool editEmail = false;
+  bool editPhone = false;
+  final db = Firestore.instance;
   final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseUser user;
-  @override
-  void initState() {
-    initUser();
-    super.initState();
-  }
-
-  initUser() async {
-    user = await _auth.currentUser();
-    if (user != null) {
-      email = user.email;
-    }
-    setState(() {
-      emailController.text = user.email;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -93,10 +82,12 @@ class _SettingsState extends State<Settings> {
                                 return new Column(
                                   children: snapshot.data.documents
                                       .map((DocumentSnapshot document) {
-                                    nameController.text =
-                                        document['displayName'];
-                                    phoneController.text =
-                                        document['phoneNumber'];
+                                    {
+                                      nameController.text =
+                                          document['displayName'];
+                                      phoneController.text =
+                                          document['phoneNumber'];
+                                    }
 
                                     return Column(
                                       children: <Widget>[
@@ -157,21 +148,64 @@ class _SettingsState extends State<Settings> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 25.0),
-                                  child: Text(
-                                    'Name',
-                                    style: TextStyle(
-                                      fontFamily: 'Rubik',
-                                      fontSize: 13,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 25.0),
+                                      child: Text(
+                                        'Name',
+                                        style: TextStyle(
+                                          fontFamily: 'Rubik',
+                                          fontSize: 13,
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        left: 25.0,
+                                        right: 50.0,
+                                      ),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: InkWell(
+                                          onTap: () async {
+                                            editNamew(
+                                                nameController.text, user.uid);
+                                            setState(() {
+                                              editName = true;
+                                            });
+                                          },
+                                          child: editName
+                                              ? Text(
+                                                  'Save',
+                                                  style: TextStyle(
+                                                    color: Colors.red.shade700,
+                                                    fontSize: 13,
+                                                    fontFamily: 'Rubik',
+                                                  ),
+                                                )
+                                              : Text(
+                                                  'Edit',
+                                                  style: TextStyle(
+                                                    color: Colors.red.shade700,
+                                                    fontFamily: 'Rubik',
+                                                    fontSize: 13,
+                                                  ),
+                                                ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 25.0, right: 90.0),
                                   child: TextFormField(
                                     controller: nameController,
+                                    enabled: editName,
                                     style: TextStyle(
                                       fontFamily: 'Rubik',
                                       fontSize: 20,
@@ -199,65 +233,60 @@ class _SettingsState extends State<Settings> {
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 25.0, top: 20.0),
-                                  child: Text(
-                                    'Email',
-                                    style: TextStyle(
-                                      fontFamily: 'Rubik',
-                                      fontSize: 13,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 25.0, right: 90.0),
-                                  child: TextFormField(
-                                    controller: emailController,
-                                    style: TextStyle(
-                                      fontFamily: 'Rubik',
-                                      fontSize: 20,
-                                    ),
-                                    decoration: InputDecoration(
-                                      hintText: 'Email',
-                                      border: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.black,
-                                          width: 1.5,
-                                        ),
-                                      ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.black,
-                                          width: 1.5,
-                                        ),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.black,
-                                          width: 1.5,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 25.0, top: 20.0),
+                                      child: Text(
+                                        'Phone',
+                                        style: TextStyle(
+                                          fontFamily: 'Rubik',
+                                          fontSize: 13,
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 25.0, top: 20.0),
-                                  child: Text(
-                                    'Phone',
-                                    style: TextStyle(
-                                      fontFamily: 'Rubik',
-                                      fontSize: 13,
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 25.0, right: 50.0, top: 15.0),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: InkWell(
+                                          onTap: () async {
+                                            editPhonew(
+                                                phoneController.text, user.uid);
+                                            setState(() {
+                                              editPhone = true;
+                                            });
+                                          },
+                                          child: editPhone
+                                              ? Text(
+                                                  'Save',
+                                                  style: TextStyle(
+                                                    color: Colors.red.shade700,
+                                                    fontSize: 13,
+                                                  ),
+                                                )
+                                              : Text(
+                                                  'Edit',
+                                                  style: TextStyle(
+                                                    color: Colors.red.shade700,
+                                                    fontSize: 13,
+                                                  ),
+                                                ),
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 25.0, right: 90.0),
                                   child: TextFormField(
                                     controller: phoneController,
+                                    enabled: editPhone,
                                     style: TextStyle(
                                       fontFamily: 'Rubik',
                                       fontSize: 20,
@@ -409,5 +438,19 @@ class _SettingsState extends State<Settings> {
         ),
       ),
     );
+  }
+
+  editNamew(String name, String uid) async {
+    await db
+        .collection('users')
+        .document(uid)
+        .updateData({'displayName': name});
+  }
+
+  editPhonew(String number, String uid) async {
+    await db
+        .collection('users')
+        .document(uid)
+        .updateData({'phoneNumber': number});
   }
 }

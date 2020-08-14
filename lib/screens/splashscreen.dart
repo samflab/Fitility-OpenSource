@@ -57,10 +57,29 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          child: Text("Loading..."),
-        ),
+      body: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment(0.0, -1.0),
+                end: Alignment(0.0, 1.0),
+                colors: [
+                  const Color(0xffffffff),
+                  const Color(0x00ffffff),
+                  const Color(0xf6edf0f1),
+                  const Color(0xffeceff1)
+                ],
+              ),
+            ),
+          ),
+          Center(
+            child: Image.asset(
+              'images/logo.png',
+              height: 70.0,
+            ),
+          ),
+        ],
       ),
     );
   }
