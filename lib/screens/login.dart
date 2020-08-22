@@ -1,4 +1,5 @@
-import 'package:fitility/screens/blank.dart';
+//import 'package:fitility/screens/blank.dart';
+import 'package:fitility/screens/blank_g.dart';
 import 'package:fitility/screens/forgot_password.dart';
 import 'package:fitility/screens/sign_up.dart';
 import 'package:fitility/services/authenticate.dart';
@@ -373,7 +374,7 @@ class _SigninState extends State<Signin> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
-                  return Blank();
+                  return BlankG();
                 },
               ),
             );

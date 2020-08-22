@@ -1,4 +1,4 @@
-import 'package:fitility/screens/blank.dart';
+import 'package:fitility/screens/blank_g.dart';
 import 'package:fitility/screens/login.dart';
 import 'package:fitility/services/transition.dart';
 import 'package:flutter/cupertino.dart';
@@ -200,7 +200,7 @@ class _StartPageState extends State<StartPage> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
-                  return Blank();
+                  return BlankG();
                 },
               ),
             );

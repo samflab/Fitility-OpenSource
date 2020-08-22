@@ -32,9 +32,9 @@ Future<String> signInWithGoogle() async {
   print(email);
   print(imageUrl);
 
-  if (name.contains(" ")) {
-    name = name.substring(0, name.indexOf(" "));
-  }
+  // if (name.contains(" ")) {
+  //   name = name.substring(0, name.indexOf(" "));
+  // }
   final FirebaseUser currentUser = await _auth.currentUser();
   assert(user.uid == currentUser.uid);
   return 'signInWithGoogle succeeded: $user';

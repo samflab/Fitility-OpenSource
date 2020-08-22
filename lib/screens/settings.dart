@@ -22,7 +22,34 @@ class _SettingsState extends State<Settings> {
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
-  FirebaseUser user;
+
+  Future<String> getData() async {
+    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    final String uid = user.uid.toString();
+    return uid;
+  }
+
+  Stream<DocumentSnapshot> getUserStream() async* {
+    final uid = await getData();
+    yield* Firestore.instance.collection('users').document(uid).snapshots();
+  }
+
+  editNamew(String name) async {
+    final lala = await getData();
+    await db
+        .collection('users')
+        .document(lala)
+        .updateData({'displayName': name});
+  }
+
+  editPhonew(String number) async {
+    final lala = await getData();
+    await db
+        .collection('users')
+        .document(lala)
+        .updateData({'phoneNumber': number});
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -67,57 +94,45 @@ class _SettingsState extends State<Settings> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        StreamBuilder<QuerySnapshot>(
-                          stream: Firestore.instance
-                              .collection('users')
-                              .snapshots(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<QuerySnapshot> snapshot) {
+                        StreamBuilder(
+                          stream: getUserStream(),
+                          builder: (BuildContext context, snapshot) {
                             if (snapshot.hasError)
                               return new Text('Error: ${snapshot.error}');
                             switch (snapshot.connectionState) {
                               case ConnectionState.waiting:
                                 return new Text('Loading....');
                               default:
-                                return new Column(
-                                  children: snapshot.data.documents
-                                      .map((DocumentSnapshot document) {
-                                    {
-                                      nameController.text =
-                                          document['displayName'];
-                                      phoneController.text =
-                                          document['phoneNumber'];
-                                    }
-
-                                    return Column(
+                                nameController.text =
+                                    snapshot.data['displayName'];
+                                phoneController.text =
+                                    snapshot.data['phoneNumber'];
+                                return Column(
+                                  children: <Widget>[
+                                    Row(
                                       children: <Widget>[
-                                        Row(
-                                          children: <Widget>[
-                                            new InitialNameAvatar(
-                                              nameController.text,
-                                              circleAvatar: true,
-                                              backgroundColor: Colors.white,
-                                              foregroundColor:
-                                                  Colors.red.shade700,
-                                              padding: 35.0,
-                                              textSize: 31.0,
-                                            ),
-                                            SizedBox(
-                                              width: 20.0,
-                                            ),
-                                            new Text(
-                                              nameController.text,
-                                              style: TextStyle(
-                                                fontFamily: 'Rubik',
-                                                fontSize: 31,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
+                                        new InitialNameAvatar(
+                                          nameController.text,
+                                          circleAvatar: true,
+                                          backgroundColor: Colors.white,
+                                          foregroundColor: Colors.red.shade700,
+                                          padding: 35.0,
+                                          textSize: 31.0,
+                                        ),
+                                        SizedBox(
+                                          width: 20.0,
+                                        ),
+                                        new Text(
+                                          nameController.text,
+                                          style: TextStyle(
+                                            fontFamily: 'Rubik',
+                                            fontSize: 31,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ],
-                                    );
-                                  }).toList(),
+                                    ),
+                                  ],
                                 );
                             }
                           },
@@ -172,8 +187,7 @@ class _SettingsState extends State<Settings> {
                                         alignment: Alignment.centerRight,
                                         child: InkWell(
                                           onTap: () async {
-                                            editNamew(
-                                                nameController.text, user.uid);
+                                            editNamew(nameController.text);
                                             setState(() {
                                               editName = true;
                                             });
@@ -255,8 +269,7 @@ class _SettingsState extends State<Settings> {
                                         alignment: Alignment.centerRight,
                                         child: InkWell(
                                           onTap: () async {
-                                            editPhonew(
-                                                phoneController.text, user.uid);
+                                            editPhonew(phoneController.text);
                                             setState(() {
                                               editPhone = true;
                                             });
@@ -438,19 +451,5 @@ class _SettingsState extends State<Settings> {
         ),
       ),
     );
-  }
-
-  editNamew(String name, String uid) async {
-    await db
-        .collection('users')
-        .document(uid)
-        .updateData({'displayName': name});
-  }
-
-  editPhonew(String number, String uid) async {
-    await db
-        .collection('users')
-        .document(uid)
-        .updateData({'phoneNumber': number});
   }
 }
