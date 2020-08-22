@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitility/services/google_signin.dart';
 
 class SettingsG extends StatefulWidget {
@@ -55,7 +54,7 @@ class _SettingsGState extends State<SettingsG> {
                         CircleAvatar(
                           backgroundImage: NetworkImage(imageUrl),
                           radius: 35,
-                          //backgroundColor: Colors.transparent,
+                          backgroundColor: Colors.transparent,
                         ),
                         SizedBox(
                           width: 10.0,
@@ -89,13 +88,19 @@ class _SettingsGState extends State<SettingsG> {
                           ),
                         ),
                         children: <Widget>[
-                          Text(
-                            'Name',
-                            style: TextStyle(
-                              fontFamily: 'Rubik',
-                              fontSize: 10,
-                              color: Colors.black,
-                            ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Name',
+                                style: TextStyle(
+                                  fontFamily: 'Rubik',
+                                  fontSize: 10,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
                           ),
                           Text(
                             name,
@@ -175,11 +180,8 @@ class _SettingsGState extends State<SettingsG> {
                         left: 26.0, right: 26.0, top: 20.0),
                     child: RaisedButton(
                       onPressed: () {
-                        FirebaseAuth.instance
-                            .signOut()
-                            .then((result) => Navigator.pushReplacementNamed(
-                                context, "/splash"))
-                            .catchError((err) => print(err));
+                        signOutGoogle();
+                        Navigator.pushReplacementNamed(context, "/splash");
                         Navigator.pop(context);
                       },
                       splashColor: Colors.red,

@@ -5,7 +5,6 @@ import 'package:fitility/screens/onboarding.dart';
 import 'package:fitility/screens/settings.dart';
 import 'package:fitility/screens/sign_up.dart';
 import 'package:fitility/screens/splashscreen.dart';
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -18,14 +17,17 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: SplashScreen(), routes: <String, WidgetBuilder>{
-      '/splash': (BuildContext context) => SplashScreen(),
-      '/onboarding': (BuildContext context) => StartPage(),
-      '/signup': (BuildContext context) => Register(),
-      '/login': (BuildContext context) => Signin(),
-      '/home': (BuildContext context) => Home(),
-      '/profile': (BuildContext context) => Settings(),
-      '/blank': (BuildContext context) => Blank(),
-    });
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SplashScreen(),
+        routes: <String, WidgetBuilder>{
+          '/splash': (BuildContext context) => SplashScreen(),
+          '/onboarding': (BuildContext context) => StartPage(),
+          '/signup': (BuildContext context) => Register(),
+          '/login': (BuildContext context) => Signin(),
+          '/home': (BuildContext context) => Home(),
+          '/profile': (BuildContext context) => Settings(),
+          '/blank': (BuildContext context) => Blank(),
+        });
   }
 }

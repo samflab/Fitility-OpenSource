@@ -1,4 +1,4 @@
-import 'package:fitility/screens/blank.dart';
+import 'package:fitility/screens/newpage.dart';
 import 'package:fitility/services/authenticate.dart';
 import 'package:fitility/services/transition.dart';
 import 'package:fitility/services/validation.dart';
@@ -22,6 +22,7 @@ class _RegisterState extends State<Register> {
   TextEditingController numberController;
   TextEditingController passwordController;
   final AuthService _auth = AuthService();
+  //final AuthServicee _authh = AuthServicee();
 
   @override
   initState() {
@@ -556,11 +557,11 @@ class _RegisterState extends State<Register> {
       child: RaisedButton(
         splashColor: Colors.grey,
         onPressed: () {
-          signInWithGoogle().whenComplete(() {
+          signInWithGoogle().then((value) {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
-                  return Blank();
+                  return GooglePage();
                 },
               ),
             );

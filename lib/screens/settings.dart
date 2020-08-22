@@ -97,8 +97,9 @@ class _SettingsState extends State<Settings> {
                         StreamBuilder(
                           stream: getUserStream(),
                           builder: (BuildContext context, snapshot) {
-                            if (snapshot.hasError)
+                            if (snapshot.hasError) {
                               return new Text('Error: ${snapshot.error}');
+                            }
                             switch (snapshot.connectionState) {
                               case ConnectionState.waiting:
                                 return new Text('Loading....');
@@ -107,6 +108,7 @@ class _SettingsState extends State<Settings> {
                                     snapshot.data['displayName'];
                                 phoneController.text =
                                     snapshot.data['phoneNumber'];
+
                                 return Column(
                                   children: <Widget>[
                                     Row(

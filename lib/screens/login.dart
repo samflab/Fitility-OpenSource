@@ -1,6 +1,5 @@
-//import 'package:fitility/screens/blank.dart';
-import 'package:fitility/screens/blank_g.dart';
 import 'package:fitility/screens/forgot_password.dart';
+import 'package:fitility/screens/newpage.dart';
 import 'package:fitility/screens/sign_up.dart';
 import 'package:fitility/services/authenticate.dart';
 import 'package:fitility/services/google_signin.dart';
@@ -20,8 +19,8 @@ class _SigninState extends State<Signin> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController;
   TextEditingController passwordController;
-
   final AuthService _auth = AuthService();
+  // final AuthServicee _authh = AuthServicee();
 
   @override
   void initState() {
@@ -370,11 +369,11 @@ class _SigninState extends State<Signin> {
       child: RaisedButton(
         splashColor: Colors.grey,
         onPressed: () {
-          signInWithGoogle().whenComplete(() {
+          signInWithGoogle().then((value) {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
-                  return BlankG();
+                  return GooglePage();
                 },
               ),
             );

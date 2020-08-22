@@ -1,5 +1,5 @@
-import 'package:fitility/screens/blank_g.dart';
 import 'package:fitility/screens/login.dart';
+import 'package:fitility/screens/newpage.dart';
 import 'package:fitility/services/transition.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fitility/screens/sign_up.dart';
@@ -12,6 +12,7 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
+  // AuthServicee _auth = AuthServicee();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -200,7 +201,7 @@ class _StartPageState extends State<StartPage> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
-                  return BlankG();
+                  return GooglePage();
                 },
               ),
             );
