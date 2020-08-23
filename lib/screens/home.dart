@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -17,6 +18,7 @@ class _HomeState extends State<Home> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                //hero image
                 Padding(
                   padding:
                       const EdgeInsets.only(left: 25.0, top: 20.0, right: 25.0),
@@ -51,160 +53,93 @@ class _HomeState extends State<Home> {
                                 'Workout videos for you',
                                 style: TextStyle(
                                   fontFamily: 'Rubik Regular',
-                                  fontSize: 15,
+                                  fontSize: 19,
                                 ),
                               ),
                             ),
                           ],
                         ),
-                        Row(
-                          children: <Widget>[
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 20.0, top: 11.0),
-                              child: Image.asset(
-                                'images/pic1.png',
-                                height: 55.0,
-                                width: 100.0,
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 9.0, top: 11.0),
-                                  child: Text(
-                                    'Video Title',
-                                    style: TextStyle(
-                                      fontFamily: 'Rubik Regular',
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 9.0, right: 9.0),
-                                  child: SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.50,
-                                    child: Text(
-                                      'lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut                                    ',
-                                      //overflow: TextOverflow.fade,
-                                      style: TextStyle(
-                                        fontFamily: 'Rubik Regular',
-                                        fontSize: 10,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                        StreamBuilder<QuerySnapshot>(
+                            stream: Firestore.instance
+                                .collection('home')
+                                .snapshots(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (snapshot.hasError)
+                                return new Text('Error: ${snapshot.error}');
+
+                              switch (snapshot.connectionState) {
+                                case ConnectionState.waiting:
+                                  return new Text('Loading....');
+                                default:
+                                  return new ListView(
+                                    shrinkWrap: true,
+                                    children: snapshot.data.documents
+                                        .map((DocumentSnapshot document) {
+                                      String url = document['imageUrl'];
+                                      return new Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 20.0, top: 11.0),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                              child: Image.network(
+                                                url,
+                                                height: 55.0,
+                                                width: 100.0,
+                                              ),
+                                            ),
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: <Widget>[
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 9.0, top: 11.0),
+                                                child: Text(
+                                                  document['title'],
+                                                  style: TextStyle(
+                                                    fontFamily: 'Rubik Regular',
+                                                    fontSize: 18,
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 9.0, right: 9.0),
+                                                child: SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.50,
+                                                  child: Text(
+                                                    document['desc'],
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Rubik Regular',
+                                                      fontSize: 15,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      );
+                                    }).toList(),
+                                  );
+                              }
+                            }),
+                        SizedBox(
+                          height: 15.0,
                         ),
-                        //SizedBox(height: 15.0),
-                        Row(
-                          children: <Widget>[
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 20.0, top: 11.0),
-                              child: GestureDetector(
-                                onTap: () {},
-                                child: Image.asset(
-                                  'images/pic2.png',
-                                  height: 55.0,
-                                  width: 100.0,
-                                ),
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 9.0, top: 11.0),
-                                  child: Text(
-                                    'Video Title',
-                                    style: TextStyle(
-                                      fontFamily: 'Rubik Regular',
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 9.0,
-                                    right: 9.0,
-                                  ),
-                                  child: SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.50,
-                                    child: Text(
-                                      'lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut                                    ',
-                                      //overflow: TextOverflow.fade,
-                                      style: TextStyle(
-                                        fontFamily: 'Rubik Regular',
-                                        fontSize: 10,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                //SizedBox(height: 30.0),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 20.0, top: 11.0),
-                              child: Image.asset(
-                                'images/pic3.png',
-                                height: 55.0,
-                                width: 100.0,
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 9.0, top: 11.0),
-                                  child: Text(
-                                    'Video Title',
-                                    style: TextStyle(
-                                      fontFamily: 'Rubik Regular',
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 9.0,
-                                    right: 9.0,
-                                  ),
-                                  child: SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.50,
-                                    child: Text(
-                                      'lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut                                    ',
-                                      //overflow: TextOverflow.fade,
-                                      style: TextStyle(
-                                        fontFamily: 'Rubik Regular',
-                                        fontSize: 10,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 15.0),
                       ],
                     ),
                   ),
@@ -224,7 +159,8 @@ class _HomeState extends State<Home> {
                         Row(
                           children: <Widget>[
                             Padding(
-                              padding: const EdgeInsets.only(top: 4.0),
+                              padding:
+                                  const EdgeInsets.only(top: 4.0, left: 0.0),
                               child: Icon(
                                 Icons.remove,
                                 color: Colors.red.shade700,
@@ -234,163 +170,96 @@ class _HomeState extends State<Home> {
                             Padding(
                               padding: const EdgeInsets.only(top: 4.0),
                               child: Text(
-                                'Dance videos for you',
+                                'Dance Videos for you',
                                 style: TextStyle(
                                   fontFamily: 'Rubik Regular',
-                                  fontSize: 15,
+                                  fontSize: 19,
                                 ),
                               ),
                             ),
                           ],
                         ),
-                        Row(
-                          children: <Widget>[
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 20.0, top: 11.0),
-                              child: Image.asset(
-                                'images/pic1.png',
-                                height: 55.0,
-                                width: 100.0,
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 9.0, top: 11.0),
-                                  child: Text(
-                                    'Video Title',
-                                    style: TextStyle(
-                                      fontFamily: 'Rubik Regular',
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 9.0, right: 9.0),
-                                  child: SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.50,
-                                    child: Text(
-                                      'lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut                                    ',
-                                      //overflow: TextOverflow.fade,
-                                      style: TextStyle(
-                                        fontFamily: 'Rubik Regular',
-                                        fontSize: 10,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                        StreamBuilder<QuerySnapshot>(
+                            stream: Firestore.instance
+                                .collection('homeDance')
+                                .snapshots(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (snapshot.hasError)
+                                return new Text('Error: ${snapshot.error}');
+
+                              switch (snapshot.connectionState) {
+                                case ConnectionState.waiting:
+                                  return new Text('Loading....');
+                                default:
+                                  return new ListView(
+                                    shrinkWrap: true,
+                                    children: snapshot.data.documents
+                                        .map((DocumentSnapshot document) {
+                                      String url = document['imageUrl'];
+                                      return new Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 20.0, top: 11.0),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                              child: Image.network(
+                                                url,
+                                                height: 55.0,
+                                                width: 100.0,
+                                              ),
+                                            ),
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: <Widget>[
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 9.0, top: 11.0),
+                                                child: Text(
+                                                  document['title'],
+                                                  style: TextStyle(
+                                                    fontFamily: 'Rubik Regular',
+                                                    fontSize: 18,
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 9.0, right: 9.0),
+                                                child: SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.50,
+                                                  child: Text(
+                                                    document['desc'],
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Rubik Regular',
+                                                      fontSize: 15,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      );
+                                    }).toList(),
+                                  );
+                              }
+                            }),
+                        SizedBox(
+                          height: 15.0,
                         ),
-                        //SizedBox(height: 15.0),
-                        Row(
-                          children: <Widget>[
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 20.0, top: 11.0),
-                              child: GestureDetector(
-                                onTap: () {},
-                                child: Image.asset(
-                                  'images/pic2.png',
-                                  height: 55.0,
-                                  width: 100.0,
-                                ),
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 9.0, top: 11.0),
-                                  child: Text(
-                                    'Video Title',
-                                    style: TextStyle(
-                                      fontFamily: 'Rubik Regular',
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 9.0,
-                                    right: 9.0,
-                                  ),
-                                  child: SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.50,
-                                    child: Text(
-                                      'lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut                                    ',
-                                      //overflow: TextOverflow.fade,
-                                      style: TextStyle(
-                                        fontFamily: 'Rubik Regular',
-                                        fontSize: 10,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                //SizedBox(height: 30.0),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 20.0, top: 11.0),
-                              child: Image.asset(
-                                'images/pic3.png',
-                                height: 55.0,
-                                width: 100.0,
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 9.0, top: 11.0),
-                                  child: Text(
-                                    'Video Title',
-                                    style: TextStyle(
-                                      fontFamily: 'Rubik Regular',
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 9.0,
-                                    right: 9.0,
-                                  ),
-                                  child: SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.50,
-                                    child: Text(
-                                      'lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut                                    ',
-                                      //overflow: TextOverflow.fade,
-                                      style: TextStyle(
-                                        fontFamily: 'Rubik Regular',
-                                        fontSize: 10,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 15.0),
                       ],
                     ),
                   ),
@@ -404,13 +273,12 @@ class _HomeState extends State<Home> {
                       color: Colors.white,
                     ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Row(
                           children: <Widget>[
                             Padding(
-                              padding: const EdgeInsets.only(top: 4.0),
+                              padding:
+                                  const EdgeInsets.only(top: 4.0, left: 0.0),
                               child: Icon(
                                 Icons.remove,
                                 color: Colors.red.shade700,
@@ -420,64 +288,96 @@ class _HomeState extends State<Home> {
                             Padding(
                               padding: const EdgeInsets.only(top: 4.0),
                               child: Text(
-                                'Meal of the day',
+                                'Meals for you',
                                 style: TextStyle(
                                   fontFamily: 'Rubik Regular',
-                                  fontSize: 15,
+                                  fontSize: 19,
                                 ),
                               ),
                             ),
                           ],
                         ),
-                        Row(
-                          children: <Widget>[
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 20.0, top: 11.0),
-                              child: Image.asset(
-                                'images/meal.png',
-                                height: 55.0,
-                                width: 100.0,
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 9.0, top: 11.0),
-                                  child: Text(
-                                    'Meal name',
-                                    style: TextStyle(
-                                      fontFamily: 'Rubik Regular',
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 9.0,
-                                    right: 9.0,
-                                  ),
-                                  child: SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.50,
-                                    child: Text(
-                                      'lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut                                    ',
-                                      //overflow: TextOverflow.fade,
-                                      style: TextStyle(
-                                        fontFamily: 'Rubik Regular',
-                                        fontSize: 10,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                        StreamBuilder<QuerySnapshot>(
+                            stream: Firestore.instance
+                                .collection('homeMeal')
+                                .snapshots(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (snapshot.hasError)
+                                return new Text('Error: ${snapshot.error}');
+
+                              switch (snapshot.connectionState) {
+                                case ConnectionState.waiting:
+                                  return new Text('Loading....');
+                                default:
+                                  return new ListView(
+                                    shrinkWrap: true,
+                                    children: snapshot.data.documents
+                                        .map((DocumentSnapshot document) {
+                                      String url = document['imageUrl'];
+                                      return new Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 20.0, top: 11.0),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                              child: Image.network(
+                                                url,
+                                                height: 55.0,
+                                                width: 100.0,
+                                              ),
+                                            ),
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: <Widget>[
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 9.0, top: 11.0),
+                                                child: Text(
+                                                  document['title'],
+                                                  style: TextStyle(
+                                                    fontFamily: 'Rubik Regular',
+                                                    fontSize: 18,
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 9.0, right: 9.0),
+                                                child: SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.50,
+                                                  child: Text(
+                                                    document['desc'],
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Rubik Regular',
+                                                      fontSize: 15,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      );
+                                    }).toList(),
+                                  );
+                              }
+                            }),
+                        SizedBox(
+                          height: 15.0,
                         ),
-                        SizedBox(height: 15.0),
                       ],
                     ),
                   ),

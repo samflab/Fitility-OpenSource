@@ -361,6 +361,7 @@ class _WorkoutState extends State<Workout> {
                 right: 20.0,
               ),
               child: SingleChildScrollView(
+                physics: AlwaysScrollableScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
