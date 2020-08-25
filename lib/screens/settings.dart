@@ -11,16 +11,17 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   String email = '';
   String name = '';
-  bool account = false;
-  bool support = false;
-  bool editName = false;
-  bool editEmail = false;
-  bool editPhone = false;
+
   bool showNameField = false;
   bool showName = true;
-  bool showSaveButton = false;
-  bool showEditButton = true;
+  bool showPhoneField = false;
+  bool showPhone = true;
+  bool showSaveButtonForName = false;
+  bool showEditButtonForName = true;
+  bool showSaveButtonForPhone = false;
+  bool showEditButtonForPhone = true;
   String displayName = '';
+  String phoneNumber = '';
   final db = Firestore.instance;
   final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
@@ -111,9 +112,6 @@ class _SettingsState extends State<Settings> {
                               default:
                                 displayName = snapshot.data['displayName'];
 
-                                phoneController.text =
-                                    snapshot.data['phoneNumber'];
-
                                 return Column(
                                   children: <Widget>[
                                     Row(
@@ -176,6 +174,7 @@ class _SettingsState extends State<Settings> {
                                   return new Text('Loading...');
                                 default:
                                   displayName = snapshot.data['displayName'];
+                                  phoneNumber = snapshot.data['phoneNumber'];
                                   return new Form(
                                     key: _formKey,
                                     child: Column(
@@ -202,14 +201,16 @@ class _SettingsState extends State<Settings> {
                                                   MainAxisAlignment.end,
                                               children: [
                                                 Visibility(
-                                                  visible: showEditButton,
+                                                  visible:
+                                                      showEditButtonForName,
                                                   child: InkWell(
                                                     onTap: () async {
                                                       setState(() {
-                                                        // editName = true;
                                                         showNameField = true;
-                                                        showSaveButton = true;
-                                                        showEditButton = false;
+                                                        showSaveButtonForName =
+                                                            true;
+                                                        showEditButtonForName =
+                                                            false;
                                                         showName = false;
                                                       });
                                                     },
@@ -230,14 +231,16 @@ class _SettingsState extends State<Settings> {
                                                     right: 50.0,
                                                   ),
                                                   child: Visibility(
-                                                    visible: showSaveButton,
+                                                    visible:
+                                                        showSaveButtonForName,
                                                     child: InkWell(
                                                       onTap: () async {
                                                         editNamew(nameController
                                                             .text);
                                                         setState(() {
-                                                          showEditButton = true;
-                                                          showSaveButton =
+                                                          showEditButtonForName =
+                                                              true;
+                                                          showSaveButtonForName =
                                                               false;
                                                           showNameField = false;
                                                           showName = true;
@@ -297,7 +300,7 @@ class _SettingsState extends State<Settings> {
                                           ),
                                         ),
                                         Visibility(
-                                          visible: showEditButton,
+                                          visible: showEditButtonForName,
                                           child: Padding(
                                             padding: const EdgeInsets.only(
                                               left: 25.0,
@@ -328,75 +331,125 @@ class _SettingsState extends State<Settings> {
                                                 ),
                                               ),
                                             ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 25.0,
-                                                  right: 50.0,
-                                                  top: 15.0),
-                                              child: Align(
-                                                alignment:
-                                                    Alignment.centerRight,
-                                                child: InkWell(
-                                                  onTap: () async {
-                                                    editPhonew(
-                                                        phoneController.text);
-                                                    setState(() {
-                                                      editPhone = true;
-                                                    });
-                                                  },
-                                                  child: editPhone
-                                                      ? Text(
-                                                          'Save',
-                                                          style: TextStyle(
-                                                            color: Colors
-                                                                .red.shade700,
-                                                            fontSize: 13,
-                                                          ),
-                                                        )
-                                                      : Text(
-                                                          'Edit',
-                                                          style: TextStyle(
-                                                            color: Colors
-                                                                .red.shade700,
-                                                            fontSize: 13,
-                                                          ),
-                                                        ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: <Widget>[
+                                                Visibility(
+                                                  visible:
+                                                      showEditButtonForPhone,
+                                                  child: InkWell(
+                                                    onTap: () async {
+                                                      setState(() {
+                                                        showPhoneField = true;
+                                                        showSaveButtonForPhone =
+                                                            true;
+                                                        showEditButtonForPhone =
+                                                            false;
+                                                        showPhone = false;
+                                                      });
+                                                    },
+                                                    child: Text(
+                                                      'Edit',
+                                                      style: TextStyle(
+                                                        color:
+                                                            Colors.red.shade700,
+                                                        fontFamily: 'Rubik',
+                                                        fontSize: 13,
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                    right: 50.0,
+                                                  ),
+                                                  child: Visibility(
+                                                    visible:
+                                                        showSaveButtonForPhone,
+                                                    child: InkWell(
+                                                      onTap: () async {
+                                                        editPhonew(
+                                                            phoneController
+                                                                .text);
+                                                        setState(() {
+                                                          showEditButtonForPhone =
+                                                              true;
+                                                          showSaveButtonForPhone =
+                                                              false;
+                                                          showPhoneField =
+                                                              false;
+                                                          showPhone = true;
+                                                        });
+                                                      },
+                                                      child: Text(
+                                                        'Save',
+                                                        style: TextStyle(
+                                                          color: Colors
+                                                              .red.shade700,
+                                                          fontFamily: 'Rubik',
+                                                          fontSize: 13,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
                                           ],
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.only(
-                                              left: 25.0, right: 90.0),
-                                          child: TextFormField(
-                                            controller: phoneController,
-                                            enabled: editPhone,
-                                            style: TextStyle(
-                                              fontFamily: 'Rubik',
-                                              fontSize: 20,
+                                            left: 25.0,
+                                            right: 90.0,
+                                          ),
+                                          child: Visibility(
+                                            visible: showPhoneField,
+                                            child: TextFormField(
+                                              controller: phoneController,
+                                              style: TextStyle(
+                                                fontFamily: 'Rubik',
+                                                fontSize: 20,
+                                              ),
+                                              decoration: InputDecoration(
+                                                hintText: 'Phone',
+                                                border: UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Colors.black,
+                                                    width: 1.5,
+                                                  ),
+                                                ),
+                                                enabledBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Colors.black,
+                                                    width: 1.5,
+                                                  ),
+                                                ),
+                                                focusedBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Colors.black,
+                                                    width: 1.5,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
-                                            decoration: InputDecoration(
-                                              hintText: 'Phone',
-                                              border: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: Colors.black,
-                                                  width: 3,
-                                                ),
-                                              ),
-                                              enabledBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: Colors.black,
-                                                  width: 3,
-                                                ),
-                                              ),
-                                              focusedBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: Colors.black,
-                                                  width: 3,
-                                                ),
+                                          ),
+                                        ),
+                                        Visibility(
+                                          visible: showEditButtonForPhone,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 25.0,
+                                                right: 90.0,
+                                                top: 10.0),
+                                            child: Text(
+                                              phoneNumber,
+                                              style: TextStyle(
+                                                fontFamily: 'Rubik Regular',
+                                                fontSize: 20,
                                               ),
                                             ),
                                           ),
@@ -441,7 +494,7 @@ class _SettingsState extends State<Settings> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 53.0, right: 40.0),
+                                      left: 33.0, right: 40.0),
                                   child: Text(
                                     'rhythmicfeet.rfda@gmail.com',
                                     style: TextStyle(
