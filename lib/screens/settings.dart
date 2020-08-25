@@ -16,6 +16,11 @@ class _SettingsState extends State<Settings> {
   bool editName = false;
   bool editEmail = false;
   bool editPhone = false;
+  bool showNameField = false;
+  bool showName = true;
+  bool showSaveButton = false;
+  bool showEditButton = true;
+  String displayName = '';
   final db = Firestore.instance;
   final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
@@ -104,8 +109,8 @@ class _SettingsState extends State<Settings> {
                               case ConnectionState.waiting:
                                 return new Text('Loading....');
                               default:
-                                nameController.text =
-                                    snapshot.data['displayName'];
+                                displayName = snapshot.data['displayName'];
+
                                 phoneController.text =
                                     snapshot.data['phoneNumber'];
 
@@ -114,7 +119,7 @@ class _SettingsState extends State<Settings> {
                                     Row(
                                       children: <Widget>[
                                         new InitialNameAvatar(
-                                          nameController.text,
+                                          displayName,
                                           circleAvatar: true,
                                           backgroundColor: Colors.white,
                                           foregroundColor: Colors.red.shade700,
@@ -125,7 +130,7 @@ class _SettingsState extends State<Settings> {
                                           width: 20.0,
                                         ),
                                         new Text(
-                                          nameController.text,
+                                          displayName,
                                           style: TextStyle(
                                             fontFamily: 'Rubik',
                                             fontSize: 31,
@@ -160,178 +165,248 @@ class _SettingsState extends State<Settings> {
                           ),
                         ),
                         children: <Widget>[
-                          Form(
-                            key: _formKey,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 25.0),
-                                      child: Text(
-                                        'Name',
-                                        style: TextStyle(
-                                          fontFamily: 'Rubik',
-                                          fontSize: 13,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        left: 25.0,
-                                        right: 50.0,
-                                      ),
-                                      child: Align(
-                                        alignment: Alignment.centerRight,
-                                        child: InkWell(
-                                          onTap: () async {
-                                            editNamew(nameController.text);
-                                            setState(() {
-                                              editName = true;
-                                            });
-                                          },
-                                          child: editName
-                                              ? Text(
-                                                  'Save',
-                                                  style: TextStyle(
-                                                    color: Colors.red.shade700,
-                                                    fontSize: 13,
-                                                    fontFamily: 'Rubik',
-                                                  ),
-                                                )
-                                              : Text(
-                                                  'Edit',
-                                                  style: TextStyle(
-                                                    color: Colors.red.shade700,
-                                                    fontFamily: 'Rubik',
-                                                    fontSize: 13,
+                          StreamBuilder(
+                            stream: getUserStream(),
+                            builder: (BuildContext context, snapshot) {
+                              if (snapshot.hasError) {
+                                return new Text('Error: ${snapshot.error}');
+                              }
+                              switch (snapshot.connectionState) {
+                                case ConnectionState.waiting:
+                                  return new Text('Loading...');
+                                default:
+                                  displayName = snapshot.data['displayName'];
+                                  return new Form(
+                                    key: _formKey,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 25.0),
+                                              child: Text(
+                                                'Name',
+                                                style: TextStyle(
+                                                  fontFamily: 'Rubik',
+                                                  fontSize: 13,
+                                                ),
+                                              ),
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Visibility(
+                                                  visible: showEditButton,
+                                                  child: InkWell(
+                                                    onTap: () async {
+                                                      setState(() {
+                                                        // editName = true;
+                                                        showNameField = true;
+                                                        showSaveButton = true;
+                                                        showEditButton = false;
+                                                        showName = false;
+                                                      });
+                                                    },
+                                                    child: Text(
+                                                      'Edit',
+                                                      style: TextStyle(
+                                                        color:
+                                                            Colors.red.shade700,
+                                                        fontFamily: 'Rubik',
+                                                        fontSize: 13,
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 25.0, right: 90.0),
-                                  child: TextFormField(
-                                    controller: nameController,
-                                    enabled: editName,
-                                    style: TextStyle(
-                                      fontFamily: 'Rubik',
-                                      fontSize: 20,
-                                    ),
-                                    decoration: InputDecoration(
-                                      hintText: 'Name',
-                                      border: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.black,
-                                          width: 1.5,
-                                        ),
-                                      ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.black,
-                                          width: 1.5,
-                                        ),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.black,
-                                          width: 1.5,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 25.0, top: 20.0),
-                                      child: Text(
-                                        'Phone',
-                                        style: TextStyle(
-                                          fontFamily: 'Rubik',
-                                          fontSize: 13,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 25.0, right: 50.0, top: 15.0),
-                                      child: Align(
-                                        alignment: Alignment.centerRight,
-                                        child: InkWell(
-                                          onTap: () async {
-                                            editPhonew(phoneController.text);
-                                            setState(() {
-                                              editPhone = true;
-                                            });
-                                          },
-                                          child: editPhone
-                                              ? Text(
-                                                  'Save',
-                                                  style: TextStyle(
-                                                    color: Colors.red.shade700,
-                                                    fontSize: 13,
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                    right: 50.0,
                                                   ),
-                                                )
-                                              : Text(
-                                                  'Edit',
-                                                  style: TextStyle(
-                                                    color: Colors.red.shade700,
-                                                    fontSize: 13,
+                                                  child: Visibility(
+                                                    visible: showSaveButton,
+                                                    child: InkWell(
+                                                      onTap: () async {
+                                                        editNamew(nameController
+                                                            .text);
+                                                        setState(() {
+                                                          showEditButton = true;
+                                                          showSaveButton =
+                                                              false;
+                                                          showNameField = false;
+                                                          showName = true;
+                                                        });
+                                                      },
+                                                      child: Text(
+                                                        "Save",
+                                                        style: TextStyle(
+                                                          color: Colors
+                                                              .red.shade700,
+                                                          fontFamily: 'Rubik',
+                                                          fontSize: 13,
+                                                        ),
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
+                                              ],
+                                            ),
+                                          ],
                                         ),
-                                      ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 25.0, right: 90.0),
+                                          child: Visibility(
+                                            visible: showNameField,
+                                            child: TextFormField(
+                                              controller: nameController,
+                                              style: TextStyle(
+                                                fontFamily: 'Rubik',
+                                                fontSize: 20,
+                                              ),
+                                              decoration: InputDecoration(
+                                                hintText: 'Name',
+                                                border: UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Colors.black,
+                                                    width: 1.5,
+                                                  ),
+                                                ),
+                                                enabledBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Colors.black,
+                                                    width: 1.5,
+                                                  ),
+                                                ),
+                                                focusedBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Colors.black,
+                                                    width: 1.5,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Visibility(
+                                          visible: showEditButton,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                              left: 25.0,
+                                              right: 90.0,
+                                              top: 10.0,
+                                            ),
+                                            child: Text(
+                                              displayName,
+                                              style: TextStyle(
+                                                fontFamily: 'Rubik Regular',
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 25.0, top: 20.0),
+                                              child: Text(
+                                                'Phone',
+                                                style: TextStyle(
+                                                  fontFamily: 'Rubik',
+                                                  fontSize: 13,
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 25.0,
+                                                  right: 50.0,
+                                                  top: 15.0),
+                                              child: Align(
+                                                alignment:
+                                                    Alignment.centerRight,
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    editPhonew(
+                                                        phoneController.text);
+                                                    setState(() {
+                                                      editPhone = true;
+                                                    });
+                                                  },
+                                                  child: editPhone
+                                                      ? Text(
+                                                          'Save',
+                                                          style: TextStyle(
+                                                            color: Colors
+                                                                .red.shade700,
+                                                            fontSize: 13,
+                                                          ),
+                                                        )
+                                                      : Text(
+                                                          'Edit',
+                                                          style: TextStyle(
+                                                            color: Colors
+                                                                .red.shade700,
+                                                            fontSize: 13,
+                                                          ),
+                                                        ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 25.0, right: 90.0),
+                                          child: TextFormField(
+                                            controller: phoneController,
+                                            enabled: editPhone,
+                                            style: TextStyle(
+                                              fontFamily: 'Rubik',
+                                              fontSize: 20,
+                                            ),
+                                            decoration: InputDecoration(
+                                              hintText: 'Phone',
+                                              border: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Colors.black,
+                                                  width: 3,
+                                                ),
+                                              ),
+                                              enabledBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Colors.black,
+                                                  width: 3,
+                                                ),
+                                              ),
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Colors.black,
+                                                  width: 3,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 25.0, right: 90.0),
-                                  child: TextFormField(
-                                    controller: phoneController,
-                                    enabled: editPhone,
-                                    style: TextStyle(
-                                      fontFamily: 'Rubik',
-                                      fontSize: 20,
-                                    ),
-                                    decoration: InputDecoration(
-                                      hintText: 'Phone',
-                                      border: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.black,
-                                          width: 3,
-                                        ),
-                                      ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.black,
-                                          width: 3,
-                                        ),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.black,
-                                          width: 3,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
+                                  );
+                              }
+                            },
+                          ),
                         ],
                       ),
                     ),
