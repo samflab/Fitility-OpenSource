@@ -18,6 +18,7 @@ dependencies:
   toast: ^0.1.5
   progress_dialog:
   auro_avatar:
+  webview_flutter:
 
   
 

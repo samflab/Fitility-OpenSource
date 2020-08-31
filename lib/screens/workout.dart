@@ -49,7 +49,7 @@ class _WorkoutState extends State<Workout> {
                       children: <Widget>[
                         SizedBox(
                           height: 41.0,
-                          width: 90.0,
+                          width: 130.0,
                           child: RaisedButton(
                             onPressed: () {
                               setState(() {
@@ -91,7 +91,7 @@ class _WorkoutState extends State<Workout> {
                         ),
                         SizedBox(
                           height: 41.0,
-                          width: 90.0,
+                          width: 130.0,
                           child: RaisedButton(
                             onPressed: () {
                               setState(() {
@@ -135,7 +135,7 @@ class _WorkoutState extends State<Workout> {
                         ),
                         SizedBox(
                           height: 41.0,
-                          width: 90.0,
+                          width: 130.0,
                           child: RaisedButton(
                             onPressed: () {
                               setState(() {
@@ -179,7 +179,7 @@ class _WorkoutState extends State<Workout> {
                         ),
                         SizedBox(
                           height: 41.0,
-                          width: 90.0,
+                          width: 130.0,
                           child: RaisedButton(
                             onPressed: () {
                               setState(() {
@@ -221,7 +221,7 @@ class _WorkoutState extends State<Workout> {
                         ),
                         SizedBox(
                           height: 41.0,
-                          width: 90.0,
+                          width: 130.0,
                           child: RaisedButton(
                             onPressed: () {
                               setState(() {
@@ -265,7 +265,7 @@ class _WorkoutState extends State<Workout> {
                         ),
                         SizedBox(
                           height: 41.0,
-                          width: 90.0,
+                          width: 130.0,
                           child: RaisedButton(
                             onPressed: () {
                               setState(() {
@@ -310,7 +310,7 @@ class _WorkoutState extends State<Workout> {
                         ),
                         SizedBox(
                           height: 41.0,
-                          width: 90.0,
+                          width: 130.0,
                           child: RaisedButton(
                             onPressed: () {
                               setState(() {

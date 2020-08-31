@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'webview.dart';
 
 class All extends StatefulWidget {
   @override
@@ -46,11 +47,20 @@ class _AllState extends State<All> {
                                         color: Colors.red.shade700,
                                         size: 30.0,
                                       ),
-                                      Text(
-                                        document['title'],
-                                        style: TextStyle(
-                                            fontFamily: 'Rubik Regular',
-                                            fontSize: 18),
+                                      InkWell(
+                                        onTap: () {
+                                          _handleURLButtonPress(
+                                            context,
+                                            document['link'],
+                                            document['title'],
+                                          );
+                                        },
+                                        child: Text(
+                                          document['title'],
+                                          style: TextStyle(
+                                              fontFamily: 'Rubik Regular',
+                                              fontSize: 18),
+                                        ),
                                       ),
                                       SizedBox(
                                         width: 5.0,
@@ -77,10 +87,19 @@ class _AllState extends State<All> {
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10.0),
-                                      child: Image.network(
-                                        url,
-                                        height: 53.0,
-                                        width: 100.0,
+                                      child: InkWell(
+                                        onTap: () {
+                                          _handleURLButtonPress(
+                                            context,
+                                            document['link'],
+                                            document['title'],
+                                          );
+                                        },
+                                        child: Image.network(
+                                          url,
+                                          height: 53.0,
+                                          width: 100.0,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -129,11 +148,20 @@ class _AllState extends State<All> {
                                         color: Colors.red.shade700,
                                         size: 30.0,
                                       ),
-                                      Text(
-                                        document['title'],
-                                        style: TextStyle(
-                                            fontFamily: 'Rubik Regular',
-                                            fontSize: 18),
+                                      InkWell(
+                                        onTap: () {
+                                          _handleURLButtonPress(
+                                            context,
+                                            document['link'],
+                                            document['title'],
+                                          );
+                                        },
+                                        child: Text(
+                                          document['title'],
+                                          style: TextStyle(
+                                              fontFamily: 'Rubik Regular',
+                                              fontSize: 18),
+                                        ),
                                       ),
                                       SizedBox(
                                         width: 5.0,
@@ -160,10 +188,19 @@ class _AllState extends State<All> {
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10.0),
-                                      child: Image.network(
-                                        url,
-                                        height: 53.0,
-                                        width: 100.0,
+                                      child: InkWell(
+                                        onTap: () {
+                                          _handleURLButtonPress(
+                                            context,
+                                            document['link'],
+                                            document['title'],
+                                          );
+                                        },
+                                        child: Image.network(
+                                          url,
+                                          height: 53.0,
+                                          width: 100.0,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -212,11 +249,20 @@ class _AllState extends State<All> {
                                         color: Colors.red.shade700,
                                         size: 30.0,
                                       ),
-                                      Text(
-                                        document['title'],
-                                        style: TextStyle(
-                                            fontFamily: 'Rubik Regular',
-                                            fontSize: 18),
+                                      InkWell(
+                                        onTap: () {
+                                          _handleURLButtonPress(
+                                            context,
+                                            document['link'],
+                                            document['title'],
+                                          );
+                                        },
+                                        child: Text(
+                                          document['title'],
+                                          style: TextStyle(
+                                              fontFamily: 'Rubik Regular',
+                                              fontSize: 18),
+                                        ),
                                       ),
                                       SizedBox(
                                         width: 5.0,
@@ -243,10 +289,19 @@ class _AllState extends State<All> {
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10.0),
-                                      child: Image.network(
-                                        url,
-                                        height: 53.0,
-                                        width: 100.0,
+                                      child: InkWell(
+                                        onTap: () {
+                                          _handleURLButtonPress(
+                                            context,
+                                            document['link'],
+                                            document['title'],
+                                          );
+                                        },
+                                        child: Image.network(
+                                          url,
+                                          height: 53.0,
+                                          width: 100.0,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -295,11 +350,20 @@ class _AllState extends State<All> {
                                         color: Colors.red.shade700,
                                         size: 30.0,
                                       ),
-                                      Text(
-                                        document['title'],
-                                        style: TextStyle(
-                                            fontFamily: 'Rubik Regular',
-                                            fontSize: 18),
+                                      InkWell(
+                                        onTap: () {
+                                          _handleURLButtonPress(
+                                            context,
+                                            document['link'],
+                                            document['title'],
+                                          );
+                                        },
+                                        child: Text(
+                                          document['title'],
+                                          style: TextStyle(
+                                              fontFamily: 'Rubik Regular',
+                                              fontSize: 18),
+                                        ),
                                       ),
                                       SizedBox(
                                         width: 5.0,
@@ -326,10 +390,19 @@ class _AllState extends State<All> {
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10.0),
-                                      child: Image.network(
-                                        url,
-                                        height: 53.0,
-                                        width: 100.0,
+                                      child: InkWell(
+                                        onTap: () {
+                                          _handleURLButtonPress(
+                                            context,
+                                            document['link'],
+                                            document['title'],
+                                          );
+                                        },
+                                        child: Image.network(
+                                          url,
+                                          height: 53.0,
+                                          width: 100.0,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -378,11 +451,20 @@ class _AllState extends State<All> {
                                         color: Colors.red.shade700,
                                         size: 30.0,
                                       ),
-                                      Text(
-                                        document['title'],
-                                        style: TextStyle(
-                                            fontFamily: 'Rubik Regular',
-                                            fontSize: 18),
+                                      InkWell(
+                                        onTap: () {
+                                          _handleURLButtonPress(
+                                            context,
+                                            document['link'],
+                                            document['title'],
+                                          );
+                                        },
+                                        child: Text(
+                                          document['title'],
+                                          style: TextStyle(
+                                              fontFamily: 'Rubik Regular',
+                                              fontSize: 18),
+                                        ),
                                       ),
                                       SizedBox(
                                         width: 5.0,
@@ -409,10 +491,19 @@ class _AllState extends State<All> {
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10.0),
-                                      child: Image.network(
-                                        url,
-                                        height: 53.0,
-                                        width: 100.0,
+                                      child: InkWell(
+                                        onTap: () {
+                                          _handleURLButtonPress(
+                                            context,
+                                            document['link'],
+                                            document['title'],
+                                          );
+                                        },
+                                        child: Image.network(
+                                          url,
+                                          height: 53.0,
+                                          width: 100.0,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -461,11 +552,20 @@ class _AllState extends State<All> {
                                         color: Colors.red.shade700,
                                         size: 30.0,
                                       ),
-                                      Text(
-                                        document['title'],
-                                        style: TextStyle(
-                                            fontFamily: 'Rubik Regular',
-                                            fontSize: 18),
+                                      InkWell(
+                                        onTap: () {
+                                          _handleURLButtonPress(
+                                            context,
+                                            document['link'],
+                                            document['title'],
+                                          );
+                                        },
+                                        child: Text(
+                                          document['title'],
+                                          style: TextStyle(
+                                              fontFamily: 'Rubik Regular',
+                                              fontSize: 18),
+                                        ),
                                       ),
                                       SizedBox(
                                         width: 5.0,
@@ -492,10 +592,19 @@ class _AllState extends State<All> {
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10.0),
-                                      child: Image.network(
-                                        url,
-                                        height: 53.0,
-                                        width: 100.0,
+                                      child: InkWell(
+                                        onTap: () {
+                                          _handleURLButtonPress(
+                                            context,
+                                            document['link'],
+                                            document['title'],
+                                          );
+                                        },
+                                        child: Image.network(
+                                          url,
+                                          height: 53.0,
+                                          width: 100.0,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -512,6 +621,15 @@ class _AllState extends State<All> {
                 }
               }),
         ],
+      ),
+    );
+  }
+
+  void _handleURLButtonPress(BuildContext context, String url, String title) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => WebViewContainer(url, title),
       ),
     );
   }

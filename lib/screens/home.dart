@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'webview.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -88,10 +89,18 @@ class _HomeState extends State<Home> {
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(5.0),
-                                              child: Image.network(
-                                                url,
-                                                height: 55.0,
-                                                width: 100.0,
+                                              child: InkWell(
+                                                onTap: () {
+                                                  _handleURLButtonPress(
+                                                      context,
+                                                      document['link'],
+                                                      document['title']);
+                                                },
+                                                child: Image.network(
+                                                  url,
+                                                  height: 55.0,
+                                                  width: 100.0,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -103,11 +112,20 @@ class _HomeState extends State<Home> {
                                               Padding(
                                                 padding: const EdgeInsets.only(
                                                     left: 9.0, top: 11.0),
-                                                child: Text(
-                                                  document['title'],
-                                                  style: TextStyle(
-                                                    fontFamily: 'Rubik Regular',
-                                                    fontSize: 18,
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    _handleURLButtonPress(
+                                                        context,
+                                                        document['link'],
+                                                        document['title']);
+                                                  },
+                                                  child: Text(
+                                                    document['title'],
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Rubik Regular',
+                                                      fontSize: 18,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -208,10 +226,18 @@ class _HomeState extends State<Home> {
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(5.0),
-                                              child: Image.network(
-                                                url,
-                                                height: 55.0,
-                                                width: 100.0,
+                                              child: InkWell(
+                                                onTap: () {
+                                                  _handleURLButtonPress(
+                                                      context,
+                                                      document['link'],
+                                                      document['title']);
+                                                },
+                                                child: Image.network(
+                                                  url,
+                                                  height: 55.0,
+                                                  width: 100.0,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -223,129 +249,21 @@ class _HomeState extends State<Home> {
                                               Padding(
                                                 padding: const EdgeInsets.only(
                                                     left: 9.0, top: 11.0),
-                                                child: Text(
-                                                  document['title'],
-                                                  style: TextStyle(
-                                                    fontFamily: 'Rubik Regular',
-                                                    fontSize: 18,
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 9.0, right: 9.0),
-                                                child: SizedBox(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.50,
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    _handleURLButtonPress(
+                                                      context,
+                                                      document['link'],
+                                                      document['title'],
+                                                    );
+                                                  },
                                                   child: Text(
-                                                    document['desc'],
+                                                    document['title'],
                                                     style: TextStyle(
                                                       fontFamily:
                                                           'Rubik Regular',
-                                                      fontSize: 15,
+                                                      fontSize: 18,
                                                     ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      );
-                                    }).toList(),
-                                  );
-                              }
-                            }),
-                        SizedBox(
-                          height: 15.0,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 20.0, right: 20.0, top: 21),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 4.0, left: 0.0),
-                              child: Icon(
-                                Icons.remove,
-                                color: Colors.red.shade700,
-                                size: 30.0,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 4.0),
-                              child: Text(
-                                'Meals for you',
-                                style: TextStyle(
-                                  fontFamily: 'Rubik Regular',
-                                  fontSize: 19,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        StreamBuilder<QuerySnapshot>(
-                            stream: Firestore.instance
-                                .collection('homeMeal')
-                                .snapshots(),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<QuerySnapshot> snapshot) {
-                              if (snapshot.hasError)
-                                return new Text('Error: ${snapshot.error}');
-
-                              switch (snapshot.connectionState) {
-                                case ConnectionState.waiting:
-                                  return new Text('Loading....');
-                                default:
-                                  return new ListView(
-                                    shrinkWrap: true,
-                                    children: snapshot.data.documents
-                                        .map((DocumentSnapshot document) {
-                                      String url = document['imageUrl'];
-                                      return new Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: <Widget>[
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 20.0, top: 11.0),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                              child: Image.network(
-                                                url,
-                                                height: 55.0,
-                                                width: 100.0,
-                                              ),
-                                            ),
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: <Widget>[
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 9.0, top: 11.0),
-                                                child: Text(
-                                                  document['title'],
-                                                  style: TextStyle(
-                                                    fontFamily: 'Rubik Regular',
-                                                    fontSize: 18,
                                                   ),
                                                 ),
                                               ),
@@ -398,6 +316,15 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void _handleURLButtonPress(BuildContext context, String url, String title) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => WebViewContainer(url, title),
       ),
     );
   }
