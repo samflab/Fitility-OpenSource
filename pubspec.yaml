@@ -39,6 +39,15 @@ flutter:
    - images/line.png
    - images/dumble.png
    - images/lineh.png
+   - images/bullet.png
+   - images/bar1.png
+   - images/circle1.png
+   - images/circle2.png
+   - images/circle3.png
+   - images/circle4.png
+   - images/circles.png
+   - images/circles1.png
+   - images/bar2.png
   fonts:
     - family: Rubik
       fonts:
