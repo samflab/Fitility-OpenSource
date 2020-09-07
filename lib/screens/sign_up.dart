@@ -120,6 +120,12 @@ class _RegisterState extends State<Register> {
                                   autocorrect: true,
                                   decoration: InputDecoration(
                                     labelText: 'First Name',
+                                    labelStyle: TextStyle(
+                                      color: Colors.black54,
+                                    ),
+                                    errorStyle: TextStyle(
+                                      color: Colors.red.shade700,
+                                    ),
                                     contentPadding: new EdgeInsets.symmetric(
                                         vertical: 15.0, horizontal: 10.0),
                                     fillColor: Colors.white,
@@ -185,6 +191,12 @@ class _RegisterState extends State<Register> {
                                     contentPadding: new EdgeInsets.symmetric(
                                         vertical: 15.0, horizontal: 10.0),
                                     labelText: 'Last Name',
+                                    labelStyle: TextStyle(
+                                      color: Colors.black54,
+                                    ),
+                                    errorStyle: TextStyle(
+                                      color: Colors.red.shade700,
+                                    ),
                                     fillColor: Colors.white,
                                     filled: true,
                                     enabledBorder: OutlineInputBorder(
@@ -250,6 +262,12 @@ class _RegisterState extends State<Register> {
                             contentPadding: new EdgeInsets.symmetric(
                                 vertical: 15.0, horizontal: 10.0),
                             labelText: 'Email',
+                            labelStyle: TextStyle(
+                              color: Colors.black54,
+                            ),
+                            errorStyle: TextStyle(
+                              color: Colors.red.shade700,
+                            ),
                             fillColor: Colors.white,
                             filled: true,
                             enabledBorder: OutlineInputBorder(
@@ -307,6 +325,12 @@ class _RegisterState extends State<Register> {
                             contentPadding: new EdgeInsets.symmetric(
                                 vertical: 15.0, horizontal: 10.0),
                             labelText: 'Phone',
+                            labelStyle: TextStyle(
+                              color: Colors.black54,
+                            ),
+                            errorStyle: TextStyle(
+                              color: Colors.red.shade700,
+                            ),
                             fillColor: Colors.white,
                             filled: true,
                             enabledBorder: OutlineInputBorder(
@@ -369,6 +393,12 @@ class _RegisterState extends State<Register> {
                             contentPadding: new EdgeInsets.symmetric(
                                 vertical: 15.0, horizontal: 10.0),
                             labelText: 'Password',
+                            labelStyle: TextStyle(
+                              color: Colors.black54,
+                            ),
+                            errorStyle: TextStyle(
+                              color: Colors.red.shade700,
+                            ),
                             fillColor: Colors.white,
                             filled: true,
                             enabledBorder: OutlineInputBorder(

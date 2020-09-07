@@ -48,6 +48,19 @@ flutter:
    - images/circles.png
    - images/circles1.png
    - images/bar2.png
+   - images/lime.png
+   - images/breakfast.png
+   - images/almond.png
+   - images/lunch.png
+   - images/crops.png
+   - images/Flat.png
+   - images/omelette.png
+   - images/papaya.png
+   - images/water.png
+   - images/energy-bar.png
+   - images/bottle.png
+   - images/banana.png
+   - images/cucumber.png
   fonts:
     - family: Rubik
       fonts:

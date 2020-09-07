@@ -11,7 +11,11 @@ Future messageBoxDialog(var text, var context) {
         child: Container(
           height: 150,
           child: Padding(
-            padding: const EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
+            padding: const EdgeInsets.only(
+              top: 20.0,
+              left: 30.0,
+              right: 30.0,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -27,7 +31,7 @@ Future messageBoxDialog(var text, var context) {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                      left: 30.0, top: 18.0, right: 30.0, bottom: 18.0),
+                      left: 30.0, right: 30.0, bottom: 18.0),
                   child: SizedBox(
                     child: RaisedButton(
                       onPressed: () {
