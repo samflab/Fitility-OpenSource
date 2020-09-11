@@ -79,7 +79,7 @@ class _WorkoutState extends State<Workout> {
                               'All',
                               style: TextStyle(
                                 fontSize: 14,
-                                fontFamily: 'Rubik Regular',
+                                fontFamily: 'Rubik',
                                 color:
                                     allTextColor ? Colors.white : Colors.black,
                               ),
@@ -122,7 +122,7 @@ class _WorkoutState extends State<Workout> {
                               'Zumba',
                               style: TextStyle(
                                 fontSize: 14,
-                                fontFamily: 'Rubik Regular',
+                                fontFamily: 'Rubik',
                                 color: zumbaTextColor
                                     ? Colors.white
                                     : Colors.black,
@@ -166,7 +166,7 @@ class _WorkoutState extends State<Workout> {
                               'Pillates',
                               style: TextStyle(
                                 fontSize: 14,
-                                fontFamily: 'Rubik Regular',
+                                fontFamily: 'Rubik',
                                 color: pillatesTextColor
                                     ? Colors.white
                                     : Colors.black,
@@ -209,7 +209,7 @@ class _WorkoutState extends State<Workout> {
                               'HIIT',
                               style: TextStyle(
                                 fontSize: 14,
-                                fontFamily: 'Rubik Regular',
+                                fontFamily: 'Rubik',
                                 color:
                                     hiitTextColor ? Colors.white : Colors.black,
                               ),
@@ -252,7 +252,7 @@ class _WorkoutState extends State<Workout> {
                               'Steppers',
                               style: TextStyle(
                                 fontSize: 14,
-                                fontFamily: 'Rubik Regular',
+                                fontFamily: 'Rubik',
                                 color: steppersTextColor
                                     ? Colors.white
                                     : Colors.black,
@@ -297,7 +297,7 @@ class _WorkoutState extends State<Workout> {
                               'Bolly-Aero',
                               style: TextStyle(
                                 fontSize: 14,
-                                fontFamily: 'Rubik Regular',
+                                fontFamily: 'Rubik',
                                 color: bollyaeroTextColor
                                     ? Colors.white
                                     : Colors.black,
@@ -341,7 +341,7 @@ class _WorkoutState extends State<Workout> {
                               'Bootcamp',
                               style: TextStyle(
                                 fontSize: 14,
-                                fontFamily: 'Rubik Regular',
+                                fontFamily: 'Rubik',
                                 color:
                                     bootcampColor ? Colors.white : Colors.black,
                               ),

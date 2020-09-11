@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'webview.dart';
@@ -8,6 +9,7 @@ class Dance extends StatefulWidget {
 }
 
 class _DanceState extends State<Dance> {
+  final ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,22 +18,24 @@ class _DanceState extends State<Dance> {
         right: 20.0,
       ),
       child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 20.5,
-            ),
-            StreamBuilder<QuerySnapshot>(
-                stream: Firestore.instance.collection('dance').snapshots(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasError)
-                    return new Text('Error: ${snapshot.error}');
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
-                      return new Text('Loading....');
-                    default:
-                      return new ListView(
+        physics: AlwaysScrollableScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+          child: StreamBuilder<QuerySnapshot>(
+              stream: Firestore.instance.collection('dance').snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError)
+                  return new Text('Error: ${snapshot.error}');
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return new Text('Loading....');
+                  default:
+                    return Scrollbar(
+                      isAlwaysShown: true,
+                      controller: _scrollController,
+                      child: new ListView(
+                        controller: _scrollController,
                         shrinkWrap: true,
                         children: snapshot.data.documents
                             .map((DocumentSnapshot document) {
@@ -62,11 +66,20 @@ class _DanceState extends State<Dance> {
                                               document['title'],
                                             );
                                           },
-                                          child: Text(
-                                            document['title'],
-                                            style: TextStyle(
-                                              fontFamily: 'Rubik Regular',
-                                              fontSize: 18,
+                                          child: SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.40,
+                                            child: AutoSizeText(
+                                              document['title'],
+                                              style: TextStyle(
+                                                  fontFamily: 'Rubik',
+                                                  fontSize: 18),
+                                              minFontSize: 14,
+                                              stepGranularity: 1,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
                                             ),
                                           ),
                                         ),
@@ -106,10 +119,10 @@ class _DanceState extends State<Dance> {
                             ],
                           );
                         }).toList(),
-                      );
-                  }
-                }),
-          ],
+                      ),
+                    );
+                }
+              }),
         ),
       ),
     );

@@ -19,6 +19,7 @@ dependencies:
   progress_dialog:
   auro_avatar:
   webview_flutter:
+  auto_size_text:
 
   
 

@@ -150,7 +150,7 @@ class _StartPageState extends State<StartPage> {
                   child: Text(
                     'Already have an account?',
                     style: TextStyle(
-                      fontFamily: 'Rubik Regular',
+                      fontFamily: 'Rubik',
                       fontSize: 16,
                     ),
                   ),

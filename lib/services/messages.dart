@@ -24,10 +24,13 @@ Future messageBoxDialog(var text, var context) {
                   child: Text(
                     text,
                     style: TextStyle(
-                      fontFamily: 'Rubik Regular',
+                      fontFamily: 'Rubik',
                       fontSize: 20,
                     ),
                   ),
+                ),
+                SizedBox(
+                  height: 10.0,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(

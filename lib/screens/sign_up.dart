@@ -546,7 +546,7 @@ class _RegisterState extends State<Register> {
                     child: Text(
                       'Already have an account?',
                       style: TextStyle(
-                        fontFamily: 'Rubik Regular',
+                        fontFamily: 'Rubik',
                         fontSize: 16,
                       ),
                     ),

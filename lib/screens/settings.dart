@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:auro_avatar/auro_avatar.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -127,13 +128,17 @@ class _SettingsState extends State<Settings> {
                                         SizedBox(
                                           width: 20.0,
                                         ),
-                                        new Text(
+                                        new AutoSizeText(
                                           displayName,
                                           style: TextStyle(
                                             fontFamily: 'Rubik',
                                             fontSize: 31,
                                             color: Colors.white,
                                           ),
+                                          minFontSize: 25,
+                                          maxLines: 2,
+                                          stepGranularity: 1,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ],
                                     ),
@@ -307,12 +312,16 @@ class _SettingsState extends State<Settings> {
                                               right: 90.0,
                                               top: 10.0,
                                             ),
-                                            child: Text(
+                                            child: AutoSizeText(
                                               displayName,
                                               style: TextStyle(
-                                                fontFamily: 'Rubik Regular',
+                                                fontFamily: 'Rubik',
                                                 fontSize: 20,
                                               ),
+                                              minFontSize: 15,
+                                              stepGranularity: 1,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
                                             ),
                                           ),
                                         ),
@@ -448,7 +457,7 @@ class _SettingsState extends State<Settings> {
                                             child: Text(
                                               phoneNumber,
                                               style: TextStyle(
-                                                fontFamily: 'Rubik Regular',
+                                                fontFamily: 'Rubik',
                                                 fontSize: 20,
                                               ),
                                             ),
@@ -495,11 +504,17 @@ class _SettingsState extends State<Settings> {
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 33.0, right: 40.0),
-                                  child: Text(
+                                  child: AutoSizeText(
                                     'rhythmicfeet.rfda@gmail.com',
                                     style: TextStyle(
                                       color: Colors.red.shade700,
+                                      fontFamily: 'Rubik',
+                                      fontSize: 19,
                                     ),
+                                    minFontSize: 12,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    stepGranularity: 1,
                                   ),
                                 ),
                               ],

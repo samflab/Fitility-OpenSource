@@ -46,7 +46,7 @@ class _BlankState extends State<Blank> {
             preferredSize: Size.fromHeight(4.0)),
         elevation: 0.0,
         title: Row(
-          //mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.only(
@@ -56,7 +56,7 @@ class _BlankState extends State<Blank> {
             ),
             Container(
               child: Padding(
-                padding: const EdgeInsets.only(left: 5.0, right: 100.0),
+                padding: const EdgeInsets.only(left: 5.0),
                 child: Text(
                   'Fitility',
                   style: TextStyle(

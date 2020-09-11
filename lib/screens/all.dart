@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'webview.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class All extends StatefulWidget {
   @override
@@ -55,11 +56,21 @@ class _AllState extends State<All> {
                                             document['title'],
                                           );
                                         },
-                                        child: Text(
-                                          document['title'],
-                                          style: TextStyle(
-                                              fontFamily: 'Rubik Regular',
-                                              fontSize: 18),
+                                        child: SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.20,
+                                          child: AutoSizeText(
+                                            document['title'],
+                                            style: TextStyle(
+                                                fontFamily: 'Rubik',
+                                                fontSize: 18),
+                                            minFontSize: 14,
+                                            stepGranularity: 1,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
                                       ),
                                       SizedBox(
@@ -71,11 +82,20 @@ class _AllState extends State<All> {
                                         width: 2.0,
                                       ),
                                       SizedBox(width: 5.0),
-                                      Text(
-                                        document['level'],
-                                        style: TextStyle(
-                                            fontFamily: 'Rubik Regular',
-                                            fontSize: 15),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.20,
+                                        child: AutoSizeText(
+                                          document['level'],
+                                          style: TextStyle(
+                                              fontFamily: 'Rubik',
+                                              fontSize: 15),
+                                          minFontSize: 13,
+                                          maxLines: 2,
+                                          stepGranularity: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -156,11 +176,21 @@ class _AllState extends State<All> {
                                             document['title'],
                                           );
                                         },
-                                        child: Text(
-                                          document['title'],
-                                          style: TextStyle(
-                                              fontFamily: 'Rubik Regular',
-                                              fontSize: 18),
+                                        child: SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.20,
+                                          child: AutoSizeText(
+                                            document['title'],
+                                            style: TextStyle(
+                                                fontFamily: 'Rubik',
+                                                fontSize: 18),
+                                            minFontSize: 14,
+                                            stepGranularity: 1,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
                                       ),
                                       SizedBox(
@@ -172,11 +202,20 @@ class _AllState extends State<All> {
                                         width: 2.0,
                                       ),
                                       SizedBox(width: 5.0),
-                                      Text(
-                                        document['level'],
-                                        style: TextStyle(
-                                            fontFamily: 'Rubik Regular',
-                                            fontSize: 15),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.20,
+                                        child: AutoSizeText(
+                                          document['level'],
+                                          style: TextStyle(
+                                              fontFamily: 'Rubik',
+                                              fontSize: 15),
+                                          minFontSize: 13,
+                                          stepGranularity: 1,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -257,11 +296,21 @@ class _AllState extends State<All> {
                                             document['title'],
                                           );
                                         },
-                                        child: Text(
-                                          document['title'],
-                                          style: TextStyle(
-                                              fontFamily: 'Rubik Regular',
-                                              fontSize: 18),
+                                        child: SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.20,
+                                          child: AutoSizeText(
+                                            document['title'],
+                                            style: TextStyle(
+                                                fontFamily: 'Rubik',
+                                                fontSize: 18),
+                                            minFontSize: 14,
+                                            stepGranularity: 1,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
                                       ),
                                       SizedBox(
@@ -273,11 +322,20 @@ class _AllState extends State<All> {
                                         width: 2.0,
                                       ),
                                       SizedBox(width: 5.0),
-                                      Text(
-                                        document['level'],
-                                        style: TextStyle(
-                                            fontFamily: 'Rubik Regular',
-                                            fontSize: 15),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.20,
+                                        child: AutoSizeText(
+                                          document['level'],
+                                          style: TextStyle(
+                                              fontFamily: 'Rubik',
+                                              fontSize: 15),
+                                          minFontSize: 13,
+                                          stepGranularity: 1,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -358,11 +416,21 @@ class _AllState extends State<All> {
                                             document['title'],
                                           );
                                         },
-                                        child: Text(
-                                          document['title'],
-                                          style: TextStyle(
-                                              fontFamily: 'Rubik Regular',
-                                              fontSize: 18),
+                                        child: SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.20,
+                                          child: AutoSizeText(
+                                            document['title'],
+                                            style: TextStyle(
+                                                fontFamily: 'Rubik',
+                                                fontSize: 18),
+                                            minFontSize: 14,
+                                            stepGranularity: 1,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
                                       ),
                                       SizedBox(
@@ -374,11 +442,20 @@ class _AllState extends State<All> {
                                         width: 2.0,
                                       ),
                                       SizedBox(width: 5.0),
-                                      Text(
-                                        document['level'],
-                                        style: TextStyle(
-                                            fontFamily: 'Rubik Regular',
-                                            fontSize: 15),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.20,
+                                        child: AutoSizeText(
+                                          document['level'],
+                                          style: TextStyle(
+                                              fontFamily: 'Rubik',
+                                              fontSize: 15),
+                                          minFontSize: 13,
+                                          stepGranularity: 1,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -459,11 +536,21 @@ class _AllState extends State<All> {
                                             document['title'],
                                           );
                                         },
-                                        child: Text(
-                                          document['title'],
-                                          style: TextStyle(
-                                              fontFamily: 'Rubik Regular',
-                                              fontSize: 18),
+                                        child: SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.20,
+                                          child: AutoSizeText(
+                                            document['title'],
+                                            style: TextStyle(
+                                                fontFamily: 'Rubik',
+                                                fontSize: 18),
+                                            minFontSize: 14,
+                                            stepGranularity: 1,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
                                       ),
                                       SizedBox(
@@ -475,11 +562,20 @@ class _AllState extends State<All> {
                                         width: 2.0,
                                       ),
                                       SizedBox(width: 5.0),
-                                      Text(
-                                        document['level'],
-                                        style: TextStyle(
-                                            fontFamily: 'Rubik Regular',
-                                            fontSize: 15),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.20,
+                                        child: AutoSizeText(
+                                          document['level'],
+                                          style: TextStyle(
+                                              fontFamily: 'Rubik',
+                                              fontSize: 15),
+                                          minFontSize: 13,
+                                          stepGranularity: 1,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -560,11 +656,21 @@ class _AllState extends State<All> {
                                             document['title'],
                                           );
                                         },
-                                        child: Text(
-                                          document['title'],
-                                          style: TextStyle(
-                                              fontFamily: 'Rubik Regular',
-                                              fontSize: 18),
+                                        child: SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.20,
+                                          child: AutoSizeText(
+                                            document['title'],
+                                            style: TextStyle(
+                                                fontFamily: 'Rubik',
+                                                fontSize: 18),
+                                            minFontSize: 14,
+                                            stepGranularity: 1,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
                                       ),
                                       SizedBox(
@@ -576,11 +682,20 @@ class _AllState extends State<All> {
                                         width: 2.0,
                                       ),
                                       SizedBox(width: 5.0),
-                                      Text(
-                                        document['level'],
-                                        style: TextStyle(
-                                            fontFamily: 'Rubik Regular',
-                                            fontSize: 15),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.20,
+                                        child: AutoSizeText(
+                                          document['level'],
+                                          style: TextStyle(
+                                              fontFamily: 'Rubik',
+                                              fontSize: 15),
+                                          minFontSize: 13,
+                                          stepGranularity: 1,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
                                     ],
                                   ),

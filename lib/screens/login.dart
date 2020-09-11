@@ -313,7 +313,7 @@ class _SigninState extends State<Signin> {
                       child: Text(
                         'Forgot Password?',
                         style: TextStyle(
-                          fontFamily: 'Rubik Regular',
+                          fontFamily: 'Rubik',
                           fontWeight: FontWeight.w500,
                           fontSize: 16,
                         ),
@@ -328,7 +328,7 @@ class _SigninState extends State<Signin> {
                     Text(
                       'Don\'t have an account? ',
                       style: TextStyle(
-                        fontFamily: 'Rubik Regular',
+                        fontFamily: 'Rubik',
                         fontSize: 16,
                       ),
                     ),

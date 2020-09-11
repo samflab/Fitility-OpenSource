@@ -50,7 +50,7 @@ class _DietState extends State<Diet> {
                               'Veg',
                               style: TextStyle(
                                 fontSize: 15,
-                                fontFamily: 'Rubik Regular',
+                                fontFamily: 'Rubik',
                                 color: vegText ? Colors.white : Colors.black,
                               ),
                             ),
@@ -84,7 +84,7 @@ class _DietState extends State<Diet> {
                                 'Non-Veg',
                                 style: TextStyle(
                                   fontSize: 15,
-                                  fontFamily: 'Rubik Regular',
+                                  fontFamily: 'Rubik',
                                   color:
                                       nonVegText ? Colors.white : Colors.black,
                                 ),

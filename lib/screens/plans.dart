@@ -50,7 +50,7 @@ class _PlansState extends State<Plans> {
                               'Zumba/Aerobics',
                               style: TextStyle(
                                 fontSize: 15,
-                                fontFamily: 'Rubik Regular',
+                                fontFamily: 'Rubik',
                                 color: zumbaTextColor
                                     ? Colors.white
                                     : Colors.black,
@@ -86,7 +86,7 @@ class _PlansState extends State<Plans> {
                                 'Dance',
                                 style: TextStyle(
                                   fontSize: 15,
-                                  fontFamily: 'Rubik Regular',
+                                  fontFamily: 'Rubik',
                                   color: danceTextColor
                                       ? Colors.white
                                       : Colors.black,

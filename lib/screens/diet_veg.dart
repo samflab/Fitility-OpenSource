@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class VegDiet extends StatefulWidget {
   @override
@@ -6,6 +7,7 @@ class VegDiet extends StatefulWidget {
 }
 
 class _VegDietState extends State<VegDiet> {
+  var myGroup = AutoSizeGroup();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -80,24 +82,38 @@ class _VegDietState extends State<VegDiet> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Early Morning',
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 15.0,
-                                color: Colors.red.shade700,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.65,
+                              child: AutoSizeText(
+                                'Early Morning',
+                                style: TextStyle(
+                                  fontFamily: 'Rubik',
+                                  fontSize: 15.0,
+                                  color: Colors.red.shade700,
+                                ),
+                                stepGranularity: 1,
+                                minFontSize: 13.0,
+                                maxLines: 2,
                               ),
                             ),
                             SizedBox(
                               height: 5.0,
                             ),
-                            Text(
-                              'Lime water (lukewarm) with \nHoney/Amla Juice/ Aloe Vera Juice',
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 14.0,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.65,
+                              child: AutoSizeText(
+                                'Lime water (lukewarm) with Honey/Amla Juice/ Aloe Vera Juice',
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  fontFamily: 'Rubik',
+                                ),
+                                minFontSize: 12.0,
+                                stepGranularity: 1,
+                                maxLines: 5,
+                                overflow: TextOverflow.fade,
                               ),
                             ),
+                            SizedBox(height: 10.0),
                           ],
                         ),
                       ),
@@ -146,24 +162,38 @@ class _VegDietState extends State<VegDiet> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Breakfast\n(within 1/2 hour of waking up)',
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 15.0,
-                                color: Colors.red.shade700,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.65,
+                              child: AutoSizeText(
+                                'Breakfast\n(within 1/2 hour of waking up)',
+                                style: TextStyle(
+                                  fontFamily: 'Rubik',
+                                  fontSize: 15.0,
+                                  color: Colors.red.shade700,
+                                ),
+                                stepGranularity: 1,
+                                minFontSize: 13.0,
+                                maxLines: 5,
                               ),
                             ),
                             SizedBox(
                               height: 5.0,
                             ),
-                            Text(
-                              'High fibre cereals - Oats,2 slices of\nmulti grain bread, wheat flakes + high\nprotein milk/curd + 1 fruit',
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 14.0,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.65,
+                              child: AutoSizeText(
+                                'High fibre cereals - Oats,2 slices of multi grain bread, wheat flakes + high protein milk/curd + 1 fruit',
+                                style: TextStyle(
+                                  fontFamily: 'Rubik',
+                                  fontSize: 14.0,
+                                ),
+                                stepGranularity: 1,
+                                minFontSize: 12.0,
+                                maxLines: 10,
+                                overflow: TextOverflow.fade,
                               ),
                             ),
+                            SizedBox(height: 10.0),
                           ],
                         ),
                       ),
@@ -212,23 +242,37 @@ class _VegDietState extends State<VegDiet> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Mid-morning\n(Within 3 hours of breakpast)',
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 15.0,
-                                color: Colors.red.shade700,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.65,
+                              child: AutoSizeText(
+                                'Mid-morning\n(Within 3 hours of breakpast)',
+                                style: TextStyle(
+                                  fontFamily: 'Rubik',
+                                  fontSize: 15.0,
+                                  color: Colors.red.shade700,
+                                ),
+                                minFontSize: 13.0,
+                                maxLines: 5,
                               ),
                             ),
                             SizedBox(
                               height: 5.0,
                             ),
-                            Text(
-                              '5 almonds',
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 14.0,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.65,
+                              child: AutoSizeText(
+                                '5 almonds',
+                                style: TextStyle(
+                                  fontFamily: 'Rubik',
+                                  fontSize: 14.0,
+                                ),
+                                minFontSize: 12.0,
+                                stepGranularity: 1,
+                                maxLines: 1,
                               ),
+                            ),
+                            SizedBox(
+                              height: 10.0,
                             ),
                           ],
                         ),
@@ -278,23 +322,38 @@ class _VegDietState extends State<VegDiet> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Lunch\n(Around 1-2 pm)',
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 15.0,
-                                color: Colors.red.shade700,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.65,
+                              child: AutoSizeText(
+                                'Lunch\n(Around 1-2 pm)',
+                                style: TextStyle(
+                                  fontFamily: 'Rubik',
+                                  fontSize: 15.0,
+                                  color: Colors.red.shade700,
+                                ),
+                                stepGranularity: 1,
+                                minFontSize: 14.0,
+                                maxLines: 5,
                               ),
                             ),
                             SizedBox(
                               height: 5.0,
                             ),
-                            Text(
-                              '1 bowl of salad + 1 roti with a bowl\nof vegetables + 1/2 bowl of rice +\n1 bowl of dal',
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 14.0,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.65,
+                              child: AutoSizeText(
+                                '1 bowl of salad + 1 roti with a bowl of vegetables + 1/2 bowl of rice + 1 bowl of dal',
+                                style: TextStyle(
+                                  fontFamily: 'Rubik',
+                                  fontSize: 14.0,
+                                ),
+                                stepGranularity: 1,
+                                minFontSize: 12.0,
+                                maxLines: 5,
                               ),
+                            ),
+                            SizedBox(
+                              height: 10.0,
                             ),
                           ],
                         ),
@@ -344,24 +403,37 @@ class _VegDietState extends State<VegDiet> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Post Lunch\n(1 hour post lunch)',
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 15.0,
-                                color: Colors.red.shade700,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.65,
+                              child: AutoSizeText(
+                                'Post Lunch\n(1 hour post lunch)',
+                                style: TextStyle(
+                                  fontFamily: 'Rubik',
+                                  fontSize: 15.0,
+                                  color: Colors.red.shade700,
+                                ),
+                                stepGranularity: 1,
+                                minFontSize: 13.0,
+                                maxLines: 5,
                               ),
                             ),
                             SizedBox(
                               height: 5.0,
                             ),
-                            Text(
-                              '1 glass of buttermilk + 1 fruit',
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 14.0,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.65,
+                              child: AutoSizeText(
+                                '1 glass of buttermilk + 1 fruit',
+                                style: TextStyle(
+                                  fontFamily: 'Rubik',
+                                  fontSize: 14.0,
+                                ),
+                                stepGranularity: 1,
+                                minFontSize: 12.0,
+                                maxLines: 5,
                               ),
                             ),
+                            SizedBox(height: 10.0),
                           ],
                         ),
                       ),
@@ -410,23 +482,38 @@ class _VegDietState extends State<VegDiet> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Evening Snacks\n(3 hours post lunch)',
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 15.0,
-                                color: Colors.red.shade700,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.65,
+                              child: AutoSizeText(
+                                'Evening Snacks\n(3 hours post lunch)',
+                                style: TextStyle(
+                                  fontFamily: 'Rubik',
+                                  fontSize: 14.0,
+                                  color: Colors.red.shade700,
+                                ),
+                                stepGranularity: 1,
+                                minFontSize: 12.0,
+                                maxLines: 5,
                               ),
                             ),
                             SizedBox(
                               height: 5.0,
                             ),
-                            Text(
-                              '1 cup of green tea + 1 bowl of sprouts',
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 14.0,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.65,
+                              child: AutoSizeText(
+                                '1 cup of green tea + 1 bowl of sprouts',
+                                style: TextStyle(
+                                  fontFamily: 'Rubik',
+                                  fontSize: 14.0,
+                                ),
+                                stepGranularity: 1,
+                                minFontSize: 12.0,
+                                maxLines: 5,
                               ),
+                            ),
+                            SizedBox(
+                              height: 10.0,
                             ),
                           ],
                         ),
@@ -476,23 +563,38 @@ class _VegDietState extends State<VegDiet> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Dinner\n(2-3 hours post evening snacks)',
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 15.0,
-                                color: Colors.red.shade700,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.65,
+                              child: AutoSizeText(
+                                'Dinner\n(2-3 hours post evening snacks)',
+                                style: TextStyle(
+                                  fontFamily: 'Rubik',
+                                  fontSize: 15.0,
+                                  color: Colors.red.shade700,
+                                ),
+                                stepGranularity: 1,
+                                minFontSize: 13.0,
+                                maxLines: 5,
                               ),
                             ),
                             SizedBox(
                               height: 5.0,
                             ),
-                            Text(
-                              '1 bowl of soup / 2 bowls of salad\n+ 1 roti with 50g of grilled paneer\n+ bowl of vegetables',
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 14.0,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.65,
+                              child: AutoSizeText(
+                                '1 bowl of soup / 2 bowls of salad + 1 roti with 50g of grilled paneer + bowl of vegetables',
+                                style: TextStyle(
+                                  fontFamily: 'Rubik',
+                                  fontSize: 14.0,
+                                ),
+                                stepGranularity: 1,
+                                minFontSize: 12.0,
+                                maxLines: 5,
                               ),
+                            ),
+                            SizedBox(
+                              height: 10.0,
                             ),
                           ],
                         ),
@@ -542,23 +644,38 @@ class _VegDietState extends State<VegDiet> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Post dinner\n(1/2 hour before bed)',
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 15.0,
-                                color: Colors.red.shade700,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.65,
+                              child: AutoSizeText(
+                                'Post dinner\n(1/2 hour before bed)',
+                                style: TextStyle(
+                                  fontFamily: 'Rubik',
+                                  fontSize: 15.0,
+                                  color: Colors.red.shade700,
+                                ),
+                                stepGranularity: 1,
+                                minFontSize: 13.0,
+                                maxLines: 5,
                               ),
                             ),
                             SizedBox(
                               height: 5.0,
                             ),
-                            Text(
-                              '1 fruit (preferably papaya)',
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 14.0,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.65,
+                              child: AutoSizeText(
+                                '1 fruit (preferably papaya)',
+                                style: TextStyle(
+                                  fontFamily: 'Rubik',
+                                  fontSize: 14.0,
+                                ),
+                                stepGranularity: 1,
+                                minFontSize: 12.0,
+                                maxLines: 5,
                               ),
+                            ),
+                            SizedBox(
+                              height: 10.0,
                             ),
                           ],
                         ),
@@ -649,12 +766,18 @@ class _VegDietState extends State<VegDiet> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
-                              '8-10 glasses a day',
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 15.0,
-                                color: Colors.red.shade700,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.65,
+                              child: AutoSizeText(
+                                '8-10 glasses a day',
+                                style: TextStyle(
+                                  fontFamily: 'Rubik',
+                                  fontSize: 15.0,
+                                  color: Colors.red.shade700,
+                                ),
+                                stepGranularity: 1,
+                                minFontSize: 13.0,
+                                maxLines: 5,
                               ),
                             ),
                           ],
@@ -744,20 +867,34 @@ class _VegDietState extends State<VegDiet> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(
-                                  'Before workout(1/2 half hour before)',
-                                  style: TextStyle(
-                                    fontFamily: 'Rubik',
-                                    fontSize: 15.0,
-                                    color: Colors.red.shade700,
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.65,
+                                  child: AutoSizeText(
+                                    'Before workout (1/2 half hour before)',
+                                    style: TextStyle(
+                                      fontFamily: 'Rubik',
+                                      fontSize: 15.0,
+                                      color: Colors.red.shade700,
+                                    ),
+                                    stepGranularity: 1,
+                                    minFontSize: 13.0,
+                                    maxLines: 5,
                                   ),
                                 ),
                                 SizedBox(height: 5.0),
-                                Text(
-                                  'Small snack of protein + carbohydrates\n(Energy bar/mixed nuts)',
-                                  style: TextStyle(
-                                    fontFamily: 'Rubik',
-                                    fontSize: 14.0,
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.65,
+                                  child: AutoSizeText(
+                                    'Small snack of protein + carbohydrates (Energy bar/mixed nuts)',
+                                    style: TextStyle(
+                                      fontFamily: 'Rubik',
+                                      fontSize: 14.0,
+                                    ),
+                                    stepGranularity: 1,
+                                    minFontSize: 12.0,
+                                    maxLines: 5,
                                   ),
                                 ),
                               ],
@@ -815,20 +952,34 @@ class _VegDietState extends State<VegDiet> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  'During workout',
-                                  style: TextStyle(
-                                    fontFamily: 'Rubik',
-                                    fontSize: 15.0,
-                                    color: Colors.red.shade700,
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.65,
+                                  child: AutoSizeText(
+                                    'During workout',
+                                    style: TextStyle(
+                                      fontFamily: 'Rubik',
+                                      fontSize: 15.0,
+                                      color: Colors.red.shade700,
+                                    ),
+                                    stepGranularity: 1,
+                                    minFontSize: 13.0,
+                                    maxLines: 5,
                                   ),
                                 ),
                                 SizedBox(height: 5.0),
-                                Text(
-                                  'Sip water (at room temperature) in\nevery break',
-                                  style: TextStyle(
-                                    fontFamily: 'Rubik',
-                                    fontSize: 14.0,
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.65,
+                                  child: AutoSizeText(
+                                    'Sip water (at room temperature) in every break',
+                                    style: TextStyle(
+                                      fontFamily: 'Rubik',
+                                      fontSize: 14.0,
+                                    ),
+                                    stepGranularity: 1,
+                                    minFontSize: 12.0,
+                                    maxLines: 5,
                                   ),
                                 ),
                               ],
@@ -886,20 +1037,34 @@ class _VegDietState extends State<VegDiet> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  'After workout',
-                                  style: TextStyle(
-                                    fontFamily: 'Rubik',
-                                    fontSize: 15.0,
-                                    color: Colors.red.shade700,
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.65,
+                                  child: AutoSizeText(
+                                    'After workout',
+                                    style: TextStyle(
+                                      fontFamily: 'Rubik',
+                                      fontSize: 15.0,
+                                      color: Colors.red.shade700,
+                                    ),
+                                    stepGranularity: 1,
+                                    minFontSize: 13.0,
+                                    maxLines: 5,
                                   ),
                                 ),
-                                SizedBox(height: 5.0),
-                                Text(
-                                  'Small snack of protein + carbohydrates\n(Energy bar/banana)',
-                                  style: TextStyle(
-                                    fontFamily: 'Rubik',
-                                    fontSize: 14.0,
+                                SizedBox(height: 4.0),
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.65,
+                                  child: AutoSizeText(
+                                    'Small snack of protein + carbohydrates (Energy bar/banana)',
+                                    style: TextStyle(
+                                      fontFamily: 'Rubik',
+                                      fontSize: 14.0,
+                                    ),
+                                    stepGranularity: 1,
+                                    minFontSize: 12.0,
+                                    maxLines: 5,
                                   ),
                                 ),
                               ],
@@ -932,9 +1097,9 @@ class _VegDietState extends State<VegDiet> {
                           height: 10.0,
                         ),
                         Text(
-                          'For those trying to lose weight, diets high in protein and fibre are likely to curb carvings and make you feel less hungry. If you feel week or faint, chances are that your diet is low in either carbohydrates or protein. Avoid foods / drinks with added artificial / processed sugar. Switch to honey and natural sugar.',
+                          'For those trying to lose weight, diets high in protein and fibre are likely to curb carvings and make you feel less hungry. If you feel weak or faint, chances are that your diet is low in either carbohydrates or protein. Avoid foods / drinks with added artificial / processed sugar. Switch to honey and natural sugar.',
                           style: TextStyle(
-                            fontFamily: 'Rubik Regular',
+                            fontFamily: 'Rubik',
                             fontSize: 15,
                           ),
                         ),

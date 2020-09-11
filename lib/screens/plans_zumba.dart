@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class ZumbaPlans extends StatefulWidget {
   @override
@@ -115,11 +116,17 @@ class _ZumbaPlansState extends State<ZumbaPlans> {
           ),
           child: Row(
             children: [
-              Text(
-                'Calorie Burning | Stress Reduction | Stamina | Endurance',
-                style: TextStyle(
-                  fontFamily: 'Rubik',
-                  fontSize: 14.0,
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.90,
+                child: AutoSizeText(
+                  'Calorie Burning | Stress Reduction | Stamina | Endurance',
+                  style: TextStyle(
+                    fontFamily: 'Rubik',
+                    fontSize: 14.0,
+                  ),
+                  minFontSize: 12.0,
+                  stepGranularity: 1,
+                  maxLines: 4,
                 ),
               ),
             ],
@@ -137,7 +144,7 @@ class _ZumbaPlansState extends State<ZumbaPlans> {
               Text(
                 '  Zumba/Aerobics',
                 style: TextStyle(
-                  fontFamily: 'Rubik Regular',
+                  fontFamily: 'Rubik',
                   fontSize: 25.0,
                   fontWeight: FontWeight.w500,
                 ),
@@ -145,7 +152,7 @@ class _ZumbaPlansState extends State<ZumbaPlans> {
               Text(
                 ' Session',
                 style: TextStyle(
-                  fontFamily: 'Rubik Regular',
+                  fontFamily: 'Rubik',
                   fontSize: 25.0,
                   fontWeight: FontWeight.w400,
                 ),
@@ -161,10 +168,13 @@ class _ZumbaPlansState extends State<ZumbaPlans> {
           child: Row(
             children: [
               Text('Begin '),
-              Image.asset(
-                'images/bar1.png',
-                height: 5.0,
-                width: 250.0,
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.65,
+                child: Image.asset(
+                  'images/bar1.png',
+                  height: 5.0,
+                  width: 250.0,
+                ),
               ),
               Text(' 55 min'),
             ],
@@ -299,7 +309,7 @@ class _ZumbaPlansState extends State<ZumbaPlans> {
               Text(
                 '  Membership',
                 style: TextStyle(
-                  fontFamily: 'Rubik Regular',
+                  fontFamily: 'Rubik',
                   color: Colors.black,
                   fontSize: 25.0,
                   fontWeight: FontWeight.w500,
@@ -1043,7 +1053,7 @@ class _ZumbaPlansState extends State<ZumbaPlans> {
                 Text(
                   '1. No prior dance experience is required to attend the class.',
                   style: TextStyle(
-                    fontFamily: 'Rubik Regular',
+                    fontFamily: 'Rubik',
                     fontSize: 15,
                   ),
                 ),
@@ -1053,7 +1063,7 @@ class _ZumbaPlansState extends State<ZumbaPlans> {
                 Text(
                   '2. This is a no-judgement zone. You walk in concerned but you walk out stress free.',
                   style: TextStyle(
-                    fontFamily: 'Rubik Regular',
+                    fontFamily: 'Rubik',
                     fontSize: 15,
                   ),
                 ),
@@ -1063,7 +1073,7 @@ class _ZumbaPlansState extends State<ZumbaPlans> {
                 Text(
                   '3. Please carry a pair of clean workout shoes, water bottle, hand towel and be in comfortable clothes for the class.',
                   style: TextStyle(
-                    fontFamily: 'Rubik Regular',
+                    fontFamily: 'Rubik',
                     fontSize: 15,
                   ),
                 ),
