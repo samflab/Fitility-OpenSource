@@ -1,6 +1,6 @@
 # Fitility
 
-A Flutter application for dance and fitness training.
+A Flutter application for dance and fitness training. The UI/UX for the application to be followed is [here](https://xd.adobe.com/view/8ac5be57-dfd4-47f0-a4e9-4ec8285b55cc-df96/grid)
 
 ## Getting Started
 
