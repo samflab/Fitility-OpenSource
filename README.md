@@ -21,7 +21,7 @@ Following is the structure of the number of files/screens in the app.
 returns the splashscreen and the named routes
 
 ## icons/fitility_icons.dart :
- this page has the list of custom icons which are not available in flutter.
+ This page has the list of custom icons which are not available in flutter but we'll need it in our application.
  
 
 ## screens/login.dart :
