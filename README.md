@@ -26,7 +26,9 @@ returns the splashscreen and the named routes
 
 ## screens/login.dart :
  Self explanatory, again, a page where a user can login themselves into the app either by email-password combo or by Google Sign in
+ Screenshot: ![login](https://user-images.githubusercontent.com/55777560/104005461-296aad00-51cb-11eb-95be-97023b8bd90f.jpeg)
  
  ## screens/onboarding.dart :
  This screen will appear when the user installs the app for the very first time. You can also call this one time intro screen.
+ Screenshot: ![onboarding](https://user-images.githubusercontent.com/55777560/104005416-148e1980-51cb-11eb-8611-566701677094.jpeg)
 
