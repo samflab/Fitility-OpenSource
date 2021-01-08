@@ -1,12 +1,5 @@
-import 'package:fitility/screens/forgot_password.dart';
-import 'package:fitility/screens/newpage.dart';
-import 'package:fitility/screens/sign_up.dart';
-import 'package:fitility/services/authenticate.dart';
-import 'package:fitility/services/google_signin.dart';
-import 'package:fitility/services/transition.dart';
 import 'package:flutter/material.dart';
 import 'package:fitility/services/validation.dart';
-import 'package:flutter/services.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 class Signin extends StatefulWidget {
@@ -19,8 +12,6 @@ class _SigninState extends State<Signin> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController;
   TextEditingController passwordController;
-  final AuthService _auth = AuthService();
-  // final AuthServicee _authh = AuthServicee();
 
   @override
   void initState() {
@@ -236,28 +227,7 @@ class _SigninState extends State<Signin> {
                   child: SizedBox(
                     child: RaisedButton(
                       splashColor: Colors.red,
-                      onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          pr.show();
-                          // ignore: unused_local_variable
-                          String error = "";
-                          dynamic result =
-                              await _auth.loginWithEmailAndPassword(
-                                  emailController.text,
-                                  passwordController.text,
-                                  context);
-                          pr.hide();
-                          if (result.runtimeType == PlatformException) {
-                            if (result.message != null) {
-                              setState(() {
-                                error = result.message;
-                              });
-                            }
-                          }
-                        } else {
-                          pr.hide();
-                        }
-                      },
+                      onPressed: () {},
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       padding: EdgeInsets.all(0.0),
@@ -306,10 +276,7 @@ class _SigninState extends State<Signin> {
                     child: FlatButton(
                       splashColor: Colors.transparent,
                       highlightColor: Colors.transparent,
-                      onPressed: () {
-                        Navigator.push(
-                            context, SlideLeftRoute(page: Password()));
-                      },
+                      onPressed: () {},
                       child: Text(
                         'Forgot Password?',
                         style: TextStyle(
@@ -333,12 +300,7 @@ class _SigninState extends State<Signin> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          SlideLeftRoute(page: Register()),
-                        );
-                      },
+                      onTap: () {},
                       child: Text(
                         'Create Account',
                         style: TextStyle(
@@ -368,17 +330,7 @@ class _SigninState extends State<Signin> {
       padding: const EdgeInsets.only(left: 40.0, right: 40.0),
       child: RaisedButton(
         splashColor: Colors.grey,
-        onPressed: () {
-          signInWithGoogle().then((value) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return GooglePage();
-                },
-              ),
-            );
-          });
-        },
+        onPressed: () {},
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: BorderSide(color: Colors.black),

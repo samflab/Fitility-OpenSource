@@ -1,10 +1,7 @@
 import 'package:fitility/screens/login.dart';
-import 'package:fitility/screens/newpage.dart';
 import 'package:fitility/services/transition.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:fitility/screens/sign_up.dart';
 import 'package:flutter/material.dart';
-import 'package:fitility/services/google_signin.dart';
 
 class StartPage extends StatefulWidget {
   @override
@@ -100,10 +97,7 @@ class _StartPageState extends State<StartPage> {
                     // width: MediaQuery.of(context).size.width * 1.0,
                     child: RaisedButton(
                       splashColor: Colors.red,
-                      onPressed: () {
-                        Navigator.push(
-                            context, SlideLeftRoute(page: Register()));
-                      },
+                      onPressed: () {},
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       padding: EdgeInsets.all(0.0),
@@ -196,17 +190,7 @@ class _StartPageState extends State<StartPage> {
       padding: const EdgeInsets.only(left: 40.0, right: 40.0),
       child: RaisedButton(
         splashColor: Colors.grey,
-        onPressed: () {
-          signInWithGoogle().whenComplete(() {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return GooglePage();
-                },
-              ),
-            );
-          });
-        },
+        onPressed: () {},
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: BorderSide(color: Colors.black),
