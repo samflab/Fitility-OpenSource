@@ -1,3 +1,4 @@
+import 'package:fitility/screens/homepage.dart';
 import 'package:fitility/screens/onboarding.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: StartPage(),
+      home: HomePage(),
     );
   }
 }
