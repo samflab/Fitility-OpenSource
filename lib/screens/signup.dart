@@ -1,23 +1,28 @@
-import 'package:fitility/screens/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:fitility/services/validation.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
-class Signin extends StatefulWidget {
+class Signup extends StatefulWidget {
   @override
   _SigninState createState() => _SigninState();
 }
 
-class _SigninState extends State<Signin> {
+class _SigninState extends State<Signup> {
   ProgressDialog pr;
   final _formKey = GlobalKey<FormState>();
+  TextEditingController firstnameController;
+  TextEditingController lastNameController;
   TextEditingController emailController;
   TextEditingController passwordController;
+  TextEditingController phoneController;
 
   @override
   void initState() {
+    firstnameController = new TextEditingController();
+    lastNameController = new TextEditingController();
     emailController = new TextEditingController();
     passwordController = new TextEditingController();
+    phoneController = new TextEditingController();
     super.initState();
   }
 
@@ -61,7 +66,7 @@ class _SigninState extends State<Signin> {
             child: Column(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(left: 40.0, top: 70.0),
+                  padding: const EdgeInsets.only(left: 40.0, top: 60.0),
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Image.asset(
@@ -75,10 +80,10 @@ class _SigninState extends State<Signin> {
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      'Welcome, Login',
+                      'Create your Account',
                       style: TextStyle(
                         fontFamily: 'Rubik',
-                        fontSize: 27,
+                        fontSize: 25,
                       ),
                     ),
                   ),
@@ -87,9 +92,144 @@ class _SigninState extends State<Signin> {
                   key: _formKey,
                   child: Column(
                     children: <Widget>[
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 40.0, top: 10.0),
+                              child: TextFormField(
+                                autocorrect: true,
+                                controller: firstnameController,
+                                decoration: InputDecoration(
+                                  contentPadding: new EdgeInsets.symmetric(
+                                      vertical: 15.0, horizontal: 10.0),
+                                  labelText: 'First Name',
+                                  labelStyle: TextStyle(
+                                    color: Colors.black54,
+                                  ),
+                                  errorStyle: TextStyle(
+                                    color: Colors.red.shade700,
+                                  ),
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(
+                                        color: Colors.black,
+                                        width: 1.0,
+                                      )),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                      color: Colors.black,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  disabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                      color: Colors.black,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                      color: Colors.black,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                      color: Colors.black,
+                                      width: 1.5,
+                                    ),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                      color: Colors.black,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                ),
+                                validator: nameValidate,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 10.0),
+                          Flexible(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 10.0, right: 40.0),
+                              child: TextFormField(
+                                autocorrect: true,
+                                controller: lastNameController,
+                                decoration: InputDecoration(
+                                  contentPadding: new EdgeInsets.symmetric(
+                                      vertical: 15.0, horizontal: 10.0),
+                                  labelText: 'Last Name',
+                                  labelStyle: TextStyle(
+                                    color: Colors.black54,
+                                  ),
+                                  errorStyle: TextStyle(
+                                    color: Colors.red.shade700,
+                                  ),
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(
+                                        color: Colors.black,
+                                        width: 1.0,
+                                      )),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                      color: Colors.black,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  disabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                      color: Colors.black,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                      color: Colors.black,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                      color: Colors.black,
+                                      width: 1.5,
+                                    ),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                      color: Colors.black,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                ),
+                                validator: nameValidate,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10.0),
                       Padding(
-                        padding: const EdgeInsets.only(
-                            left: 40.0, top: 12.0, right: 40.0),
+                        padding: const EdgeInsets.only(left: 40.0, right: 40.0),
                         child: TextFormField(
                           autocorrect: true,
                           controller: emailController,
@@ -150,9 +290,70 @@ class _SigninState extends State<Signin> {
                           validator: emailValidator,
                         ),
                       ),
-                      SizedBox(
-                        height: 10.0,
+                      SizedBox(height: 10.0),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 40.0, right: 40.0),
+                        child: TextFormField(
+                          autocorrect: true,
+                          controller: phoneController,
+                          decoration: InputDecoration(
+                            contentPadding: new EdgeInsets.symmetric(
+                                vertical: 15.0, horizontal: 10.0),
+                            labelText: 'Phone',
+                            labelStyle: TextStyle(
+                              color: Colors.black54,
+                            ),
+                            errorStyle: TextStyle(
+                              color: Colors.red.shade700,
+                            ),
+                            fillColor: Colors.white,
+                            filled: true,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                  color: Colors.black,
+                                  width: 1.0,
+                                )),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1.0,
+                              ),
+                            ),
+                            disabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1.0,
+                              ),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1.0,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1.5,
+                              ),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1.0,
+                              ),
+                            ),
+                          ),
+                          validator: mobileValidate,
+                        ),
                       ),
+                      SizedBox(height: 10.0),
                       Padding(
                         padding: const EdgeInsets.only(left: 40.0, right: 40.0),
                         child: TextFormField(
@@ -253,7 +454,7 @@ class _SigninState extends State<Signin> {
                               Expanded(
                                 child: Center(
                                   child: Text(
-                                    'Login',
+                                    'Sign Up',
                                     style: TextStyle(
                                       fontFamily: 'Rubik Medium',
                                       fontSize: 20,
@@ -273,28 +474,28 @@ class _SigninState extends State<Signin> {
                 Center(
                   child: Container(
                     padding: EdgeInsets.only(
-                        left: 0.0, right: 0.0, bottom: 0.0, top: 0.0),
-                    child: FlatButton(
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onPressed: () {},
-                      child: Text(
-                        'Forgot Password?',
-                        style: TextStyle(
-                          fontFamily: 'Rubik',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                        ),
+                        left: 0.0, right: 0.0, bottom: 0.0, top: 10.0),
+                    child: Text(
+                      'or',
+                      style: TextStyle(
+                        fontFamily: 'Rubik',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
                       ),
                     ),
                   ),
                 ),
-                Row(
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: _signInButtonGoogle(),
+                ),
+                SizedBox(height: 20.0),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      'Don\'t have an account? ',
+                      'Already have an account?',
                       style: TextStyle(
                         fontFamily: 'Rubik',
                         fontSize: 16,
@@ -302,13 +503,10 @@ class _SigninState extends State<Signin> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Signup()),
-                        );
+                        Navigator.pop(context);
                       },
                       child: Text(
-                        'Create Account',
+                        'Login',
                         style: TextStyle(
                           fontFamily: 'Rubik Medium',
                           fontSize: 16,
@@ -318,10 +516,6 @@ class _SigninState extends State<Signin> {
                       ),
                     ),
                   ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 50.0),
-                  child: _signInButtonGoogle(),
                 ),
               ],
             ),
