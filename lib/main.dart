@@ -1,5 +1,7 @@
 import 'package:fitility/screens/homepage.dart';
+import 'package:fitility/screens/login.dart';
 import 'package:fitility/screens/onboarding.dart';
+import 'package:fitility/screens/signup.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -14,7 +16,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: Signin(),
     );
   }
 }
