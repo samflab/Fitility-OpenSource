@@ -62,6 +62,11 @@ flutter:
    - images/bottle.png
    - images/banana.png
    - images/cucumber.png
+   - images/home.png
+   - images/workout.png
+   - images/dance.png
+   - images/diet.png
+   - images/plans.png
   fonts:
     - family: Rubik
       fonts:

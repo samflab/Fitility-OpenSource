@@ -1,4 +1,5 @@
 import 'package:fitility/widgets/appbar.dart';
+import 'package:fitility/widgets/bottomNavigation.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,6 +13,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       ////  used customAppbar widget from widgets/appbar.dart  ////
       appBar: customAppbar(),
+
+      ////  used bottomNavigationBar widget from widgets/bottomNavigation.dart  ////
+      bottomNavigationBar: customBottomNavigationBar(),
+
       body: SingleChildScrollView(
         child: Container(
           color: Color(0xffeceff1),
@@ -229,7 +234,6 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              //SizedBox(height: 65.0),
             ],
           ),
         ),
