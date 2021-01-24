@@ -1,3 +1,4 @@
+import 'package:fitility/screens/diet_veg.dart';
 import 'package:fitility/screens/homepage.dart';
 import 'package:fitility/screens/login.dart';
 import 'package:fitility/screens/onboarding.dart';
@@ -27,11 +28,12 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute:
-          notFirstTime == 0 || notFirstTime == null ? 'onboard' : 'workout',
+          notFirstTime == 0 || notFirstTime == null ? 'onboard' : 'dietVeg',
       routes: {
         'onboard': (context) => StartPage(),
         'home': (context) => HomePage(),
         'workout': (context) => WorkoutScreen(),
+        'dietVeg': (context) => DietVeg(),
       },
     );
   }
