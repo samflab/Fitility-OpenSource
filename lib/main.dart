@@ -2,6 +2,7 @@ import 'package:fitility/screens/homepage.dart';
 import 'package:fitility/screens/login.dart';
 import 'package:fitility/screens/onboarding.dart';
 import 'package:fitility/screens/signup.dart';
+import 'package:fitility/screens/workout.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,10 +27,11 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute:
-          notFirstTime == 0 || notFirstTime == null ? 'onboard' : 'notOnboard',
+          notFirstTime == 0 || notFirstTime == null ? 'onboard' : 'workout',
       routes: {
         'onboard': (context) => StartPage(),
-        'notOnboard': (context) => HomePage(),
+        'home': (context) => HomePage(),
+        'workout': (context) => WorkoutScreen(),
       },
     );
   }
