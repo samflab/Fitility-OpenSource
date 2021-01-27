@@ -1,3 +1,4 @@
+import 'package:carousel_pro/carousel_pro.dart';
 import 'package:fitility/widgets/appbar.dart';
 import 'package:fitility/widgets/bottomNavigation.dart';
 import 'package:flutter/material.dart';
@@ -38,12 +39,35 @@ class _HomePageState extends State<HomePage> {
 
               ////  cover image  ////
               Container(
-                height: 175.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.0),
+                margin: EdgeInsets.symmetric(vertical: 15.0),
+                child: SizedBox(
+                  height: 180.0,
+                  child: Carousel(
+                    boxFit: BoxFit.cover,
+                    autoplay: true,
+                    animationCurve: Curves.fastOutSlowIn,
+                    animationDuration: Duration(milliseconds: 1000),
+                    dotSize: 6.0,
+                    dotIncreasedColor: Color(0xffdc2126),
+                    dotBgColor: Colors.transparent,
+                    dotPosition: DotPosition.bottomCenter,
+                    dotVerticalPadding: 10.0,
+                    showIndicator: true,
+                    indicatorBgPadding: 10.0,
+                    images: [
+                      Image.asset(
+                        'images/box.png',
+                        height: 220.0,
+                        width: 400.0,
+                      ),
+                      Image.asset('images/pic1.png'),
+                      Image.asset('images/pic2.png'),
+                      Image.asset('images/pic3.png'),
+                    ],
+                  ),
                 ),
-                child: Image.asset('images/box.png'),
               ),
+
               SizedBox(height: 10.0),
 
               ////  Workout videos for you  ////

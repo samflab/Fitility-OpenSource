@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute:
-          notFirstTime == 0 || notFirstTime == null ? 'onboard' : 'plans',
+          notFirstTime == 0 || notFirstTime == null ? 'onboard' : 'home',
       routes: {
         'onboard': (context) => StartPage(),
         'home': (context) => HomePage(),

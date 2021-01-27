@@ -17,9 +17,9 @@ dependencies:
   shared_preferences:
   toast: ^0.1.5
   progress_dialog:
-  auro_avatar:
   webview_flutter:
   auto_size_text:
+  carousel_pro: ^1.0.0
 
   
 
