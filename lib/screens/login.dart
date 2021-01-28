@@ -1,4 +1,7 @@
+import 'package:fitility/screens/homepage.dart';
 import 'package:fitility/screens/signup.dart';
+import 'package:fitility/services/authentication.dart';
+import 'package:fitility/services/transition.dart';
 import 'package:flutter/material.dart';
 import 'package:fitility/services/validation.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -336,7 +339,16 @@ class _SigninState extends State<Signin> {
       padding: const EdgeInsets.only(left: 40.0, right: 40.0),
       child: RaisedButton(
         splashColor: Colors.grey,
-        onPressed: () {},
+        onPressed: () {
+          googleSignIn().whenComplete(() {
+            Navigator.pushReplacement(
+              context,
+              FadeRoute(
+                page: HomePage(),
+              ),
+            );
+          });
+        },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: BorderSide(color: Colors.black),
