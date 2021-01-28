@@ -10,19 +10,19 @@ class Signup extends StatefulWidget {
 class _SigninState extends State<Signup> {
   ProgressDialog pr;
   final _formKey = GlobalKey<FormState>();
-  TextEditingController firstnameController;
+  TextEditingController firstNameController;
   TextEditingController lastNameController;
   TextEditingController emailController;
-  TextEditingController passwordController;
   TextEditingController phoneController;
+  TextEditingController passwordController;
 
   @override
   void initState() {
-    firstnameController = new TextEditingController();
+    firstNameController = new TextEditingController();
     lastNameController = new TextEditingController();
     emailController = new TextEditingController();
-    passwordController = new TextEditingController();
     phoneController = new TextEditingController();
+    passwordController = new TextEditingController();
     super.initState();
   }
 
@@ -100,7 +100,7 @@ class _SigninState extends State<Signup> {
                                   const EdgeInsets.only(left: 40.0, top: 10.0),
                               child: TextFormField(
                                 autocorrect: true,
-                                controller: firstnameController,
+                                controller: firstNameController,
                                 decoration: InputDecoration(
                                   contentPadding: new EdgeInsets.symmetric(
                                       vertical: 15.0, horizontal: 10.0),
@@ -413,9 +413,7 @@ class _SigninState extends State<Signup> {
                               ),
                             ),
                           ),
-                          validator: (value) => value.length < 8
-                              ? 'The password must be more than 8 characters'
-                              : null,
+                          validator: passwordValidate,
                         ),
                       ),
                       SizedBox(

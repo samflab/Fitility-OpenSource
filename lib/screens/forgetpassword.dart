@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fitility/services/validation.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+
 class Forgetpass extends StatefulWidget {
   @override
   _ForgetpassState createState() => _ForgetpassState();
@@ -10,12 +11,10 @@ class _ForgetpassState extends State<Forgetpass> {
   ProgressDialog pr;
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController;
-  TextEditingController passwordController;
 
   @override
   void initState() {
     emailController = new TextEditingController();
-    passwordController = new TextEditingController();
     super.initState();
   }
 
@@ -51,7 +50,7 @@ class _ForgetpassState extends State<Forgetpass> {
                   const Color(0xf6edf0f1),
                   const Color(0xffeceff1),
                 ],
-                stops: [0.0, 1.0, 1.0],
+                //stops: [0.0, 1.0, 1.0],
               ),
             ),
           ),
@@ -208,5 +207,4 @@ class _ForgetpassState extends State<Forgetpass> {
       ),
     );
   }
-
 }
