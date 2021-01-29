@@ -309,10 +309,8 @@ class _SigninState extends State<Signin> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Signup()),
-                        );
+                        Navigator.pushReplacement(
+                            context, FadeRoute(page: Signup()));
                       },
                       child: Text(
                         'Create Account',

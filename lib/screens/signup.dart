@@ -1,3 +1,7 @@
+import 'package:fitility/screens/homepage.dart';
+import 'package:fitility/screens/login.dart';
+import 'package:fitility/services/authentication.dart';
+import 'package:fitility/services/transition.dart';
 import 'package:flutter/material.dart';
 import 'package:fitility/services/validation.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -427,7 +431,13 @@ class _SigninState extends State<Signup> {
                   child: SizedBox(
                     child: RaisedButton(
                       splashColor: Colors.red,
-                      onPressed: () {},
+                      onPressed: () {
+                        if (_formKey.currentState.validate()) {
+                          SignUp(emailController.text, passwordController.text)
+                              .whenComplete(() => Navigator.pushReplacement(
+                                  context, FadeRoute(page: HomePage())));
+                        }
+                      },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       padding: EdgeInsets.all(0.0),
@@ -501,7 +511,10 @@ class _SigninState extends State<Signup> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.pop(context);
+                        Navigator.pushReplacement(
+                          context,
+                          FadeRoute(page: Signin()),
+                        );
                       },
                       child: Text(
                         'Login',
