@@ -23,3 +23,15 @@ Future<bool> googleSignIn() async {
     return Future.value(true);
   }
 }
+
+Future<bool> SignUp(String email, String password) async {
+  try {
+    AuthResult result = await auth.createUserWithEmailAndPassword(
+        email: email, password: password);
+
+    //FirebaseUser user = result.user;
+    return Future.value(true);
+  } catch (e) {
+    print(e.toString());
+  }
+}

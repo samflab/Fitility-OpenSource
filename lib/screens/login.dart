@@ -280,7 +280,7 @@ class _SigninState extends State<Signin> {
                       splashColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(builder: (context) => Forgetpass()),
                         );
@@ -309,10 +309,8 @@ class _SigninState extends State<Signin> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Signup()),
-                        );
+                        Navigator.pushReplacement(
+                            context, FadeRoute(page: Signup()));
                       },
                       child: Text(
                         'Create Account',
