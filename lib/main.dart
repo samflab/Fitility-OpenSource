@@ -1,5 +1,6 @@
 import 'package:fitility/screens/diet_veg.dart';
 import 'package:fitility/screens/homepage.dart';
+import 'package:fitility/screens/login.dart';
 import 'package:fitility/screens/onboarding.dart';
 import 'package:fitility/screens/plans_zumba.dart';
 import 'package:fitility/screens/workout.dart';

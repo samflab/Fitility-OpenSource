@@ -1,3 +1,4 @@
+import 'package:fitility/screens/forgetpassword.dart';
 import 'package:fitility/screens/homepage.dart';
 import 'package:fitility/screens/signup.dart';
 import 'package:fitility/services/authentication.dart';
@@ -215,9 +216,7 @@ class _SigninState extends State<Signin> {
                               ),
                             ),
                           ),
-                          validator: (value) => value.length < 8
-                              ? 'The password must be more than 8 characters'
-                              : null,
+                          validator: passwordValidate,
                         ),
                       ),
                       SizedBox(
@@ -280,7 +279,12 @@ class _SigninState extends State<Signin> {
                     child: FlatButton(
                       splashColor: Colors.transparent,
                       highlightColor: Colors.transparent,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Forgetpass()),
+                        );
+                      },
                       child: Text(
                         'Forgot Password?',
                         style: TextStyle(
