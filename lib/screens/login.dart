@@ -230,7 +230,13 @@ class _SigninState extends State<Signin> {
                   child: SizedBox(
                     child: RaisedButton(
                       splashColor: Colors.red,
-                      onPressed: () {},
+                      onPressed: () {
+                        if (_formKey.currentState.validate()) {
+                          SignIn(emailController.text, passwordController.text)
+                              .whenComplete(() => Navigator.pushReplacement(
+                                  context, FadeRoute(page: HomePage())));
+                        }
+                      },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       padding: EdgeInsets.all(0.0),
