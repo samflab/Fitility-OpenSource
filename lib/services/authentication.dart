@@ -35,3 +35,15 @@ Future<bool> SignUp(String email, String password) async {
     print(e.toString());
   }
 }
+
+Future<bool> SignIn(String email, String password) async {
+  try {
+    AuthResult result =
+        await auth.signInWithEmailAndPassword(email: email, password: password);
+
+    //FirebaseUser user = result.user;
+    return Future.value(true);
+  } catch (e) {
+    print(e.toString());
+  }
+}
