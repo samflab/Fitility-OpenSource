@@ -171,7 +171,7 @@ class _CreatePageState extends State<CreatePage> {
                                 fontWeight: FontWeight.w500),
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
-                              hintText: "Video name",
+                              hintText: "Description of video",
                               hintStyle: TextStyle(
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black),

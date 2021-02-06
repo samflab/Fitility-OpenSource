@@ -1,4 +1,5 @@
 import 'package:fitility_admin/screen/createpage.dart';
+import 'package:fitility_admin/screen/modifypage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'screen/createpage.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
     ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: CreatePage(),
+      home: ModifyPage(),
     );
   }
 }
