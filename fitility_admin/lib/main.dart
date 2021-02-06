@@ -1,4 +1,5 @@
 import 'package:fitility_admin/screen/createpage.dart';
+import 'package:fitility_admin/screen/deletepage.dart';
 import 'package:fitility_admin/screen/modifypage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
     ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ModifyPage(),
+      home: DeletePage(),
     );
   }
 }
