@@ -15,7 +15,7 @@ class _PlansZumbaState extends State<PlansZumba> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppbar(),
+      appBar: customAppbar(context),
       bottomNavigationBar: customBottomNavigationBar(),
       body: SingleChildScrollView(
         child: Container(

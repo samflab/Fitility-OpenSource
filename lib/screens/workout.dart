@@ -11,7 +11,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppbar(),
+      appBar: customAppbar(context),
       bottomNavigationBar: customBottomNavigationBar(),
       body: Container(
         color: Color(0xffeceff1),

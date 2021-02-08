@@ -14,7 +14,7 @@ class _PlansDanceState extends State<PlansDance> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppbar(),
+      appBar: customAppbar(context),
       bottomNavigationBar: customBottomNavigationBar(),
       body: SingleChildScrollView(
         child: Container(
