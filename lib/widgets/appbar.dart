@@ -1,6 +1,8 @@
+import 'package:fitility/screens/settingspage.dart';
+import 'package:fitility/services/transition.dart';
 import 'package:flutter/material.dart';
 
-Widget customAppbar() {
+Widget customAppbar(context) {
   return AppBar(
     backgroundColor: Color(0xffffffff),
     title: Container(
@@ -9,10 +11,20 @@ Widget customAppbar() {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Icon(
-            Icons.menu,
-            color: Color(0xffdc2126),
-            size: 30.0,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                FadeRoute(
+                  page: SettingsPage(),
+                ),
+              );
+            },
+            child: Icon(
+              Icons.menu,
+              color: Color(0xffdc2126),
+              size: 30.0,
+            ),
           ),
           Row(
             children: [

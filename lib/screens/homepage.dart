@@ -13,7 +13,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       ////  used customAppbar widget from widgets/appbar.dart  ////
-      appBar: customAppbar(),
+      appBar: customAppbar(context),
 
       ////  used bottomNavigationBar widget from widgets/bottomNavigation.dart  ////
       bottomNavigationBar: customBottomNavigationBar(),

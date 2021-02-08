@@ -11,7 +11,7 @@ class _DietVegState extends State<DietVeg> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppbar(),
+      appBar: customAppbar(context),
       bottomNavigationBar: customBottomNavigationBar(),
       body: SingleChildScrollView(
         child: Container(
