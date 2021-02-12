@@ -1,15 +1,15 @@
-import 'package:fitility/screens/diet_nonveg.dart';
+import 'package:fitility/screens/diet_veg.dart';
 import 'package:fitility/services/transition.dart';
 import 'package:fitility/widgets/appbar.dart';
 import 'package:fitility/widgets/bottomNavigation.dart';
 import 'package:flutter/material.dart';
 
-class DietVeg extends StatefulWidget {
+class DietNonVeg extends StatefulWidget {
   @override
-  _DietVegState createState() => _DietVegState();
+  _DietNonVegState createState() => _DietNonVegState();
 }
 
-class _DietVegState extends State<DietVeg> {
+class _DietNonVegState extends State<DietNonVeg> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,16 +25,16 @@ class _DietVegState extends State<DietVeg> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Categorycard(isVeg: true),
                   GestureDetector(
                     onTap: () {
                       Navigator.pushReplacement(
                         context,
-                        FadeRoute(page: DietNonVeg()),
+                        FadeRoute(page: DietVeg()),
                       );
                     },
-                    child: Categorycard(isVeg: false),
+                    child: Categorycard(isVeg: true),
                   ),
+                  Categorycard(isVeg: false),
                 ],
               ),
               SizedBox(height: 20.0),
@@ -61,9 +61,9 @@ class _DietVegState extends State<DietVeg> {
                     "High fibre cereals - Oats, 2 slices of multi grain bread, wheat flakes + high protein milk/curd + 1 fruit",
               ),
               CustomCard(
-                image: 'images/almond.png',
+                image: 'images/cucumber.png',
                 title: "Mid-morning \n(Within 3 hours of breakfast)",
-                text: "5 almonds",
+                text: "1 fruit or cucumber with peel",
               ),
               CustomCard(
                 image: 'images/lunch.png',
@@ -79,13 +79,13 @@ class _DietVegState extends State<DietVeg> {
               CustomCard(
                 image: 'images/Flat.png',
                 title: "Evening Snacks \n(3 hours post lunch)",
-                text: "1 cup of green tea + 1 bowl of sprouts",
+                text: "1 cup of green tea + 1 bowl of popcorn",
               ),
               CustomCard(
                 image: 'images/omelette.png',
                 title: "Dinner \n(2-3 hours post evening snacks)",
                 text:
-                    "1 bowl of soup / 2 bowls of salad \n+ 1 roti with 50g of grilled paneer \n+ bowl of vegetables",
+                    "1 bowl of soup / 2 bowls of salad \n+ 1 roti with 50g of grilled chicken \n+ bowl of vegetables",
               ),
               CustomCard(
                 image: 'images/papaya.png',
@@ -286,7 +286,7 @@ class Categorycard extends StatelessWidget {
       height: 46.0,
       width: 130.0,
       decoration: BoxDecoration(
-        color: isVeg ? Color(0xffdc2126) : Color(0xffeceff1),
+        color: isVeg ? Color(0xffeceff1) : Color(0xffdc2126),
         borderRadius: BorderRadius.circular(5.0),
         boxShadow: [
           BoxShadow(
@@ -300,7 +300,7 @@ class Categorycard extends StatelessWidget {
         child: Text(
           isVeg ? "Veg" : "Non-veg",
           style: TextStyle(
-            color: isVeg ? Colors.white : Color(0xff181818),
+            color: isVeg ? Color(0xff181818) : Colors.white,
             fontSize: 16.0,
             fontFamily: 'Rubik' 'Regular',
             fontWeight: FontWeight.w500,
