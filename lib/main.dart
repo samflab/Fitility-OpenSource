@@ -1,4 +1,5 @@
 import 'package:fitility/screens/dancepage.dart';
+import 'package:fitility/screens/diet_nonveg.dart';
 import 'package:fitility/screens/diet_veg.dart';
 import 'package:fitility/screens/homepage.dart';
 import 'package:fitility/screens/login.dart';
@@ -34,7 +35,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         'onboard': (context) => StartPage(),
         'home': (context) => HomePage(),
-        'notonboard': (context) => DancePage(),
+        'notonboard': (context) => DietNonVeg(),
       },
     );
   }
