@@ -1,3 +1,4 @@
+import 'package:fitility/services/messages.dart';
 import 'package:flutter/material.dart';
 import 'package:fitility/services/validation.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -158,7 +159,11 @@ class _ForgetpassState extends State<Forgetpass> {
                   child: SizedBox(
                     child: RaisedButton(
                       splashColor: Colors.red,
-                      onPressed: () {},
+                      onPressed: () {
+                        messageBoxDialog(
+                            "Password reset link has been sent to your email",
+                            context);
+                      },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       padding: EdgeInsets.all(0.0),

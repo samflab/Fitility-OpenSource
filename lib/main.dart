@@ -7,6 +7,7 @@ import 'package:fitility/screens/onboarding.dart';
 import 'package:fitility/screens/plans_zumba.dart';
 import 'package:fitility/screens/signup.dart';
 import 'package:fitility/screens/workout.dart';
+import 'package:fitility/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -35,7 +36,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         'onboard': (context) => StartPage(),
         'home': (context) => HomePage(),
-        'notonboard': (context) => DietNonVeg(),
+        'notonboard': (context) => Signin(),
       },
     );
   }
