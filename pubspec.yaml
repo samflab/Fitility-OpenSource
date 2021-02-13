@@ -20,6 +20,7 @@ dependencies:
   webview_flutter:
   auto_size_text:
   carousel_pro: ^1.0.0
+  fluttertoast: ^7.1.6
 
   
 

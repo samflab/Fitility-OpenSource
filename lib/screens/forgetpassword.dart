@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fitility/services/validation.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 class Forgetpass extends StatefulWidget {
@@ -158,7 +159,18 @@ class _ForgetpassState extends State<Forgetpass> {
                   child: SizedBox(
                     child: RaisedButton(
                       splashColor: Colors.red,
-                      onPressed: () {},
+                      onPressed: () {
+                        Fluttertoast.showToast(
+                          msg:
+                              "Password reset link has been sent to your email",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.red.shade800,
+                          textColor: Colors.white,
+                          fontSize: 17.0,
+                        );
+                      },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       padding: EdgeInsets.all(0.0),
