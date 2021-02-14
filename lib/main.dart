@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         'onboard': (context) => StartPage(),
         'home': (context) => HomePage(),
-        'notonboard': (context) => Signin(),
+        'notonboard': (context) => WorkoutScreen(),
       },
     );
   }
