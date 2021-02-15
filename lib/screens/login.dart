@@ -2,6 +2,7 @@ import 'package:fitility/screens/forgetpassword.dart';
 import 'package:fitility/screens/homepage.dart';
 import 'package:fitility/screens/signup.dart';
 import 'package:fitility/services/authentication.dart';
+import 'package:fitility/services/messages.dart';
 import 'package:fitility/services/transition.dart';
 import 'package:flutter/material.dart';
 import 'package:fitility/services/validation.dart';
@@ -230,11 +231,19 @@ class _SigninState extends State<Signin> {
                   child: SizedBox(
                     child: RaisedButton(
                       splashColor: Colors.red,
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState.validate()) {
-                          SignIn(emailController.text, passwordController.text)
-                              .whenComplete(() => Navigator.pushReplacement(
-                                  context, FadeRoute(page: HomePage())));
+                          bool result = await SignIn(emailController.text,
+                              passwordController.text, context);
+                          if (result) {
+                            await messageBoxDialog(
+                                "Login successful\nWelcome to Fitility",
+                                context);
+                            Navigator.pushReplacement(
+                              context,
+                              FadeRoute(page: HomePage()),
+                            );
+                          }
                         }
                       },
                       shape: RoundedRectangleBorder(
@@ -347,15 +356,18 @@ class _SigninState extends State<Signin> {
       padding: const EdgeInsets.only(left: 40.0, right: 40.0),
       child: RaisedButton(
         splashColor: Colors.grey,
-        onPressed: () {
-          googleSignIn().whenComplete(() {
+        onPressed: () async {
+          bool result = await googleSignIn();
+          if (result) {
+            await messageBoxDialog(
+                "Login successful\nWelcome to Fitility", context);
             Navigator.pushReplacement(
               context,
-              FadeRoute(
-                page: HomePage(),
-              ),
+              FadeRoute(page: HomePage()),
             );
-          });
+          } else {
+            messageBoxDialog("Login Failed . Try Again later !", context);
+          }
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),

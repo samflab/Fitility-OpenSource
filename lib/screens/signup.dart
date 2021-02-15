@@ -1,6 +1,7 @@
 import 'package:fitility/screens/homepage.dart';
 import 'package:fitility/screens/login.dart';
 import 'package:fitility/services/authentication.dart';
+import 'package:fitility/services/messages.dart';
 import 'package:fitility/services/transition.dart';
 import 'package:flutter/material.dart';
 import 'package:fitility/services/validation.dart';
@@ -431,11 +432,19 @@ class _SigninState extends State<Signup> {
                   child: SizedBox(
                     child: RaisedButton(
                       splashColor: Colors.red,
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState.validate()) {
-                          SignUp(emailController.text, passwordController.text)
-                              .whenComplete(() => Navigator.pushReplacement(
-                                  context, FadeRoute(page: HomePage())));
+                          bool result = await SignUp(emailController.text,
+                              passwordController.text, context);
+                          if (result) {
+                            await messageBoxDialog(
+                                "Sign Up successful\nWelcome to Fitility",
+                                context);
+                            Navigator.pushReplacement(
+                              context,
+                              FadeRoute(page: HomePage()),
+                            );
+                          }
                         }
                       },
                       shape: RoundedRectangleBorder(
@@ -541,7 +550,19 @@ class _SigninState extends State<Signup> {
       padding: const EdgeInsets.only(left: 40.0, right: 40.0),
       child: RaisedButton(
         splashColor: Colors.grey,
-        onPressed: () {},
+        onPressed: () async {
+          bool result = await googleSignIn();
+          if (result) {
+            await messageBoxDialog(
+                "Login successful\nWelcome to Fitility", context);
+            Navigator.pushReplacement(
+              context,
+              FadeRoute(page: HomePage()),
+            );
+          } else {
+            messageBoxDialog("Login Failed . Try Again later !", context);
+          }
+        },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: BorderSide(color: Colors.black),
