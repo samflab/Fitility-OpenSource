@@ -1,30 +1,38 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitility/services/messages.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 final gSignIn = GoogleSignIn();
 
 Future<bool> googleSignIn() async {
-  GoogleSignInAccount googleSignInAccount = await gSignIn.signIn();
+  try {
+    GoogleSignInAccount googleSignInAccount = await gSignIn.signIn();
 
-  if (googleSignInAccount != null) {
-    GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount.authentication;
+    if (googleSignInAccount != null) {
+      GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
 
-    AuthCredential credential = GoogleAuthProvider.getCredential(
-        idToken: googleSignInAuthentication.idToken,
-        accessToken: googleSignInAuthentication.accessToken);
+      AuthCredential credential = GoogleAuthProvider.getCredential(
+          idToken: googleSignInAuthentication.idToken,
+          accessToken: googleSignInAuthentication.accessToken);
 
-    AuthResult result = await auth.signInWithCredential(credential);
+      AuthResult result = await auth.signInWithCredential(credential);
 
-    FirebaseUser user = await auth.currentUser();
-    print("The user id is : " + user.uid);
+      FirebaseUser user = await auth.currentUser();
+      //print("The user id is : " + user.uid);
 
-    return Future.value(true);
+      return Future.value(true);
+    } else {
+      return Future.value(false);
+    }
+  } catch (e) {
+    return Future.value(false);
   }
 }
 
-Future<bool> SignUp(String email, String password) async {
+Future<bool> SignUp(String email, String password, BuildContext context) async {
   try {
     AuthResult result = await auth.createUserWithEmailAndPassword(
         email: email, password: password);
@@ -32,11 +40,18 @@ Future<bool> SignUp(String email, String password) async {
     //FirebaseUser user = result.user;
     return Future.value(true);
   } catch (e) {
-    print(e.toString());
+    String error = e
+        .toString()
+        .split(",")[0]
+        .split("(")[1]
+        .replaceAll("ERROR_", "")
+        .replaceAll("_", " ");
+    await messageBoxDialog(error, context);
+    return Future.value(false);
   }
 }
 
-Future<bool> SignIn(String email, String password) async {
+Future<bool> SignIn(String email, String password, BuildContext context) async {
   try {
     AuthResult result =
         await auth.signInWithEmailAndPassword(email: email, password: password);
@@ -44,6 +59,13 @@ Future<bool> SignIn(String email, String password) async {
     //FirebaseUser user = result.user;
     return Future.value(true);
   } catch (e) {
-    print(e.toString());
+    String error = e
+        .toString()
+        .split(",")[0]
+        .split("(")[1]
+        .replaceAll("ERROR_", "")
+        .replaceAll("_", " ");
+    await messageBoxDialog(error, context);
+    return Future.value(false);
   }
 }
