@@ -8,16 +8,19 @@ import 'package:fitility/screens/plans_zumba.dart';
 import 'package:fitility/screens/signup.dart';
 import 'package:fitility/screens/workout.dart';
 import 'package:fitility/services/authentication.dart';
+import 'package:fitility/services/sharedpref.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 int notFirstTime;
+String userIdkey;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences preferences = await SharedPreferences.getInstance();
   notFirstTime = preferences.getInt('notFirstTime');
   await preferences.setInt('notFirstTime', 1);
+  userIdkey = await SharedPrefHelper().getUserId();
   runApp(MyApp());
 }
 
@@ -35,8 +38,7 @@ class _MyAppState extends State<MyApp> {
           notFirstTime == 0 || notFirstTime == null ? 'onboard' : 'notonboard',
       routes: {
         'onboard': (context) => StartPage(),
-        'home': (context) => HomePage(),
-        'notonboard': (context) => Signin(),
+        'notonboard': (context) => userIdkey != null ? HomePage() : Signin(),
       },
     );
   }
