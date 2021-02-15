@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitility/services/messages.dart';
+import 'package:fitility/services/sharedpref.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -22,6 +23,7 @@ Future<bool> googleSignIn() async {
 
       FirebaseUser user = await auth.currentUser();
       //print("The user id is : " + user.uid);
+      SharedPrefHelper().saveUserId(user.uid);
 
       return Future.value(true);
     } else {
@@ -37,7 +39,8 @@ Future<bool> SignUp(String email, String password, BuildContext context) async {
     AuthResult result = await auth.createUserWithEmailAndPassword(
         email: email, password: password);
 
-    //FirebaseUser user = result.user;
+    FirebaseUser user = result.user;
+    SharedPrefHelper().saveUserId(user.uid);
     return Future.value(true);
   } catch (e) {
     String error = e
@@ -56,7 +59,8 @@ Future<bool> SignIn(String email, String password, BuildContext context) async {
     AuthResult result =
         await auth.signInWithEmailAndPassword(email: email, password: password);
 
-    //FirebaseUser user = result.user;
+    FirebaseUser user = result.user;
+    SharedPrefHelper().saveUserId(user.uid);
     return Future.value(true);
   } catch (e) {
     String error = e
