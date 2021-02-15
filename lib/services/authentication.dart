@@ -3,6 +3,7 @@ import 'package:fitility/services/messages.dart';
 import 'package:fitility/services/sharedpref.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 final gSignIn = GoogleSignIn();
@@ -72,4 +73,12 @@ Future<bool> SignIn(String email, String password, BuildContext context) async {
     await messageBoxDialog(error, context);
     return Future.value(false);
   }
+}
+
+Future signOut() async {
+  await gSignIn.signOut();
+  await auth.signOut();
+  final pref = await SharedPreferences.getInstance();
+  await pref.clear();
+  pref.setInt("notFirstTime", 1);
 }
