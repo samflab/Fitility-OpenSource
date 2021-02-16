@@ -1,3 +1,6 @@
+import 'package:fitility/screens/login.dart';
+import 'package:fitility/services/authentication.dart';
+import 'package:fitility/services/transition.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -465,20 +468,30 @@ class _SettingsPageState extends State<SettingsPage> {
               SizedBox(height: 10.0),
               Container(
                 alignment: Alignment.center,
-                child: Container(
-                  height: 50.0,
-                  width: 120.0,
-                  decoration: BoxDecoration(
-                    color: Color(0xffdc2126),
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Log Out",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontFamily: 'Rubik',
+                child: GestureDetector(
+                  onTap: () {
+                    signOut().whenComplete(() {
+                      Navigator.pushReplacement(
+                        context,
+                        FadeRoute(page: Signin()),
+                      );
+                    });
+                  },
+                  child: Container(
+                    height: 50.0,
+                    width: 120.0,
+                    decoration: BoxDecoration(
+                      color: Color(0xffdc2126),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Log Out",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontFamily: 'Rubik',
+                        ),
                       ),
                     ),
                   ),
