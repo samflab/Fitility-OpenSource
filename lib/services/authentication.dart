@@ -82,3 +82,19 @@ Future signOut() async {
   await pref.clear();
   pref.setInt("notFirstTime", 1);
 }
+
+Future<bool> passwordReset(String email, BuildContext context) async {
+  try {
+    await auth.sendPasswordResetEmail(email: email);
+    return Future.value(true);
+  } catch (e) {
+    String error = e
+        .toString()
+        .split(",")[0]
+        .split("(")[1]
+        .replaceAll("ERROR_", "")
+        .replaceAll("_", " ");
+    await messageBoxDialog(error, context);
+    return Future.value(false);
+  }
+}
