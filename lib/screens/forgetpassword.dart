@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fitility/services/validation.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:fitility/services/authentication.dart';
 
 class Forgetpass extends StatefulWidget {
   @override
@@ -159,17 +160,24 @@ class _ForgetpassState extends State<Forgetpass> {
                   child: SizedBox(
                     child: RaisedButton(
                       splashColor: Colors.red,
-                      onPressed: () {
-                        Fluttertoast.showToast(
-                          msg:
-                              "Password reset link has been sent to your email",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: Colors.red.shade800,
-                          textColor: Colors.white,
-                          fontSize: 17.0,
-                        );
+                      onPressed: () async {
+                        if (_formKey.currentState.validate()) {
+                          bool result = await passwordReset(
+                              emailController.text, context);
+                          emailController.text = "";
+                          if (result) {
+                            Fluttertoast.showToast(
+                              msg:
+                                  "Password reset link has been sent to your email",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red.shade800,
+                              textColor: Colors.white,
+                              fontSize: 17.0,
+                            );
+                          }
+                        }
                       },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
