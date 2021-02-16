@@ -1,3 +1,4 @@
+import 'package:fitility_admin/screen/adminpage.dart';
 import 'package:flutter/material.dart';
 
 class CreatePage extends StatefulWidget {
@@ -12,10 +13,18 @@ class _CreatePageState extends State<CreatePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xffffffff),
-        leading: Icon(
-          Icons.menu,
-          color: Color(0xffdc2126),
-          size: 35.0,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AdminPage()),
+            );
+          },
+          child: Icon(
+            Icons.menu,
+            color: Color(0xffdc2126),
+            size: 35.0,
+          ),
         ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,

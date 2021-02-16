@@ -1,3 +1,4 @@
+import 'package:fitility_admin/screen/adminpage.dart';
 import 'package:fitility_admin/screen/createpage.dart';
 import 'package:fitility_admin/screen/deletepage.dart';
 import 'package:fitility_admin/screen/login.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
     ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: CreatePage(),
     );
   }
 }
