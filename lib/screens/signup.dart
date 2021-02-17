@@ -434,7 +434,7 @@ class _SigninState extends State<Signup> {
                       splashColor: Colors.red,
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
-                          bool result = await SignUp(emailController.text,
+                          bool result = await signUp(emailController.text,
                               passwordController.text, context);
                           if (result) {
                             await messageBoxDialog(
