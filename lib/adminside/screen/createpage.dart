@@ -1,4 +1,4 @@
-import 'package:fitility_admin/screen/adminpage.dart';
+import 'package:fitility/adminside/screen/adminpage.dart';
 import 'package:flutter/material.dart';
 
 class CreatePage extends StatefulWidget {

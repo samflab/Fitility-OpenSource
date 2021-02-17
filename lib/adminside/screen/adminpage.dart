@@ -1,4 +1,7 @@
+import 'package:fitility/screens/login.dart';
+import 'package:fitility/services/transition.dart';
 import 'package:flutter/material.dart';
+import 'package:fitility/services/authentication.dart';
 
 class AdminPage extends StatefulWidget {
   @override
@@ -48,7 +51,14 @@ class _AdminPageState extends State<AdminPage> {
             ),
             SizedBox(height: 100.0),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                signOut().whenComplete(() {
+                  Navigator.pushReplacement(
+                    context,
+                    FadeRoute(page: Signin()),
+                  );
+                });
+              },
               child: Container(
                 height: 50.0,
                 width: 140.0,

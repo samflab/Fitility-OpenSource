@@ -1,4 +1,4 @@
-import 'package:fitility_admin/screen/createpage.dart';
+import 'package:fitility/adminside/screen/createpage.dart';
 import 'package:flutter/material.dart';
 
 class DeletePage extends StatefulWidget {

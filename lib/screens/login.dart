@@ -1,3 +1,4 @@
+import 'package:fitility/adminside/screen/createpage.dart';
 import 'package:fitility/screens/forgetpassword.dart';
 import 'package:fitility/screens/homepage.dart';
 import 'package:fitility/screens/signup.dart';
@@ -233,15 +234,24 @@ class _SigninState extends State<Signin> {
                       splashColor: Colors.red,
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
-                          bool result = await SignIn(emailController.text,
+                          String role = await signIn(emailController.text,
                               passwordController.text, context);
-                          if (result) {
+                          if (role == "user") {
                             await messageBoxDialog(
                                 "Login successful\nWelcome to Fitility",
                                 context);
+                            //print("Logged in as normal user");
                             Navigator.pushReplacement(
                               context,
                               FadeRoute(page: HomePage()),
+                            );
+                          } else if (role == "admin") {
+                            await messageBoxDialog(
+                                "Login successful , Welcome Admin", context);
+                            //print("Logged in as an admin !");
+                            Navigator.pushReplacement(
+                              context,
+                              FadeRoute(page: CreatePage()),
                             );
                           }
                         }

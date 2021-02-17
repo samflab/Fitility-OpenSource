@@ -4,8 +4,10 @@ import 'package:fitility/services/sharedpref.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
+Firestore _db = Firestore.instance;
 final gSignIn = GoogleSignIn();
 
 Future<bool> googleSignIn() async {
@@ -23,6 +25,7 @@ Future<bool> googleSignIn() async {
       AuthResult result = await auth.signInWithCredential(credential);
 
       FirebaseUser user = await auth.currentUser();
+      await saveUsertoDb(user);
       //print("The user id is : " + user.uid);
       SharedPrefHelper().saveUserId(user.uid);
 
@@ -41,7 +44,8 @@ Future<bool> SignUp(String email, String password, BuildContext context) async {
         email: email, password: password);
 
     FirebaseUser user = result.user;
-    SharedPrefHelper().saveUserId(user.uid);
+    await saveUsertoDb(user);
+    await SharedPrefHelper().saveUserId(user.uid);
     return Future.value(true);
   } catch (e) {
     String error = e
@@ -55,14 +59,24 @@ Future<bool> SignUp(String email, String password, BuildContext context) async {
   }
 }
 
-Future<bool> SignIn(String email, String password, BuildContext context) async {
+Future<String> signIn(
+    String email, String password, BuildContext context) async {
   try {
     AuthResult result =
         await auth.signInWithEmailAndPassword(email: email, password: password);
-
     FirebaseUser user = result.user;
-    SharedPrefHelper().saveUserId(user.uid);
-    return Future.value(true);
+    await SharedPrefHelper().saveUserId(user.uid);
+    String role = "user";
+    await Firestore.instance
+        .collection("users")
+        .document(user.uid)
+        .get()
+        .then((value) {
+      if (value.data["role"].toString() != "user") {
+        role = "admin";
+      }
+    });
+    return role;
   } catch (e) {
     String error = e
         .toString()
@@ -71,7 +85,7 @@ Future<bool> SignIn(String email, String password, BuildContext context) async {
         .replaceAll("ERROR_", "")
         .replaceAll("_", " ");
     await messageBoxDialog(error, context);
-    return Future.value(false);
+    return "fail";
   }
 }
 
@@ -96,5 +110,16 @@ Future<bool> passwordReset(String email, BuildContext context) async {
         .replaceAll("_", " ");
     await messageBoxDialog(error, context);
     return Future.value(false);
+  }
+}
+
+Future<void> saveUsertoDb(FirebaseUser user) async {
+  Map<String, dynamic> userdataMap = {
+    "userEmail": user.email,
+    "role": "user",
+  };
+  final userRef = _db.collection("users").document(user.uid);
+  if (!(await userRef.get()).exists) {
+    await userRef.setData(userdataMap);
   }
 }
