@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
       appBar: customAppbar(context),
 
       ////  used bottomNavigationBar widget from widgets/bottomNavigation.dart  ////
-      bottomNavigationBar: customBottomNavigationBar(),
+      bottomNavigationBar: customBottomNavigationBar(context),
 
       body: SingleChildScrollView(
         child: Container(
