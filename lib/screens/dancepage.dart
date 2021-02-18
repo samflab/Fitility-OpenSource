@@ -12,7 +12,7 @@ class _DancePageState extends State<DancePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppbar(context),
-      bottomNavigationBar: customBottomNavigationBar(),
+      bottomNavigationBar: customBottomNavigationBar(context),
       body: Container(
         color: Color(0xffeceff1),
         child: Column(

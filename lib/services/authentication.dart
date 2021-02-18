@@ -22,7 +22,7 @@ Future<bool> googleSignIn() async {
           idToken: googleSignInAuthentication.idToken,
           accessToken: googleSignInAuthentication.accessToken);
 
-      AuthResult result = await auth.signInWithCredential(credential);
+      await auth.signInWithCredential(credential);
 
       FirebaseUser user = await auth.currentUser();
       await saveUsertoDb(user);
