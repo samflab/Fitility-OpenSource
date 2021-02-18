@@ -25,9 +25,19 @@ Future<bool> googleSignIn() async {
       await auth.signInWithCredential(credential);
 
       FirebaseUser user = await auth.currentUser();
-      await saveUsertoDb(user);
+      await saveUsertoDb(
+        firstName: user.displayName.split(" ")[0],
+        lastname: user.displayName.split(" ")[1],
+        phone: user.phoneNumber,
+        user: user,
+      );
       //print("The user id is : " + user.uid);
       await SharedPrefHelper().saveUserId(user.uid);
+      await SharedPrefHelper()
+          .saveUserFirstname(user.displayName.split(" ")[0]);
+      await SharedPrefHelper().saveUserLastName(user.displayName.split(" ")[1]);
+      await SharedPrefHelper().saveUserEmail(user.email);
+      await SharedPrefHelper().saveUserphone(user.phoneNumber);
       await SharedPrefHelper().saveUserRole("user");
 
       return Future.value(true);
@@ -39,14 +49,30 @@ Future<bool> googleSignIn() async {
   }
 }
 
-Future<bool> signUp(String email, String password, BuildContext context) async {
+Future<bool> signUp({
+  String firstName,
+  String lastName,
+  String email,
+  String phone,
+  String password,
+  BuildContext context,
+}) async {
   try {
     AuthResult result = await auth.createUserWithEmailAndPassword(
         email: email, password: password);
 
     FirebaseUser user = result.user;
-    await saveUsertoDb(user);
+    await saveUsertoDb(
+      firstName: firstName,
+      lastname: lastName,
+      phone: phone,
+      user: user,
+    );
     await SharedPrefHelper().saveUserId(user.uid);
+    await SharedPrefHelper().saveUserFirstname(firstName);
+    await SharedPrefHelper().saveUserLastName(lastName);
+    await SharedPrefHelper().saveUserEmail(email);
+    await SharedPrefHelper().saveUserphone(phone);
     await SharedPrefHelper().saveUserRole("user");
     return Future.value(true);
   } catch (e) {
@@ -67,17 +93,27 @@ Future<String> signIn(
     AuthResult result =
         await auth.signInWithEmailAndPassword(email: email, password: password);
     FirebaseUser user = result.user;
-    await SharedPrefHelper().saveUserId(user.uid);
     String role = "user";
+    String userFirstname = "";
+    String userLastname = "";
+    String userPhone = "";
     await Firestore.instance
         .collection("users")
         .document(user.uid)
         .get()
         .then((value) async {
+      userFirstname = value.data["userFirstName"].toString();
+      userLastname = value.data["userLastName"].toString();
+      userPhone = value.data["userPhone"].toString();
       if (value.data["role"].toString() != "user") {
         role = "admin";
       }
     });
+    await SharedPrefHelper().saveUserId(user.uid);
+    await SharedPrefHelper().saveUserFirstname(userFirstname);
+    await SharedPrefHelper().saveUserLastName(userLastname);
+    await SharedPrefHelper().saveUserEmail(email);
+    await SharedPrefHelper().saveUserphone(userPhone);
     await SharedPrefHelper().saveUserRole(role);
     return role;
   } catch (e) {
@@ -116,9 +152,17 @@ Future<bool> passwordReset(String email, BuildContext context) async {
   }
 }
 
-Future<void> saveUsertoDb(FirebaseUser user) async {
+Future<void> saveUsertoDb({
+  String firstName,
+  String lastname,
+  String phone,
+  FirebaseUser user,
+}) async {
   Map<String, dynamic> userdataMap = {
+    "userFirstName": firstName,
+    "userLastName": lastname,
     "userEmail": user.email,
+    "userPhone": phone,
     "role": "user",
   };
   final userRef = _db.collection("users").document(user.uid);

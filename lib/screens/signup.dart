@@ -434,8 +434,13 @@ class _SigninState extends State<Signup> {
                       splashColor: Colors.red,
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
-                          bool result = await signUp(emailController.text,
-                              passwordController.text, context);
+                          bool result = await signUp(
+                            firstName: firstNameController.text,
+                            lastName: lastNameController.text,
+                            email: emailController.text,
+                            phone: phoneController.text,
+                            password: passwordController.text,
+                          );
                           if (result) {
                             await messageBoxDialog(
                                 "Sign Up successful\nWelcome to Fitility",
