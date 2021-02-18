@@ -1,3 +1,4 @@
+import 'package:fitility/adminside/screen/createpage.dart';
 import 'package:fitility/screens/dancepage.dart';
 import 'package:fitility/screens/diet_nonveg.dart';
 import 'package:fitility/screens/diet_veg.dart';
@@ -14,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 int notFirstTime;
 String userIdkey;
+String userRole;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +23,7 @@ Future<void> main() async {
   notFirstTime = preferences.getInt('notFirstTime');
   await preferences.setInt('notFirstTime', 1);
   userIdkey = await SharedPrefHelper().getUserId();
+  userRole = await SharedPrefHelper().getUserRole();
   runApp(MyApp());
 }
 
@@ -38,7 +41,13 @@ class _MyAppState extends State<MyApp> {
           notFirstTime == 0 || notFirstTime == null ? 'onboard' : 'notonboard',
       routes: {
         'onboard': (context) => StartPage(),
-        'notonboard': (context) => userIdkey != null ? HomePage() : Signin(),
+        'notonboard': (context) {
+          if (userIdkey != null) {
+            return (userRole == "user") ? HomePage() : CreatePage();
+          } else {
+            return Signin();
+          }
+        },
       },
     );
   }
