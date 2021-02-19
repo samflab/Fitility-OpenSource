@@ -81,7 +81,9 @@ class _SettingsPageState extends State<SettingsPage> {
                             Row(
                               children: <Widget>[
                                 InitialNameAvatar(
-                                  userFullName,
+                                  (userLastName != "")
+                                      ? userFullName
+                                      : userFirstName,
                                   circleAvatar: true,
                                   backgroundColor: Colors.white,
                                   foregroundColor: Colors.red.shade700,
@@ -195,29 +197,67 @@ class _SettingsPageState extends State<SettingsPage> {
                                           onTap: () {
                                             setState(() {
                                               if (isNameEditing &&
-                                                  nameController.text.trim() !=
-                                                      userFullName) {
+                                                  (nameController.text.trim() !=
+                                                      userFullName) &&
+                                                  ((' '
+                                                          .allMatches(
+                                                              nameController
+                                                                  .text
+                                                                  .trim())
+                                                          .length) <
+                                                      2)) {
                                                 updateUserName(
                                                   userId,
                                                   nameController.text.trim(),
                                                 ).whenComplete(
                                                   () async {
-                                                    userFullName =
-                                                        nameController.text
-                                                            .toString()
-                                                            .trim();
-                                                    await SharedPrefHelper()
-                                                        .saveUserFirstname(
-                                                            nameController.text
-                                                                .toString()
-                                                                .trim()
-                                                                .split(" ")[0]);
-                                                    await SharedPrefHelper()
-                                                        .saveUserLastName(
-                                                            nameController.text
-                                                                .toString()
-                                                                .trim()
-                                                                .split(" ")[1]);
+                                                    if (nameController.text
+                                                            .trim()
+                                                            .indexOf(" ") >=
+                                                        0) {
+                                                      userFullName =
+                                                          nameController.text
+                                                              .toString()
+                                                              .trim();
+                                                      await SharedPrefHelper()
+                                                          .saveUserFirstname(
+                                                              nameController
+                                                                  .text
+                                                                  .toString()
+                                                                  .trim()
+                                                                  .split(
+                                                                      " ")[0]);
+                                                      await SharedPrefHelper()
+                                                          .saveUserLastName(
+                                                              nameController
+                                                                  .text
+                                                                  .toString()
+                                                                  .trim()
+                                                                  .split(
+                                                                      " ")[1]);
+                                                    } else if (((' '
+                                                            .allMatches(
+                                                                nameController
+                                                                    .text
+                                                                    .trim())
+                                                            .length) <
+                                                        2)) {
+                                                      userFirstName =
+                                                          nameController.text
+                                                              .trim();
+                                                      userLastName = "";
+                                                      userFullName =
+                                                          userFirstName +
+                                                              userLastName;
+                                                      await SharedPrefHelper()
+                                                          .saveUserFirstname(
+                                                              nameController
+                                                                  .text
+                                                                  .toString()
+                                                                  .trim());
+                                                      await SharedPrefHelper()
+                                                          .saveUserLastName("");
+                                                    }
                                                   },
                                                 );
                                               }

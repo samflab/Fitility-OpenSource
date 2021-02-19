@@ -177,8 +177,13 @@ Future<void> saveUsertoDb({
 
 Future<void> updateUserName(String userId, String userFullname) async {
   String firstname, lastname;
-  firstname = userFullname.toString().split(" ")[0];
-  lastname = userFullname.toString().split(" ")[1];
+  if (userFullname.indexOf(" ") >= 0) {
+    firstname = userFullname.toString().split(" ")[0];
+    lastname = userFullname.toString().split(" ")[1];
+  } else {
+    firstname = userFullname;
+    lastname = "";
+  }
   try {
     Firestore.instance.collection("users").document(userId).updateData({
       "userFirstName": firstname,
