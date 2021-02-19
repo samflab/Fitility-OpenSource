@@ -21,6 +21,7 @@ dependencies:
   auto_size_text:
   carousel_pro: ^1.0.0
   fluttertoast: ^7.1.6
+  auro_avatar:
 
   
 

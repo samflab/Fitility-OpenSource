@@ -308,7 +308,7 @@ class CategoryTile extends StatelessWidget {
       width: MediaQuery.of(context).size.width / 4,
       margin: EdgeInsets.only(left: 5.0, right: 5.0, bottom: 10.0),
       decoration: BoxDecoration(
-        color: isActive ? Color(0xffdc2126) : Colors.white,
+        color: isActive ? Color(0xffdc2126) : Color(0xffeceff1),
         borderRadius: BorderRadius.circular(5.0),
         boxShadow: [
           BoxShadow(

@@ -2,6 +2,7 @@ import 'package:fitility/screens/login.dart';
 import 'package:fitility/services/authentication.dart';
 import 'package:fitility/services/transition.dart';
 import 'package:flutter/material.dart';
+import 'package:auro_avatar/auro_avatar.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -27,46 +28,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xffdc2126),
-        toolbarHeight: 100.0,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: Row(
-                children: [
-                  Container(
-                    height: 60.0,
-                    width: 60.0,
-                    decoration: BoxDecoration(
-                      color: Color(0xfff8fafa),
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "JD",
-                        style: TextStyle(
-                          color: Color(0xffdc2126),
-                          fontSize: 25.0,
-                          fontFamily: 'Rubik',
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 10.0),
-                  Text(
-                    "John Doe",
-                    style: TextStyle(
-                      color: Color(0xfff8fafa),
-                      fontSize: 25.0,
-                      fontFamily: 'Rubik',
-                    ),
-                  ),
-                  SizedBox(width: 20.0),
-                ],
-              ),
-            ),
-          ],
-        ),
+        elevation: 0.0,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -85,6 +47,46 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           child: Column(
             children: [
+              Container(
+                color: Color(0xffdc2126),
+                height: 100.0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 30.0),
+                      child: Center(
+                        child: Row(
+                          children: [
+                            Row(
+                              children: <Widget>[
+                                new InitialNameAvatar(
+                                  "John Dowe",
+                                  circleAvatar: true,
+                                  backgroundColor: Colors.white,
+                                  foregroundColor: Colors.red.shade700,
+                                  padding: 35.0,
+                                  textSize: 25.0,
+                                ),
+                                SizedBox(width: 10.0),
+                                Text(
+                                  "John Doe",
+                                  style: TextStyle(
+                                    color: Color(0xfff8fafa),
+                                    fontSize: 25.0,
+                                    fontFamily: 'Rubik',
+                                  ),
+                                ),
+                                SizedBox(width: 20.0),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
               SizedBox(height: 15.0),
               GestureDetector(
                 onTap: () {
@@ -94,7 +96,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   });
                 },
                 child: Container(
-                  color: Color(0xffffffff),
+                  color: Color(0xfff8fafa),
                   margin: EdgeInsets.symmetric(horizontal: 25.0),
                   padding: EdgeInsets.symmetric(vertical: 10.0),
                   child: Row(
@@ -482,7 +484,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     width: 120.0,
                     decoration: BoxDecoration(
                       color: Color(0xffdc2126),
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Center(
                       child: Text(
@@ -502,8 +504,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 alignment: Alignment.bottomRight,
                 child: Image.asset(
                   'images/dumble.png',
-                  height: 330.0,
-                  width: 330.0,
+                  height: 380.0,
                 ),
               ),
             ],

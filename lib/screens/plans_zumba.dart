@@ -203,7 +203,7 @@ class _PlansZumbaState extends State<PlansZumba> {
                 padding: EdgeInsets.all(10.0),
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  color: Color(0xffceeff1).withOpacity(0.7),
+                  color: Color(0xFFECEFF1).withOpacity(0.7),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: Column(
@@ -238,7 +238,7 @@ class _PlansZumbaState extends State<PlansZumba> {
                 padding: EdgeInsets.all(10.0),
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  color: Color(0xffceeff1).withOpacity(0.7),
+                  color: Color(0xFFECEFF1).withOpacity(0.7),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: Column(
@@ -273,7 +273,7 @@ class _PlansZumbaState extends State<PlansZumba> {
                 padding: EdgeInsets.all(10.0),
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  color: Color(0xffceeff1).withOpacity(0.7),
+                  color: Color(0xFFECEFF1).withOpacity(0.7),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: Column(
@@ -312,7 +312,7 @@ class _PlansZumbaState extends State<PlansZumba> {
                 padding: EdgeInsets.all(10.0),
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  color: Color(0xffceeff1).withOpacity(0.7),
+                  color: Color(0xFFECEFF1).withOpacity(0.7),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: Column(
@@ -351,7 +351,7 @@ class _PlansZumbaState extends State<PlansZumba> {
                 padding: EdgeInsets.all(10.0),
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  color: Color(0xffceeff1).withOpacity(0.7),
+                  color: Color(0xFFECEFF1).withOpacity(0.7),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: Column(
