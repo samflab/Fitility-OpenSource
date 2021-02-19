@@ -14,7 +14,7 @@ class _DietNonVegState extends State<DietNonVeg> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppbar(context),
-      bottomNavigationBar: customBottomNavigationBar(),
+      bottomNavigationBar: customBottomNavigationBar(context),
       body: SingleChildScrollView(
         child: Container(
           color: Colors.white,

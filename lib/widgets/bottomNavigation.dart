@@ -1,6 +1,12 @@
+import 'package:fitility/screens/dancepage.dart';
+import 'package:fitility/screens/diet_veg.dart';
+import 'package:fitility/screens/homepage.dart';
+import 'package:fitility/screens/plans_zumba.dart';
+import 'package:fitility/screens/workout.dart';
+import 'package:fitility/services/transition.dart';
 import 'package:flutter/material.dart';
 
-Widget customBottomNavigationBar() {
+Widget customBottomNavigationBar(BuildContext context) {
   return Container(
     height: 60.0,
     color: Colors.white,
@@ -16,25 +22,65 @@ Widget customBottomNavigationBar() {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            MenuIconCard(
-              image: 'images/home.png',
-              name: "Home",
+            GestureDetector(
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  FadeRoute(page: HomePage()),
+                );
+              },
+              child: MenuIconCard(
+                image: 'images/home.png',
+                name: "Home",
+              ),
             ),
-            MenuIconCard(
-              image: 'images/workout.png',
-              name: "Workout",
+            GestureDetector(
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  FadeRoute(page: WorkoutScreen()),
+                );
+              },
+              child: MenuIconCard(
+                image: 'images/workout.png',
+                name: "Workout",
+              ),
             ),
-            MenuIconCard(
-              image: 'images/dance.png',
-              name: "Dance",
+            GestureDetector(
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  FadeRoute(page: DancePage()),
+                );
+              },
+              child: MenuIconCard(
+                image: 'images/dance.png',
+                name: "Dance",
+              ),
             ),
-            MenuIconCard(
-              image: 'images/diet.png',
-              name: "Diet",
+            GestureDetector(
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  FadeRoute(page: DietVeg()),
+                );
+              },
+              child: MenuIconCard(
+                image: 'images/diet.png',
+                name: "Diet",
+              ),
             ),
-            MenuIconCard(
-              image: 'images/plans.png',
-              name: "Plans",
+            GestureDetector(
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  FadeRoute(page: PlansZumba()),
+                );
+              },
+              child: MenuIconCard(
+                image: 'images/plans.png',
+                name: "Plans",
+              ),
             ),
           ],
         ),
@@ -51,6 +97,7 @@ class MenuIconCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       width: 70.0,
       child: Center(
         child: Column(

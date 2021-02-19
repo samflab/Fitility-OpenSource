@@ -1,3 +1,6 @@
+import 'package:fitility/adminside/screen/createpage.dart';
+import 'package:fitility/adminside/screen/deletepage.dart';
+import 'package:fitility/services/transition.dart';
 import 'package:flutter/material.dart';
 
 class ModifyPage extends StatefulWidget {
@@ -52,17 +55,33 @@ class _ModifyPageState extends State<ModifyPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  CategoryTile(
-                    categoryname: "Create",
-                    isModify: false,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        FadeRoute(page: CreatePage()),
+                      );
+                    },
+                    child: CategoryTile(
+                      categoryname: "Create",
+                      isModify: false,
+                    ),
                   ),
                   CategoryTile(
                     categoryname: "Modify",
                     isModify: true,
                   ),
-                  CategoryTile(
-                    categoryname: "Delete",
-                    isModify: false,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        FadeRoute(page: DeletePage()),
+                      );
+                    },
+                    child: CategoryTile(
+                      categoryname: "Delete",
+                      isModify: false,
+                    ),
                   ),
                 ],
               ),

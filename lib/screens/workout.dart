@@ -19,7 +19,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppbar(context),
-      bottomNavigationBar: customBottomNavigationBar(),
+      bottomNavigationBar: customBottomNavigationBar(context),
       body: SingleChildScrollView(
         child: Container(
           constraints:

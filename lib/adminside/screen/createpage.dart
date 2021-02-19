@@ -1,4 +1,7 @@
 import 'package:fitility/adminside/screen/adminpage.dart';
+import 'package:fitility/adminside/screen/deletepage.dart';
+import 'package:fitility/adminside/screen/modifypage.dart';
+import 'package:fitility/services/transition.dart';
 import 'package:flutter/material.dart';
 
 class CreatePage extends StatefulWidget {
@@ -64,13 +67,29 @@ class _CreatePageState extends State<CreatePage> {
                     categoryname: "Create",
                     isCreate: true,
                   ),
-                  CategoryTile(
-                    categoryname: "Modify",
-                    isCreate: false,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        FadeRoute(page: ModifyPage()),
+                      );
+                    },
+                    child: CategoryTile(
+                      categoryname: "Modify",
+                      isCreate: false,
+                    ),
                   ),
-                  CategoryTile(
-                    categoryname: "Delete",
-                    isCreate: false,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        FadeRoute(page: DeletePage()),
+                      );
+                    },
+                    child: CategoryTile(
+                      categoryname: "Delete",
+                      isCreate: false,
+                    ),
                   ),
                 ],
               ),

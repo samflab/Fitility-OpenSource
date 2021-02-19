@@ -1,4 +1,6 @@
 import 'package:fitility/adminside/screen/createpage.dart';
+import 'package:fitility/adminside/screen/modifypage.dart';
+import 'package:fitility/services/transition.dart';
 import 'package:flutter/material.dart';
 
 class DeletePage extends StatefulWidget {
@@ -52,13 +54,27 @@ class _DeletePageState extends State<DeletePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  CategoryTile(
-                    categoryname: "Create",
-                    isDelete: false,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        FadeRoute(page: CreatePage()),
+                      );
+                    },
+                    child: CategoryTile(
+                      categoryname: "Create",
+                      isDelete: false,
+                    ),
                   ),
-                  CategoryTile(
-                    categoryname: "Modify",
-                    isDelete: false,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacement(
+                          context, FadeRoute(page: ModifyPage()));
+                    },
+                    child: CategoryTile(
+                      categoryname: "Modify",
+                      isDelete: false,
+                    ),
                   ),
                   CategoryTile(
                     categoryname: "Delete",
@@ -341,6 +357,38 @@ class CategoryTile extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class MainTitleText extends StatelessWidget {
+  final String text;
+  MainTitleText({this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          width: 20.0,
+          alignment: Alignment.centerLeft,
+          child: Image.asset(
+            'images/bullet.png',
+            height: 6.0,
+            width: 15.0,
+          ),
+        ),
+        SizedBox(width: 5.0),
+        Text(
+          text,
+          style: TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Rubik Medium' 'Regular',
+            color: Color(0xff181818),
+          ),
+        ),
+      ],
     );
   }
 }
