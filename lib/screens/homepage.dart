@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
                 child: SizedBox(
                   height: 180.0,
                   child: Carousel(
-                    boxFit: BoxFit.cover,
+                    boxFit: BoxFit.fill,
                     autoplay: true,
                     animationCurve: Curves.fastOutSlowIn,
                     animationDuration: Duration(milliseconds: 1000),
@@ -55,11 +55,7 @@ class _HomePageState extends State<HomePage> {
                     showIndicator: true,
                     indicatorBgPadding: 10.0,
                     images: [
-                      Image.asset(
-                        'images/box.png',
-                        height: 220.0,
-                        width: 400.0,
-                      ),
+                      Image.asset('images/box.png'),
                       Image.asset('images/pic1.png'),
                       Image.asset('images/pic2.png'),
                       Image.asset('images/pic3.png'),
