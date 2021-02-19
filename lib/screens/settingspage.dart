@@ -4,16 +4,15 @@ import 'package:fitility/services/sharedpref.dart';
 import 'package:fitility/services/transition.dart';
 import 'package:flutter/material.dart';
 import 'package:auro_avatar/auro_avatar.dart';
-
 class SettingsPage extends StatefulWidget {
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
-
 class _SettingsPageState extends State<SettingsPage> {
   bool isAccountActive = false, isSupportActive = false;
   bool isNameEditing = false, isPhoneEditing = false;
-  String userFirstName,
+  String userId,
+      userFirstName,
       userLastName,
       userFullName = "user",
       userEmail,
@@ -21,8 +20,8 @@ class _SettingsPageState extends State<SettingsPage> {
   TextEditingController nameController = new TextEditingController();
   TextEditingController emailController = new TextEditingController();
   TextEditingController phoneController = new TextEditingController();
-
   onloadPage() async {
+    userId = await SharedPrefHelper().getUserId();
     userFirstName = await SharedPrefHelper().getUserFirstName();
     userLastName = await SharedPrefHelper().getUserLastname();
     userFullName = userFirstName + " " + userLastName;
@@ -34,13 +33,11 @@ class _SettingsPageState extends State<SettingsPage> {
       phoneController.text = (userPhone != null) ? userPhone : "Not Available";
     });
   }
-
   @override
   void initState() {
     onloadPage();
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,8 +75,9 @@ class _SettingsPageState extends State<SettingsPage> {
                           children: [
                             Row(
                               children: <Widget>[
-                                InitialNameAvatar(
-                                  userFullName,
+                                InitialNameAvatar( (userLastName != "")
+                                      ? userFullName
+                                      : userFirstName,
                                   circleAvatar: true,
                                   backgroundColor: Colors.white,
                                   foregroundColor: Colors.red.shade700,
@@ -192,6 +190,69 @@ class _SettingsPageState extends State<SettingsPage> {
                                         GestureDetector(
                                           onTap: () {
                                             setState(() {
+                                              if (isNameEditing && (nameController.text.trim() !=
+                                                      userFullName) &&
+                                                  ((' '
+                                                          .allMatches(
+                                                              nameController
+                                                                  .text
+                                                                  .trim())
+                                                          .length) <
+                                                      2)) {
+                                                updateUserName(
+                                                  userId,
+                                                  nameController.text.trim(),
+                                                ).whenComplete(
+                                                  () async {if (nameController.text
+                                                            .trim()
+                                                            .indexOf(" ") >=
+                                                        0) {
+                                                      userFullName =
+                                                          nameController.text
+                                                              .toString()
+                                                              .trim();
+                                                      await SharedPrefHelper()
+                                                          .saveUserFirstname(
+                                                              nameController
+                                                                  .text
+                                                                  .toString()
+                                                                  .trim()
+                                                                  .split(
+                                                                      " ")[0]);
+                                                      await SharedPrefHelper()
+                                                          .saveUserLastName(
+                                                              nameController
+                                                                  .text
+                                                                  .toString()
+                                                                  .trim()
+                                                                  .split(
+                                                                      " ")[1]);
+                                                    } else if (((' '
+                                                            .allMatches(
+                                                                nameController
+                                                                    .text
+                                                                    .trim())
+                                                            .length) <
+                                                        2)) {
+                                                      userFirstName =
+                                                          nameController.text
+                                                              .trim();
+                                                      userLastName = "";
+                                                      userFullName =
+                                                          userFirstName +
+                                                              userLastName;
+                                                      await SharedPrefHelper()
+                                                          .saveUserFirstname(
+                                                              nameController
+                                                                  .text
+                                                                  .toString()
+                                                                  .trim());
+                                                      await SharedPrefHelper()
+                                                          .saveUserLastName("");
+                                                    }
+                                                  },
+                                                );
+                                              }
                                               isNameEditing = !isNameEditing;
                                             });
                                           },
@@ -314,6 +375,27 @@ class _SettingsPageState extends State<SettingsPage> {
                                         GestureDetector(
                                           onTap: () {
                                             setState(() {
+                                              if (isPhoneEditing &&
+                                                  userPhone !=
+                                                      phoneController.text
+                                                          .trim()) {
+                                                updateUserPhone(
+                                                        userId,
+                                                        phoneController.text
+                                                            .trim())
+                                                    .whenComplete(
+                                                  () async {
+                                                    userPhone = phoneController
+                                                        .text
+                                                        .trim();
+                                                    SharedPrefHelper()
+                                                        .saveUserphone(
+                                                      phoneController.text
+                                                          .trim(),
+                                                    );
+                                                  },
+                                                );
+                                              }
                                               isPhoneEditing = !isPhoneEditing;
                                             });
                                           },

@@ -174,3 +174,32 @@ Future<void> saveUsertoDb({
     await userRef.setData(userdataMap);
   }
 }
+
+Future<void> updateUserName(String userId, String userFullname) async {
+  String firstname, lastname;
+  if (userFullname.indexOf(" ") >= 0) {
+    firstname = userFullname.toString().split(" ")[0];
+    lastname = userFullname.toString().split(" ")[1];
+  } else {
+    firstname = userFullname;
+    lastname = "";
+  }
+  try {
+    Firestore.instance.collection("users").document(userId).updateData({
+      "userFirstName": firstname,
+      "userLastName": lastname,
+    });
+  } catch (e) {
+    print(e.toString());
+  }
+}
+
+Future<void> updateUserPhone(String userId, String userPhone) async {
+  try {
+    Firestore.instance.collection("users").document(userId).updateData({
+      "userPhone": userPhone,
+    });
+  } catch (e) {
+    print(e.toString());
+  }
+}
