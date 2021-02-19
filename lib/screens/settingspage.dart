@@ -13,7 +13,8 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   bool isAccountActive = false, isSupportActive = false;
   bool isNameEditing = false, isPhoneEditing = false;
-  String userFirstName,
+  String userId,
+      userFirstName,
       userLastName,
       userFullName = "user",
       userEmail,
@@ -23,6 +24,7 @@ class _SettingsPageState extends State<SettingsPage> {
   TextEditingController phoneController = new TextEditingController();
 
   onloadPage() async {
+    userId = await SharedPrefHelper().getUserId();
     userFirstName = await SharedPrefHelper().getUserFirstName();
     userLastName = await SharedPrefHelper().getUserLastname();
     userFullName = userFirstName + " " + userLastName;
@@ -192,6 +194,33 @@ class _SettingsPageState extends State<SettingsPage> {
                                         GestureDetector(
                                           onTap: () {
                                             setState(() {
+                                              if (isNameEditing &&
+                                                  nameController.text.trim() !=
+                                                      userFullName) {
+                                                updateUserName(
+                                                  userId,
+                                                  nameController.text.trim(),
+                                                ).whenComplete(
+                                                  () async {
+                                                    userFullName =
+                                                        nameController.text
+                                                            .toString()
+                                                            .trim();
+                                                    await SharedPrefHelper()
+                                                        .saveUserFirstname(
+                                                            nameController.text
+                                                                .toString()
+                                                                .trim()
+                                                                .split(" ")[0]);
+                                                    await SharedPrefHelper()
+                                                        .saveUserLastName(
+                                                            nameController.text
+                                                                .toString()
+                                                                .trim()
+                                                                .split(" ")[1]);
+                                                  },
+                                                );
+                                              }
                                               isNameEditing = !isNameEditing;
                                             });
                                           },
@@ -314,6 +343,27 @@ class _SettingsPageState extends State<SettingsPage> {
                                         GestureDetector(
                                           onTap: () {
                                             setState(() {
+                                              if (isPhoneEditing &&
+                                                  userPhone !=
+                                                      phoneController.text
+                                                          .trim()) {
+                                                updateUserPhone(
+                                                        userId,
+                                                        phoneController.text
+                                                            .trim())
+                                                    .whenComplete(
+                                                  () async {
+                                                    userPhone = phoneController
+                                                        .text
+                                                        .trim();
+                                                    SharedPrefHelper()
+                                                        .saveUserphone(
+                                                      phoneController.text
+                                                          .trim(),
+                                                    );
+                                                  },
+                                                );
+                                              }
                                               isPhoneEditing = !isPhoneEditing;
                                             });
                                           },
