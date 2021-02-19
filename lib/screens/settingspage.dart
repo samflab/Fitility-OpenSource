@@ -1,5 +1,6 @@
 import 'package:fitility/screens/login.dart';
 import 'package:fitility/services/authentication.dart';
+import 'package:fitility/services/sharedpref.dart';
 import 'package:fitility/services/transition.dart';
 import 'package:flutter/material.dart';
 import 'package:auro_avatar/auro_avatar.dart';
@@ -11,18 +12,35 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   bool isAccountActive = false, isSupportActive = false;
-  bool isNameEditing = false,
-      isEmailEditing = false,
-      isPhoneEditing = false,
-      isPasswordEditing = false;
-  TextEditingController nameController =
-      TextEditingController(text: "John Doe");
-  TextEditingController emailController =
-      TextEditingController(text: "johndoe@email.com");
-  TextEditingController phoneController =
-      TextEditingController(text: "1234567890");
-  TextEditingController passwordController =
-      TextEditingController(text: "JohnDoe1234");
+  bool isNameEditing = false, isPhoneEditing = false;
+  String userFirstName,
+      userLastName,
+      userFullName = "user",
+      userEmail,
+      userPhone;
+  TextEditingController nameController = new TextEditingController();
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController phoneController = new TextEditingController();
+
+  onloadPage() async {
+    userFirstName = await SharedPrefHelper().getUserFirstName();
+    userLastName = await SharedPrefHelper().getUserLastname();
+    userFullName = userFirstName + " " + userLastName;
+    userEmail = await SharedPrefHelper().getUserEmail();
+    userPhone = await SharedPrefHelper().getUserPhone();
+    setState(() {
+      nameController.text = userFullName;
+      emailController.text = userEmail;
+      phoneController.text = (userPhone != null) ? userPhone : "Not Available";
+    });
+  }
+
+  @override
+  void initState() {
+    onloadPage();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,8 +78,8 @@ class _SettingsPageState extends State<SettingsPage> {
                           children: [
                             Row(
                               children: <Widget>[
-                                new InitialNameAvatar(
-                                  "John Dowe",
+                                InitialNameAvatar(
+                                  userFullName,
                                   circleAvatar: true,
                                   backgroundColor: Colors.white,
                                   foregroundColor: Colors.red.shade700,
@@ -70,7 +88,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 ),
                                 SizedBox(width: 10.0),
                                 Text(
-                                  "John Doe",
+                                  userFullName,
                                   style: TextStyle(
                                     color: Color(0xfff8fafa),
                                     fontSize: 25.0,
@@ -224,7 +242,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                       children: [
                                         Expanded(
                                           child: AbsorbPointer(
-                                            absorbing: !isEmailEditing,
+                                            absorbing: true,
                                             child: TextField(
                                               controller: emailController,
                                               style: TextStyle(
@@ -236,20 +254,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                               decoration: InputDecoration(
                                                 border: InputBorder.none,
                                               ),
-                                            ),
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              isEmailEditing = !isEmailEditing;
-                                            });
-                                          },
-                                          child: Text(
-                                            isEmailEditing ? "Save" : "Edit",
-                                            style: TextStyle(
-                                              color: Color(0xffdc2126),
-                                              fontSize: 18.0,
                                             ),
                                           ),
                                         ),
@@ -315,76 +319,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                           },
                                           child: Text(
                                             isPhoneEditing ? "Save" : "Edit",
-                                            style: TextStyle(
-                                              color: Color(0xffdc2126),
-                                              fontSize: 18.0,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: 35.0, vertical: 5.0),
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: Colors.black,
-                                width: 2.0,
-                              ),
-                            ),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Password",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16.0,
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: AbsorbPointer(
-                                            absorbing: !isPasswordEditing,
-                                            child: TextField(
-                                              obscureText: true,
-                                              controller: passwordController,
-                                              style: TextStyle(
-                                                fontSize: 22.0,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w500,
-                                                fontFamily: 'Rubik',
-                                              ),
-                                              decoration: InputDecoration(
-                                                border: InputBorder.none,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              isPasswordEditing =
-                                                  !isPasswordEditing;
-                                            });
-                                          },
-                                          child: Text(
-                                            isPasswordEditing ? "Save" : "Edit",
                                             style: TextStyle(
                                               color: Color(0xffdc2126),
                                               fontSize: 18.0,

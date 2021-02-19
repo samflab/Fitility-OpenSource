@@ -2,10 +2,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefHelper {
   static String userIdkey = "USERKEY";
-  static String userFirstNamekey = "USERKEY";
-  static String userLastNamekey = "USERKEY";
-  static String userEmailkey = "USERKEY";
-  static String userPhonekey = "USERKEY";
+  static String userFirstNamekey = "USERFNAMEKEY";
+  static String userLastNamekey = "USERLNAMEKEY";
+  static String userEmailkey = "USEREMAILKEY";
+  static String userPhonekey = "USERPHONEKEY";
   static String rolekey = "ROLEKEY";
 
   // save data locally
