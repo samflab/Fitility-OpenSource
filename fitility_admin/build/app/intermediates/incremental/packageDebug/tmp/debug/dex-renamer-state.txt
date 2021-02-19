@@ -1,4 +1,0 @@
-#Thu Jan 28 14:52:51 IST 2021
-base.0=C\:\\Users\\HP\\FlutterProjects\\admin\\fitility_admin\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
