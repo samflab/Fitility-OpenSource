@@ -26,7 +26,7 @@ Future<bool> googleSignIn() async {
 
       FirebaseUser user = await auth.currentUser();
       await saveUsertoDb(user);
-      //print("The user id is : " + user.uid);
+      print("The user id is : " + user.uid);
       await SharedPrefHelper().saveUserId(user.uid);
       await SharedPrefHelper().saveUserRole("user");
 
@@ -48,6 +48,8 @@ Future<bool> signUp(String email, String password, BuildContext context) async {
     await saveUsertoDb(user);
     await SharedPrefHelper().saveUserId(user.uid);
     await SharedPrefHelper().saveUserRole("user");
+    print(email);
+    print(password);
     return Future.value(true);
   } catch (e) {
     String error = e
@@ -79,6 +81,8 @@ Future<String> signIn(
       }
     });
     await SharedPrefHelper().saveUserRole(role);
+    print(email);
+    print(password);
     return role;
   } catch (e) {
     String error = e
