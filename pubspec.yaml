@@ -30,45 +30,10 @@ dev_dependencies:
     sdk: flutter
 flutter:
   uses-material-design: true
+  
   assets:
-   - images/girl.png
-   - images/logo.png
-   - images/google.png
-   - images/box.png
-   - images/pic1.png
-   - images/pic2.png
-   - images/pic3.png
-   - images/meal.png
-   - images/line.png
-   - images/dumble.png
-   - images/lineh.png
-   - images/bullet.png
-   - images/bar1.png
-   - images/circle1.png
-   - images/circle2.png
-   - images/circle3.png
-   - images/circle4.png
-   - images/circles.png
-   - images/circles1.png
-   - images/bar2.png
-   - images/lime.png
-   - images/breakfast.png
-   - images/almond.png
-   - images/lunch.png
-   - images/crops.png
-   - images/Flat.png
-   - images/omelette.png
-   - images/papaya.png
-   - images/water.png
-   - images/energy-bar.png
-   - images/bottle.png
-   - images/banana.png
-   - images/cucumber.png
-   - images/home.png
-   - images/workout.png
-   - images/dance.png
-   - images/diet.png
-   - images/plans.png
+   - images/
+  
   fonts:
     - family: Rubik
       fonts:
