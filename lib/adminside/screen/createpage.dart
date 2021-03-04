@@ -1,8 +1,11 @@
+import 'dart:io';
 import 'package:fitility/adminside/screen/adminpage.dart';
 import 'package:fitility/adminside/screen/deletepage.dart';
 import 'package:fitility/adminside/screen/modifypage.dart';
 import 'package:fitility/services/transition.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class CreatePage extends StatefulWidget {
   @override
@@ -11,6 +14,28 @@ class CreatePage extends StatefulWidget {
 
 class _CreatePageState extends State<CreatePage> {
   int danceworkout = 1, workoutGenre = 1, level = 1;
+  File _imgfile;
+
+  Future getImage() async {
+    var newimag = await ImagePicker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 50,
+    );
+    setState(() {
+      _imgfile = newimag;
+      print(_imgfile.path);
+    });
+  }
+
+  Future uploadImage(File image) async {
+    String imgname = image.path.toString().split("/").last;
+    StorageReference firebaseStrorageRef =
+        FirebaseStorage.instance.ref().child(imgname);
+    StorageUploadTask uploadTask = firebaseStrorageRef.putFile(image);
+    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+    print(taskSnapshot);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,459 +80,267 @@ class _CreatePageState extends State<CreatePage> {
           preferredSize: Size.fromHeight(2.5),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            children: [
-              SizedBox(height: 20.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: Builder(
+        builder: (context) {
+          return SingleChildScrollView(
+            child: Container(
+              child: Column(
                 children: [
-                  CategoryTile(
-                    categoryname: "Create",
-                    isCreate: true,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        FadeRoute(page: ModifyPage()),
-                      );
-                    },
-                    child: CategoryTile(
-                      categoryname: "Modify",
-                      isCreate: false,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        FadeRoute(page: DeletePage()),
-                      );
-                    },
-                    child: CategoryTile(
-                      categoryname: "Delete",
-                      isCreate: false,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 30.0),
-              MainTitleText(text: "Add a Video"),
-              SizedBox(height: 10.0),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 25.0),
-                height: 2.0,
-                color: Color(0xffdc2126),
-              ),
-              SizedBox(height: 20.0),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          "Name",
-                          style: TextStyle(
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Icon(
-                            Icons.star,
-                            color: Colors.red[800],
-                            size: 10.0,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.only(left: 45.0),
-                        child: Theme(
-                          data: ThemeData(
-                            primaryColor: Colors.black,
-                          ),
-                          child: TextField(
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500),
-                            cursorColor: Colors.black,
-                            decoration: InputDecoration(
-                              hintText: "Video name",
-                              hintStyle: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                borderSide:
-                                    BorderSide(width: 2, color: Colors.black),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                borderSide:
-                                    BorderSide(width: 2, color: Colors.black),
-                              ),
-                            ),
-                          ),
+                  SizedBox(height: 20.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CategoryTile(
+                        categoryname: "Create",
+                        isCreate: true,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacement(
+                            context,
+                            FadeRoute(page: ModifyPage()),
+                          );
+                        },
+                        child: CategoryTile(
+                          categoryname: "Modify",
+                          isCreate: false,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20.0),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          "Description",
-                          style: TextStyle(
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Icon(
-                            Icons.star,
-                            color: Colors.red[800],
-                            size: 10.0,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.only(left: 10.0),
-                        child: Theme(
-                          data: ThemeData(
-                            primaryColor: Colors.black,
-                          ),
-                          child: TextField(
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500),
-                            cursorColor: Colors.black,
-                            decoration: InputDecoration(
-                              hintText: "Description of video",
-                              hintStyle: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                borderSide:
-                                    BorderSide(width: 2, color: Colors.black),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                borderSide:
-                                    BorderSide(width: 2, color: Colors.black),
-                              ),
-                            ),
-                          ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacement(
+                            context,
+                            FadeRoute(page: DeletePage()),
+                          );
+                        },
+                        child: CategoryTile(
+                          categoryname: "Delete",
+                          isCreate: false,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 30.0),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          "Genre",
-                          style: TextStyle(
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Icon(
-                            Icons.star,
-                            color: Colors.red[800],
-                            size: 10.0,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 30.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    ],
+                  ),
+                  SizedBox(height: 30.0),
+                  MainTitleText(text: "Add a Video"),
+                  SizedBox(height: 10.0),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 25.0),
+                    height: 2.0,
+                    color: Color(0xffdc2126),
+                  ),
+                  SizedBox(height: 20.0),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Row(
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Radio(
-                              activeColor: Colors.red[800],
-                              value: 1,
-                              groupValue: danceworkout,
-                              onChanged: (val) {
-                                setState(() {
-                                  danceworkout = val;
-                                });
-                              },
-                            ),
                             Text(
-                              "Dance",
+                              "Name",
                               style: TextStyle(
-                                fontSize: 15.0,
+                                fontSize: 17.0,
                                 fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Icon(
+                                Icons.star,
+                                color: Colors.red[800],
+                                size: 10.0,
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(width: 20.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Radio(
-                              activeColor: Colors.red[800],
-                              value: 2,
-                              groupValue: danceworkout,
-                              onChanged: (val) {
-                                setState(() {
-                                  danceworkout = val;
-                                });
-                              },
-                            ),
-                            Text(
-                              "Workout",
-                              style: TextStyle(
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.w500,
+                        Expanded(
+                          child: Container(
+                            margin: EdgeInsets.only(left: 45.0),
+                            child: Theme(
+                              data: ThemeData(
+                                primaryColor: Colors.black,
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20.0),
-              (danceworkout == 2)
-                  ? Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 25.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    "Workout\nGenre",
-                                    style: TextStyle(
-                                      fontSize: 17.0,
+                              child: TextField(
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500),
+                                cursorColor: Colors.black,
+                                decoration: InputDecoration(
+                                  hintText: "Video name",
+                                  hintStyle: TextStyle(
                                       fontWeight: FontWeight.w500,
-                                    ),
+                                      color: Colors.black),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    borderSide: BorderSide(
+                                        width: 2, color: Colors.black),
                                   ),
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    child: Icon(
-                                      Icons.star,
-                                      color: Colors.red[800],
-                                      size: 10.0,
-                                    ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    borderSide: BorderSide(
+                                        width: 2, color: Colors.black),
                                   ),
-                                ],
+                                ),
                               ),
-                              SizedBox(width: 11.0),
-                              Column(
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20.0),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Row(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Description",
+                              style: TextStyle(
+                                fontSize: 17.0,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Icon(
+                                Icons.star,
+                                color: Colors.red[800],
+                                size: 10.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Expanded(
+                          child: Container(
+                            margin: EdgeInsets.only(left: 10.0),
+                            child: Theme(
+                              data: ThemeData(
+                                primaryColor: Colors.black,
+                              ),
+                              child: TextField(
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500),
+                                cursorColor: Colors.black,
+                                decoration: InputDecoration(
+                                  hintText: "Description of video",
+                                  hintStyle: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    borderSide: BorderSide(
+                                        width: 2, color: Colors.black),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    borderSide: BorderSide(
+                                        width: 2, color: Colors.black),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 30.0),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Row(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Genre",
+                              style: TextStyle(
+                                fontSize: 17.0,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Icon(
+                                Icons.star,
+                                color: Colors.red[800],
+                                size: 10.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(width: 30.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Radio(
+                                  activeColor: Colors.red[800],
+                                  value: 1,
+                                  groupValue: danceworkout,
+                                  onChanged: (val) {
+                                    setState(() {
+                                      danceworkout = val;
+                                    });
+                                  },
+                                ),
+                                Text(
+                                  "Dance",
+                                  style: TextStyle(
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(width: 20.0),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Radio(
+                                  activeColor: Colors.red[800],
+                                  value: 2,
+                                  groupValue: danceworkout,
+                                  onChanged: (val) {
+                                    setState(() {
+                                      danceworkout = val;
+                                    });
+                                  },
+                                ),
+                                Text(
+                                  "Workout",
+                                  style: TextStyle(
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20.0),
+                  (danceworkout == 2)
+                      ? Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 25.0),
+                              child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Radio(
-                                            activeColor: Colors.red[800],
-                                            value: 1,
-                                            groupValue: workoutGenre,
-                                            onChanged: (val) {
-                                              setState(() {
-                                                workoutGenre = val;
-                                              });
-                                            },
-                                          ),
-                                          Text(
-                                            "Zumba",
-                                            style: TextStyle(
-                                              fontSize: 15.0,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(width: 20.0),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Radio(
-                                            activeColor: Colors.red[800],
-                                            value: 2,
-                                            groupValue: workoutGenre,
-                                            onChanged: (val) {
-                                              setState(() {
-                                                workoutGenre = val;
-                                              });
-                                            },
-                                          ),
-                                          Text(
-                                            "Pillates",
-                                            style: TextStyle(
-                                              fontSize: 15.0,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Radio(
-                                            activeColor: Colors.red[800],
-                                            value: 3,
-                                            groupValue: workoutGenre,
-                                            onChanged: (val) {
-                                              setState(() {
-                                                workoutGenre = val;
-                                              });
-                                            },
-                                          ),
-                                          Text(
-                                            "Steppers",
-                                            style: TextStyle(
-                                              fontSize: 15.0,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Radio(
-                                            activeColor: Colors.red[800],
-                                            value: 4,
-                                            groupValue: workoutGenre,
-                                            onChanged: (val) {
-                                              setState(() {
-                                                workoutGenre = val;
-                                              });
-                                            },
-                                          ),
-                                          Text(
-                                            "HIIT",
-                                            style: TextStyle(
-                                              fontSize: 15.0,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(width: 20.0),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Radio(
-                                            activeColor: Colors.red[800],
-                                            value: 5,
-                                            groupValue: workoutGenre,
-                                            onChanged: (val) {
-                                              setState(() {
-                                                workoutGenre = val;
-                                              });
-                                            },
-                                          ),
-                                          Text(
-                                            "Bootcamp",
-                                            style: TextStyle(
-                                              fontSize: 15.0,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Radio(
-                                        activeColor: Colors.red[800],
-                                        value: 6,
-                                        groupValue: workoutGenre,
-                                        onChanged: (val) {
-                                          setState(() {
-                                            workoutGenre = val;
-                                          });
-                                        },
-                                      ),
-                                      Text(
-                                        "Bolly-Aero",
-                                        style: TextStyle(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 10.0),
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 25.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                children: [
-                                  SizedBox(height: 20.0),
-                                  Row(
                                     children: [
                                       Text(
-                                        "Level",
+                                        "Workout\nGenre",
                                         style: TextStyle(
                                           fontSize: 17.0,
                                           fontWeight: FontWeight.w500,
@@ -523,12 +356,10 @@ class _CreatePageState extends State<CreatePage> {
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
-                              SizedBox(width: 12.0),
-                              Column(
-                                children: [
-                                  Row(
+                                  SizedBox(width: 11.0),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         mainAxisAlignment:
@@ -541,15 +372,15 @@ class _CreatePageState extends State<CreatePage> {
                                               Radio(
                                                 activeColor: Colors.red[800],
                                                 value: 1,
-                                                groupValue: level,
+                                                groupValue: workoutGenre,
                                                 onChanged: (val) {
                                                   setState(() {
-                                                    level = val;
+                                                    workoutGenre = val;
                                                   });
                                                 },
                                               ),
                                               Text(
-                                                "Beginner",
+                                                "Zumba",
                                                 style: TextStyle(
                                                   fontSize: 15.0,
                                                   fontWeight: FontWeight.w500,
@@ -557,7 +388,7 @@ class _CreatePageState extends State<CreatePage> {
                                               ),
                                             ],
                                           ),
-                                          SizedBox(width: 5.0),
+                                          SizedBox(width: 20.0),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.end,
@@ -565,15 +396,15 @@ class _CreatePageState extends State<CreatePage> {
                                               Radio(
                                                 activeColor: Colors.red[800],
                                                 value: 2,
-                                                groupValue: level,
+                                                groupValue: workoutGenre,
                                                 onChanged: (val) {
                                                   setState(() {
-                                                    level = val;
+                                                    workoutGenre = val;
                                                   });
                                                 },
                                               ),
                                               Text(
-                                                "Intermediate",
+                                                "Pillates",
                                                 style: TextStyle(
                                                   fontSize: 15.0,
                                                   fontWeight: FontWeight.w500,
@@ -583,13 +414,38 @@ class _CreatePageState extends State<CreatePage> {
                                           ),
                                         ],
                                       ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Radio(
+                                                activeColor: Colors.red[800],
+                                                value: 3,
+                                                groupValue: workoutGenre,
+                                                onChanged: (val) {
+                                                  setState(() {
+                                                    workoutGenre = val;
+                                                  });
+                                                },
+                                              ),
+                                              Text(
+                                                "Steppers",
+                                                style: TextStyle(
+                                                  fontSize: 15.0,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Row(
                                             mainAxisAlignment:
@@ -597,16 +453,40 @@ class _CreatePageState extends State<CreatePage> {
                                             children: [
                                               Radio(
                                                 activeColor: Colors.red[800],
-                                                value: 3,
-                                                groupValue: level,
+                                                value: 4,
+                                                groupValue: workoutGenre,
                                                 onChanged: (val) {
                                                   setState(() {
-                                                    level = val;
+                                                    workoutGenre = val;
                                                   });
                                                 },
                                               ),
                                               Text(
-                                                "Advanced",
+                                                "HIIT",
+                                                style: TextStyle(
+                                                  fontSize: 15.0,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(width: 20.0),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Radio(
+                                                activeColor: Colors.red[800],
+                                                value: 5,
+                                                groupValue: workoutGenre,
+                                                onChanged: (val) {
+                                                  setState(() {
+                                                    workoutGenre = val;
+                                                  });
+                                                },
+                                              ),
+                                              Text(
+                                                "Bootcamp",
                                                 style: TextStyle(
                                                   fontSize: 15.0,
                                                   fontWeight: FontWeight.w500,
@@ -616,135 +496,308 @@ class _CreatePageState extends State<CreatePage> {
                                           ),
                                         ],
                                       ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Radio(
+                                            activeColor: Colors.red[800],
+                                            value: 6,
+                                            groupValue: workoutGenre,
+                                            onChanged: (val) {
+                                              setState(() {
+                                                workoutGenre = val;
+                                              });
+                                            },
+                                          ),
+                                          Text(
+                                            "Bolly-Aero",
+                                            style: TextStyle(
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ],
                                   ),
-                                  SizedBox(height: 20.0),
                                 ],
                               ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
-                  : Container(),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  children: [
-                    Row(
+                            ),
+                            SizedBox(height: 10.0),
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 25.0),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    children: [
+                                      SizedBox(height: 20.0),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Level",
+                                            style: TextStyle(
+                                              fontSize: 17.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          Container(
+                                            alignment: Alignment.centerLeft,
+                                            child: Icon(
+                                              Icons.star,
+                                              color: Colors.red[800],
+                                              size: 10.0,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(width: 12.0),
+                                  Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Radio(
+                                                    activeColor:
+                                                        Colors.red[800],
+                                                    value: 1,
+                                                    groupValue: level,
+                                                    onChanged: (val) {
+                                                      setState(() {
+                                                        level = val;
+                                                      });
+                                                    },
+                                                  ),
+                                                  Text(
+                                                    "Beginner",
+                                                    style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(width: 5.0),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  Radio(
+                                                    activeColor:
+                                                        Colors.red[800],
+                                                    value: 2,
+                                                    groupValue: level,
+                                                    onChanged: (val) {
+                                                      setState(() {
+                                                        level = val;
+                                                      });
+                                                    },
+                                                  ),
+                                                  Text(
+                                                    "Intermediate",
+                                                    style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Radio(
+                                                    activeColor:
+                                                        Colors.red[800],
+                                                    value: 3,
+                                                    groupValue: level,
+                                                    onChanged: (val) {
+                                                      setState(() {
+                                                        level = val;
+                                                      });
+                                                    },
+                                                  ),
+                                                  Text(
+                                                    "Advanced",
+                                                    style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 20.0),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
+                      : Container(),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Row(
                       children: [
-                        Text(
-                          "Image",
-                          style: TextStyle(
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.w500,
-                          ),
+                        Row(
+                          children: [
+                            Text(
+                              "Image",
+                              style: TextStyle(
+                                fontSize: 17.0,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Icon(
+                                Icons.star,
+                                color: Colors.red[800],
+                                size: 10.0,
+                              ),
+                            ),
+                          ],
                         ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Icon(
-                            Icons.star,
-                            color: Colors.red[800],
-                            size: 10.0,
+                        SizedBox(width: 50.0),
+                        IconButton(
+                          onPressed: () {
+                            getImage();
+                          },
+                          icon: Icon(Icons.add_a_photo, size: 30.0),
+                        ),
+                        (_imgfile != null)
+                            ? Container(
+                                child: Image.file(
+                                  _imgfile,
+                                  height: 120.0,
+                                  width: 120.0,
+                                ),
+                              )
+                            : Container(),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 30.0),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Row(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Video Link",
+                              style: TextStyle(
+                                fontSize: 17.0,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Icon(
+                                Icons.star,
+                                color: Colors.red[800],
+                                size: 10.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Expanded(
+                          child: Container(
+                            margin: EdgeInsets.only(left: 10.0),
+                            child: Theme(
+                              data: ThemeData(
+                                primaryColor: Colors.black,
+                              ),
+                              child: TextField(
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500),
+                                cursorColor: Colors.black,
+                                decoration: InputDecoration(
+                                  hintText: "Youtube link",
+                                  hintStyle: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    borderSide: BorderSide(
+                                        width: 2, color: Colors.black),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    borderSide: BorderSide(
+                                        width: 2, color: Colors.black),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(width: 50.0),
-                    Icon(Icons.add_a_photo, size: 30.0),
-                  ],
-                ),
-              ),
-              SizedBox(height: 30.0),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          "Video Link",
-                          style: TextStyle(
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Icon(
-                            Icons.star,
+                  ),
+                  SizedBox(height: 50.0),
+                  Container(
+                    child: Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          uploadImage(_imgfile);
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 50.0,
+                          width: 150.0,
+                          decoration: BoxDecoration(
                             color: Colors.red[800],
-                            size: 10.0,
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
-                        ),
-                      ],
-                    ),
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.only(left: 10.0),
-                        child: Theme(
-                          data: ThemeData(
-                            primaryColor: Colors.black,
-                          ),
-                          child: TextField(
+                          child: Text(
+                            "Add the Video",
                             style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500),
-                            cursorColor: Colors.black,
-                            decoration: InputDecoration(
-                              hintText: "Youtube link",
-                              hintStyle: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                borderSide:
-                                    BorderSide(width: 2, color: Colors.black),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                borderSide:
-                                    BorderSide(width: 2, color: Colors.black),
-                              ),
+                              color: Colors.white,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 50.0),
-              Container(
-                child: Center(
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 50.0,
-                      width: 150.0,
-                      decoration: BoxDecoration(
-                        color: Colors.red[800],
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Text(
-                        "Add the Video",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
                   ),
-                ),
+                  SizedBox(height: 40.0),
+                ],
               ),
-              SizedBox(height: 40.0),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

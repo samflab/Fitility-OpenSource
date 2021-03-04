@@ -14,6 +14,7 @@ dependencies:
   google_sign_in: ^4.5.1
   firebase_core: ^0.4.5
   cloud_firestore:
+  firebase_storage:
   shared_preferences:
   toast: ^0.1.5
   progress_dialog:
@@ -22,6 +23,7 @@ dependencies:
   carousel_pro: ^1.0.0
   fluttertoast: ^7.1.6
   auro_avatar:
+  image_picker: 
 
   
 
