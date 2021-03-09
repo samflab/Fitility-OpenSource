@@ -23,7 +23,8 @@ dependencies:
   carousel_pro: ^1.0.0
   fluttertoast: ^7.1.6
   auro_avatar:
-  image_picker: 
+  image_picker:
+  path_provider:
 
   
 
