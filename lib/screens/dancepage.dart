@@ -125,57 +125,57 @@ class _DanceState extends State<Dance> {
   }
 }
 
-class DanceCard extends StatelessWidget {
-  final String text, image;
-  const DanceCard({
-    this.text,
-    this.image,
-    Key key,
-  }) : super(key: key);
+// class DanceCard extends StatelessWidget {
+//   final String text, image;
+//   const DanceCard({
+//     this.text,
+//     this.image,
+//     Key key,
+//   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-      height: 80.0,
-      decoration: BoxDecoration(
-        color: Color(0xffffffff),
-        border: Border.all(
-          color: Color(0xffeceff1),
-        ),
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Image.asset(
-                'images/bullet.png',
-                width: 13.0,
-              ),
-              SizedBox(width: 15.0),
-              Text(
-                text,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: 'Rubik',
-                  fontWeight: FontWeight.w500,
-                  fontSize: 18.0,
-                ),
-              ),
-            ],
-          ),
-          Container(
-            padding: EdgeInsets.only(right: 20.0),
-            child: Image.asset(
-              image,
-              height: 55.0,
-              width: 100.0,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+//       height: 80.0,
+//       decoration: BoxDecoration(
+//         color: Color(0xffffffff),
+//         border: Border.all(
+//           color: Color(0xffeceff1),
+//         ),
+//         borderRadius: BorderRadius.circular(10.0),
+//       ),
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//         children: [
+//           Row(
+//             children: [
+//               Image.asset(
+//                 'images/bullet.png',
+//                 width: 13.0,
+//               ),
+//               SizedBox(width: 15.0),
+//               Text(
+//                 text,
+//                 style: TextStyle(
+//                   color: Colors.black,
+//                   fontFamily: 'Rubik',
+//                   fontWeight: FontWeight.w500,
+//                   fontSize: 18.0,
+//                 ),
+//               ),
+//             ],
+//           ),
+//           Container(
+//             padding: EdgeInsets.only(right: 20.0),
+//             child: Image.asset(
+//               image,
+//               height: 55.0,
+//               width: 100.0,
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
