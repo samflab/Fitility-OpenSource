@@ -1,8 +1,14 @@
+import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:fitility/adminside/screen/adminpage.dart';
 import 'package:fitility/adminside/screen/deletepage.dart';
 import 'package:fitility/adminside/screen/modifypage.dart';
 import 'package:fitility/services/transition.dart';
-import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:fitility/adminside/helper/database.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
 
 class CreatePage extends StatefulWidget {
   @override
@@ -10,7 +16,46 @@ class CreatePage extends StatefulWidget {
 }
 
 class _CreatePageState extends State<CreatePage> {
-  int danceworkout = 1, workoutGenre = 1, level = 1;
+  String danceworkout = "Dance";
+  int workoutGenre = 1, level = 1;
+  File _imgfile;
+  final _picker = ImagePicker();
+  String imgurl;
+
+  final namecontroller = TextEditingController();
+  final descriptioncontroller = TextEditingController();
+  final ytlinkcontroller = TextEditingController();
+
+  Future getImage() async {
+    final pickedImage = await _picker.getImage(
+      source: ImageSource.gallery,
+      imageQuality: 50,
+    );
+
+    File tempFile = File(pickedImage.path);
+    final Directory directory = await getApplicationDocumentsDirectory();
+
+    final String path = directory.path;
+
+    final String fileName = basename(pickedImage.path);
+    final String fileExtension = extension(pickedImage.path);
+
+    tempFile = await tempFile.copy('$path/$fileName$fileExtension');
+    setState(() {
+      _imgfile = tempFile;
+    });
+  }
+
+  Future uploadImage(File image) async {
+    String imgname = image.path.toString().split("/").last;
+    StorageReference firebaseStrorageRef =
+        FirebaseStorage.instance.ref().child(imgname);
+    StorageUploadTask uploadTask = firebaseStrorageRef.putFile(image);
+    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+    imgurl = await taskSnapshot.ref.getDownloadURL();
+    //print(imgurl);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,6 +178,7 @@ class _CreatePageState extends State<CreatePage> {
                             primaryColor: Colors.black,
                           ),
                           child: TextField(
+                            controller: namecontroller,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w500),
@@ -194,6 +240,7 @@ class _CreatePageState extends State<CreatePage> {
                             primaryColor: Colors.black,
                           ),
                           child: TextField(
+                            controller: descriptioncontroller,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w500),
@@ -256,7 +303,7 @@ class _CreatePageState extends State<CreatePage> {
                           children: [
                             Radio(
                               activeColor: Colors.red[800],
-                              value: 1,
+                              value: "Dance",
                               groupValue: danceworkout,
                               onChanged: (val) {
                                 setState(() {
@@ -279,7 +326,7 @@ class _CreatePageState extends State<CreatePage> {
                           children: [
                             Radio(
                               activeColor: Colors.red[800],
-                              value: 2,
+                              value: "Workout",
                               groupValue: danceworkout,
                               onChanged: (val) {
                                 setState(() {
@@ -302,7 +349,7 @@ class _CreatePageState extends State<CreatePage> {
                 ),
               ),
               SizedBox(height: 20.0),
-              (danceworkout == 2)
+              (danceworkout == "Workout")
                   ? Column(
                       children: [
                         Container(
@@ -651,7 +698,21 @@ class _CreatePageState extends State<CreatePage> {
                       ],
                     ),
                     SizedBox(width: 50.0),
-                    Icon(Icons.add_a_photo, size: 30.0),
+                    IconButton(
+                      onPressed: () {
+                        getImage();
+                      },
+                      icon: Icon(Icons.add_a_photo, size: 30.0),
+                    ),
+                    (_imgfile != null)
+                        ? Container(
+                            child: Image.file(
+                              _imgfile,
+                              height: 120.0,
+                              width: 120.0,
+                            ),
+                          )
+                        : Container(),
                   ],
                 ),
               ),
@@ -687,6 +748,7 @@ class _CreatePageState extends State<CreatePage> {
                             primaryColor: Colors.black,
                           ),
                           child: TextField(
+                            controller: ytlinkcontroller,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w500),
@@ -720,7 +782,27 @@ class _CreatePageState extends State<CreatePage> {
               Container(
                 child: Center(
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () async {
+                      if (namecontroller.text != null) {
+                        await uploadImage(_imgfile);
+                        saveVideoToDb(
+                          videoName: namecontroller.text,
+                          description: descriptioncontroller.text,
+                          genre: danceworkout,
+                          imgurl: imgurl,
+                          ytlink: ytlinkcontroller.text,
+                        ).whenComplete(
+                          () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (BuildContext context) => super.widget,
+                              ),
+                            );
+                          },
+                        );
+                      }
+                    },
                     child: Container(
                       alignment: Alignment.center,
                       height: 50.0,

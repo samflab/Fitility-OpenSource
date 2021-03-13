@@ -158,6 +158,7 @@ class _ForgetpassState extends State<Forgetpass> {
                 Padding(
                   padding: const EdgeInsets.only(left: 40.0, right: 40.0),
                   child: SizedBox(
+                    // ignore: deprecated_member_use
                     child: RaisedButton(
                       splashColor: Colors.red,
                       onPressed: () async {

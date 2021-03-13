@@ -36,6 +36,7 @@ Future messageBoxDialog(var text, var context) {
                   padding: const EdgeInsets.only(
                       left: 30.0, right: 30.0, bottom: 18.0),
                   child: SizedBox(
+                    // ignore: deprecated_member_use
                     child: RaisedButton(
                       onPressed: () {
                         Navigator.pop(context);

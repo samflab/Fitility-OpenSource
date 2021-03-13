@@ -12,6 +12,7 @@
         android:label="fitility"
         android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/logo">
+        android:requestLegacyExternalStorage="true"
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

@@ -99,6 +99,7 @@ class _StartPageState extends State<StartPage> {
                       const EdgeInsets.only(top: 10.0, left: 40.0, right: 40.0),
                   child: SizedBox(
                     // width: MediaQuery.of(context).size.width * 1.0,
+                    // ignore: deprecated_member_use
                     child: RaisedButton(
                       splashColor: Colors.red,
                       onPressed: () {
@@ -160,6 +161,7 @@ class _StartPageState extends State<StartPage> {
                 ),
                 //////////////////////////// LOGIN  /////////////////////////////////////////////////
                 Container(
+                  // ignore: deprecated_member_use
                   child: FlatButton(
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
@@ -200,6 +202,7 @@ class _StartPageState extends State<StartPage> {
   Widget _signInButtonGoogle() {
     return Padding(
       padding: const EdgeInsets.only(left: 40.0, right: 40.0),
+      // ignore: deprecated_member_use
       child: RaisedButton(
         splashColor: Colors.grey,
         onPressed: () async {

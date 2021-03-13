@@ -430,6 +430,7 @@ class _SigninState extends State<Signup> {
                 Padding(
                   padding: const EdgeInsets.only(left: 40.0, right: 40.0),
                   child: SizedBox(
+                    // ignore: deprecated_member_use
                     child: RaisedButton(
                       splashColor: Colors.red,
                       onPressed: () async {
@@ -553,6 +554,7 @@ class _SigninState extends State<Signup> {
   Widget _signInButtonGoogle() {
     return Padding(
       padding: const EdgeInsets.only(left: 40.0, right: 40.0),
+      // ignore: deprecated_member_use
       child: RaisedButton(
         splashColor: Colors.grey,
         onPressed: () async {
