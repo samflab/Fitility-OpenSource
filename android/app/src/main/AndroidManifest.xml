@@ -10,6 +10,7 @@
         android:fullBackupOnly="false"
         android:name="io.flutter.app.FlutterApplication"
         android:label="fitility"
+        android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/logo">
         <activity
             android:name=".MainActivity"

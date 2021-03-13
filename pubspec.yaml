@@ -1,10 +1,8 @@
 name: fitility
 description: A new Flutter application.
 version: 1.0.0+1
-
 environment:
   sdk: ">=2.1.0 <3.0.0"
-
 dependencies:
   flutter:
     sdk: flutter
@@ -14,6 +12,7 @@ dependencies:
   google_sign_in: ^4.5.1
   firebase_core: ^0.4.5
   cloud_firestore:
+  firebase_storage:
   shared_preferences:
   toast: ^0.1.5
   progress_dialog:
@@ -22,53 +21,19 @@ dependencies:
   carousel_pro: ^1.0.0
   fluttertoast: ^7.1.6
   auro_avatar:
+  image_picker: 
 
-  
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 flutter:
   uses-material-design: true
+
   assets:
-   - images/girl.png
-   - images/logo.png
-   - images/google.png
-   - images/box.png
-   - images/pic1.png
-   - images/pic2.png
-   - images/pic3.png
-   - images/meal.png
-   - images/line.png
-   - images/dumble.png
-   - images/lineh.png
-   - images/bullet.png
-   - images/bar1.png
-   - images/circle1.png
-   - images/circle2.png
-   - images/circle3.png
-   - images/circle4.png
-   - images/circles.png
-   - images/circles1.png
-   - images/bar2.png
-   - images/lime.png
-   - images/breakfast.png
-   - images/almond.png
-   - images/lunch.png
-   - images/crops.png
-   - images/Flat.png
-   - images/omelette.png
-   - images/papaya.png
-   - images/water.png
-   - images/energy-bar.png
-   - images/bottle.png
-   - images/banana.png
-   - images/cucumber.png
-   - images/home.png
-   - images/workout.png
-   - images/dance.png
-   - images/diet.png
-   - images/plans.png
+   - images/
+
   fonts:
     - family: Rubik
       fonts:
