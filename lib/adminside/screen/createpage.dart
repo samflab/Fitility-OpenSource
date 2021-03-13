@@ -1,12 +1,14 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:fitility/adminside/screen/adminpage.dart';
 import 'package:fitility/adminside/screen/deletepage.dart';
 import 'package:fitility/adminside/screen/modifypage.dart';
 import 'package:fitility/services/transition.dart';
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fitility/adminside/helper/database.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
 
 class CreatePage extends StatefulWidget {
   @override
@@ -17,6 +19,7 @@ class _CreatePageState extends State<CreatePage> {
   String danceworkout = "Dance";
   int workoutGenre = 1, level = 1;
   File _imgfile;
+  final _picker = ImagePicker();
   String imgurl;
 
   final namecontroller = TextEditingController();
@@ -24,13 +27,22 @@ class _CreatePageState extends State<CreatePage> {
   final ytlinkcontroller = TextEditingController();
 
   Future getImage() async {
-    var newimag = await ImagePicker.pickImage(
+    final pickedImage = await _picker.getImage(
       source: ImageSource.gallery,
       imageQuality: 50,
     );
+
+    File tempFile = File(pickedImage.path);
+    final Directory directory = await getApplicationDocumentsDirectory();
+
+    final String path = directory.path;
+
+    final String fileName = basename(pickedImage.path);
+    final String fileExtension = extension(pickedImage.path);
+
+    tempFile = await tempFile.copy('$path/$fileName$fileExtension');
     setState(() {
-      _imgfile = newimag;
-      //print(_imgfile.path);
+      _imgfile = tempFile;
     });
   }
 
@@ -771,22 +783,24 @@ class _CreatePageState extends State<CreatePage> {
                 child: Center(
                   child: GestureDetector(
                     onTap: () async {
-                      await uploadImage(_imgfile);
                       if (namecontroller.text != null) {
+                        await uploadImage(_imgfile);
                         saveVideoToDb(
                           videoName: namecontroller.text,
                           description: descriptioncontroller.text,
                           genre: danceworkout,
                           imgurl: imgurl,
                           ytlink: ytlinkcontroller.text,
-                        ).whenComplete(() {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    super.widget),
-                          );
-                        });
+                        ).whenComplete(
+                          () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (BuildContext context) => super.widget,
+                              ),
+                            );
+                          },
+                        );
                       }
                     },
                     child: Container(

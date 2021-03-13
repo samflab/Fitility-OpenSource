@@ -11,6 +11,7 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="fitility"
         android:icon="@mipmap/logo">
+        android:requestLegacyExternalStorage="true"
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
