@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitility/screens/diet_veg.dart';
 import 'package:fitility/screens/plans_dance.dart';
 import 'package:fitility/services/transition.dart';
@@ -221,13 +222,45 @@ class _PlansZumbaState extends State<PlansZumba> {
                       ),
                     ),
                     SizedBox(height: 5.0),
-                    MermershipPlan(
-                      duration: "1 Month",
-                      price: "1600 INR",
+                    StreamBuilder(
+                      stream: Firestore.instance
+                          .collection('plan_zumba')
+                          .document('2classes1month')
+                          .snapshots(),
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.hasError) {
+                          return new Text('Error:${snapshot.error}');
+                        }
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return new Text('Loading..');
+                          default:
+                            return MermershipPlan(
+                              duration: snapshot.data['duration'],
+                              price: snapshot.data['price'],
+                            );
+                        }
+                      },
                     ),
-                    MermershipPlan(
-                      duration: "3 Months",
-                      price: "4200 INR",
+                    StreamBuilder(
+                      stream: Firestore.instance
+                          .collection('plan_zumba')
+                          .document('2classes3month')
+                          .snapshots(),
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.hasError) {
+                          return new Text('Error:${snapshot.error}');
+                        }
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return new Text('Loading..');
+                          default:
+                            return MermershipPlan(
+                              duration: snapshot.data['duration'],
+                              price: snapshot.data['price'],
+                            );
+                        }
+                      },
                     ),
                   ],
                 ),
@@ -256,13 +289,45 @@ class _PlansZumbaState extends State<PlansZumba> {
                       ),
                     ),
                     SizedBox(height: 5.0),
-                    MermershipPlan(
-                      duration: "1 Month",
-                      price: "1800 INR",
+                    StreamBuilder(
+                      stream: Firestore.instance
+                          .collection('plan_zumba')
+                          .document('3classes1month')
+                          .snapshots(),
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.hasError) {
+                          return new Text('Error:${snapshot.error}');
+                        }
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return new Text('Loading..');
+                          default:
+                            return MermershipPlan(
+                              duration: snapshot.data['duration'],
+                              price: snapshot.data['price'],
+                            );
+                        }
+                      },
                     ),
-                    MermershipPlan(
-                      duration: "3 Months",
-                      price: "4500 INR",
+                    StreamBuilder(
+                      stream: Firestore.instance
+                          .collection('plan_zumba')
+                          .document('3classes3month')
+                          .snapshots(),
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.hasError) {
+                          return new Text('Error:${snapshot.error}');
+                        }
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return new Text('Loading..');
+                          default:
+                            return MermershipPlan(
+                              duration: snapshot.data['duration'],
+                              price: snapshot.data['price'],
+                            );
+                        }
+                      },
                     ),
                   ],
                 ),
@@ -291,17 +356,65 @@ class _PlansZumbaState extends State<PlansZumba> {
                       ),
                     ),
                     SizedBox(height: 5.0),
-                    MermershipPlan(
-                      duration: "1 Month",
-                      price: "2000 INR",
+                    StreamBuilder(
+                      stream: Firestore.instance
+                          .collection('plan_zumba')
+                          .document('5classes1Month')
+                          .snapshots(),
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.hasError) {
+                          return new Text('Error:${snapshot.error}');
+                        }
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return new Text('Loading..');
+                          default:
+                            return MermershipPlan(
+                              duration: snapshot.data['duration'],
+                              price: snapshot.data['price'],
+                            );
+                        }
+                      },
                     ),
-                    MermershipPlan(
-                      duration: "3 Months",
-                      price: "5000 INR",
+                    StreamBuilder(
+                      stream: Firestore.instance
+                          .collection('plan_zumba')
+                          .document('5classes3month')
+                          .snapshots(),
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.hasError) {
+                          return new Text('Error:${snapshot.error}');
+                        }
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return new Text('Loading..');
+                          default:
+                            return MermershipPlan(
+                              duration: snapshot.data['duration'],
+                              price: snapshot.data['price'],
+                            );
+                        }
+                      },
                     ),
-                    MermershipPlan(
-                      duration: "6 Months",
-                      price: "8000 INR",
+                    StreamBuilder(
+                      stream: Firestore.instance
+                          .collection('plan_zumba')
+                          .document('5classes6month')
+                          .snapshots(),
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.hasError) {
+                          return new Text('Error:${snapshot.error}');
+                        }
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return new Text('Loading..');
+                          default:
+                            return MermershipPlan(
+                              duration: snapshot.data['duration'],
+                              price: snapshot.data['price'],
+                            );
+                        }
+                      },
                     ),
                   ],
                 ),
@@ -330,17 +443,65 @@ class _PlansZumbaState extends State<PlansZumba> {
                       ),
                     ),
                     SizedBox(height: 5.0),
-                    MermershipPlan(
-                      duration: "1 Month",
-                      price: "3000 INR",
+                    StreamBuilder(
+                      stream: Firestore.instance
+                          .collection('plan_zumba')
+                          .document('7classes1month')
+                          .snapshots(),
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.hasError) {
+                          return new Text('Error:${snapshot.error}');
+                        }
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return new Text('Loading..');
+                          default:
+                            return MermershipPlan(
+                              duration: snapshot.data['duration'],
+                              price: snapshot.data['price'],
+                            );
+                        }
+                      },
                     ),
-                    MermershipPlan(
-                      duration: "3 Months",
-                      price: "7000 INR",
+                    StreamBuilder(
+                      stream: Firestore.instance
+                          .collection('plan_zumba')
+                          .document('7classes3month')
+                          .snapshots(),
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.hasError) {
+                          return new Text('Error:${snapshot.error}');
+                        }
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return new Text('Loading..');
+                          default:
+                            return MermershipPlan(
+                              duration: snapshot.data['duration'],
+                              price: snapshot.data['price'],
+                            );
+                        }
+                      },
                     ),
-                    MermershipPlan(
-                      duration: "6 Months",
-                      price: "11000 INR",
+                    StreamBuilder(
+                      stream: Firestore.instance
+                          .collection('plan_zumba')
+                          .document('7classes6month')
+                          .snapshots(),
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.hasError) {
+                          return new Text('Error:${snapshot.error}');
+                        }
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return new Text('Loading..');
+                          default:
+                            return MermershipPlan(
+                              duration: snapshot.data['duration'],
+                              price: snapshot.data['price'],
+                            );
+                        }
+                      },
                     ),
                   ],
                 ),
@@ -369,9 +530,25 @@ class _PlansZumbaState extends State<PlansZumba> {
                       ),
                     ),
                     SizedBox(height: 5.0),
-                    MermershipPlan(
-                      duration: "12 Months",
-                      price: "12996 INR",
+                    StreamBuilder(
+                      stream: Firestore.instance
+                          .collection('plan_zumba')
+                          .document('unlimited')
+                          .snapshots(),
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.hasError) {
+                          return new Text('Error:${snapshot.error}');
+                        }
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return new Text('Loading..');
+                          default:
+                            return MermershipPlan(
+                              duration: snapshot.data['duration'],
+                              price: snapshot.data['price'],
+                            );
+                        }
+                      },
                     ),
                   ],
                 ),
