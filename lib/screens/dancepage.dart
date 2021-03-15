@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitility/widgets/appbar.dart';
 import 'package:fitility/widgets/bottomNavigation.dart';
 import 'package:flutter/material.dart';
+import 'package:fitility/services/webview.dart';
 
 class DancePage extends StatefulWidget {
   @override
@@ -57,7 +58,13 @@ class _DanceState extends State<Dance> {
                       return Column(
                         children: [
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              _handleURLButtonPress(
+                                context,
+                                document['ytlink'],
+                                document['videoname'],
+                              );
+                            },
                             child: new Container(
                               margin: EdgeInsets.symmetric(
                                   horizontal: 20.0, vertical: 10.0),
@@ -88,7 +95,7 @@ class _DanceState extends State<Dance> {
                                           fontWeight: FontWeight.w500,
                                           fontSize: 18.0,
                                         ),
-                                        minFontSize: 14,
+                                        minFontSize: 12,
                                         stepGranularity: 1,
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
@@ -123,6 +130,15 @@ class _DanceState extends State<Dance> {
           }),
     );
   }
+}
+
+void _handleURLButtonPress(BuildContext context, String url, String title) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => WebViewContainer(url, title),
+    ),
+  );
 }
 
 // class DanceCard extends StatelessWidget {
