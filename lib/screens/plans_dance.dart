@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitility/screens/diet_veg.dart';
 import 'package:fitility/screens/plans_zumba.dart';
 import 'package:fitility/services/transition.dart';
@@ -209,13 +210,45 @@ class _PlansDanceState extends State<PlansDance> {
                       ),
                     ),
                     SizedBox(height: 5.0),
-                    MermershipPlan(
-                      duration: "1 Month",
-                      price: "1600 INR",
+                    StreamBuilder(
+                      stream: Firestore.instance
+                          .collection('plan_dance')
+                          .document('bollywood1month')
+                          .snapshots(),
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.hasError) {
+                          return new Text('Error:${snapshot.error}');
+                        }
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return new Text('Loading..');
+                          default:
+                            return MermershipPlan(
+                              duration: snapshot.data['duration'],
+                              price: snapshot.data['price'],
+                            );
+                        }
+                      },
                     ),
-                    MermershipPlan(
-                      duration: "3 Months",
-                      price: "4200 INR",
+                    StreamBuilder(
+                      stream: Firestore.instance
+                          .collection('plan_dance')
+                          .document('bollywood3month')
+                          .snapshots(),
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.hasError) {
+                          return new Text('Error:${snapshot.error}');
+                        }
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return new Text('Loading..');
+                          default:
+                            return MermershipPlan(
+                              duration: snapshot.data['duration'],
+                              price: snapshot.data['price'],
+                            );
+                        }
+                      },
                     ),
                   ],
                 ),
@@ -244,13 +277,45 @@ class _PlansDanceState extends State<PlansDance> {
                       ),
                     ),
                     SizedBox(height: 5.0),
-                    MermershipPlan(
-                      duration: "1 Month",
-                      price: "1600 INR",
+                    StreamBuilder(
+                      stream: Firestore.instance
+                          .collection('plan_dance')
+                          .document('contemporary1month')
+                          .snapshots(),
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.hasError) {
+                          return new Text('Error:${snapshot.error}');
+                        }
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return new Text('Loading..');
+                          default:
+                            return MermershipPlan(
+                              duration: snapshot.data['duration'],
+                              price: snapshot.data['price'],
+                            );
+                        }
+                      },
                     ),
-                    MermershipPlan(
-                      duration: "3 Months",
-                      price: "4200 INR",
+                    StreamBuilder(
+                      stream: Firestore.instance
+                          .collection('plan_dance')
+                          .document('contemporary3month')
+                          .snapshots(),
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.hasError) {
+                          return new Text('Error:${snapshot.error}');
+                        }
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return new Text('Loading..');
+                          default:
+                            return MermershipPlan(
+                              duration: snapshot.data['duration'],
+                              price: snapshot.data['price'],
+                            );
+                        }
+                      },
                     ),
                   ],
                 ),
@@ -279,13 +344,45 @@ class _PlansDanceState extends State<PlansDance> {
                       ),
                     ),
                     SizedBox(height: 5.0),
-                    MermershipPlan(
-                      duration: "1 Month",
-                      price: "1600 INR",
+                    StreamBuilder(
+                      stream: Firestore.instance
+                          .collection('plan_dance')
+                          .document('belly1month')
+                          .snapshots(),
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.hasError) {
+                          return new Text('Error:${snapshot.error}');
+                        }
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return new Text('Loading..');
+                          default:
+                            return MermershipPlan(
+                              duration: snapshot.data['duration'],
+                              price: snapshot.data['price'],
+                            );
+                        }
+                      },
                     ),
-                    MermershipPlan(
-                      duration: "3 Months",
-                      price: "4200 INR",
+                    StreamBuilder(
+                      stream: Firestore.instance
+                          .collection('plan_dance')
+                          .document('belly3month')
+                          .snapshots(),
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.hasError) {
+                          return new Text('Error:${snapshot.error}');
+                        }
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return new Text('Loading..');
+                          default:
+                            return MermershipPlan(
+                              duration: snapshot.data['duration'],
+                              price: snapshot.data['price'],
+                            );
+                        }
+                      },
                     ),
                   ],
                 ),
