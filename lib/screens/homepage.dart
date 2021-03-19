@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
                 child: SizedBox(
                   height: 180.0,
                   child: Carousel(
-                    boxFit: BoxFit.fill,
+                    boxFit: BoxFit.fitWidth,
                     autoplay: true,
                     animationCurve: Curves.fastOutSlowIn,
                     animationDuration: Duration(milliseconds: 1000),
@@ -55,10 +55,14 @@ class _HomePageState extends State<HomePage> {
                     showIndicator: true,
                     indicatorBgPadding: 10.0,
                     images: [
-                      Image.asset('images/box.png'),
-                      Image.asset('images/pic1.png'),
-                      Image.asset('images/pic2.png'),
-                      Image.asset('images/pic3.png'),
+                      Image.network(
+                          'https://firebasestorage.googleapis.com/v0/b/fitility.appspot.com/o/slideshow%2Fdance.jfif?alt=media&token=9a939f83-a1a9-41fa-9515-8d82708331d1'),
+                      Image.network(
+                          'https://firebasestorage.googleapis.com/v0/b/fitility.appspot.com/o/slideshow%2Fdance3.jpg?alt=media&token=090429db-45a5-4dce-a217-f923f17cff9b'),
+                      Image.network(
+                          'https://firebasestorage.googleapis.com/v0/b/fitility.appspot.com/o/slideshow%2Fdance2.jpg?alt=media&token=df6bbc55-c989-46a8-a0c6-89b479d69ed5'),
+                      Image.network(
+                          'https://firebasestorage.googleapis.com/v0/b/fitility.appspot.com/o/slideshow%2Fdance1.jpg?alt=media&token=d18c6cb8-e266-480a-a572-452a15458f69'),
                     ],
                   ),
                 ),

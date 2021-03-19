@@ -22,7 +22,7 @@ dependencies:
   fluttertoast: ^7.1.6
   auro_avatar:
   image_picker:
-  path_provider:
+  path_provider: 
 
 
 dev_dependencies:
