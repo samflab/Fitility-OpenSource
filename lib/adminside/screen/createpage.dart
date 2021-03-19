@@ -17,7 +17,7 @@ class CreatePage extends StatefulWidget {
 
 class _CreatePageState extends State<CreatePage> {
   String danceworkout = "Dance";
-  int workoutGenre = 1, level = 1;
+  String workoutGenre = "Zumba", level = "Beginner";
   File _imgfile;
   final _picker = ImagePicker();
   String imgurl;
@@ -390,7 +390,7 @@ class _CreatePageState extends State<CreatePage> {
                                         children: [
                                           Radio(
                                             activeColor: Colors.red[800],
-                                            value: 1,
+                                            value: "Zumba",
                                             groupValue: workoutGenre,
                                             onChanged: (val) {
                                               setState(() {
@@ -414,7 +414,7 @@ class _CreatePageState extends State<CreatePage> {
                                         children: [
                                           Radio(
                                             activeColor: Colors.red[800],
-                                            value: 2,
+                                            value: "Pillates",
                                             groupValue: workoutGenre,
                                             onChanged: (val) {
                                               setState(() {
@@ -443,7 +443,7 @@ class _CreatePageState extends State<CreatePage> {
                                         children: [
                                           Radio(
                                             activeColor: Colors.red[800],
-                                            value: 3,
+                                            value: "Steppers",
                                             groupValue: workoutGenre,
                                             onChanged: (val) {
                                               setState(() {
@@ -472,7 +472,7 @@ class _CreatePageState extends State<CreatePage> {
                                         children: [
                                           Radio(
                                             activeColor: Colors.red[800],
-                                            value: 4,
+                                            value: "HIIT",
                                             groupValue: workoutGenre,
                                             onChanged: (val) {
                                               setState(() {
@@ -496,7 +496,7 @@ class _CreatePageState extends State<CreatePage> {
                                         children: [
                                           Radio(
                                             activeColor: Colors.red[800],
-                                            value: 5,
+                                            value: "Bootcamp",
                                             groupValue: workoutGenre,
                                             onChanged: (val) {
                                               setState(() {
@@ -520,7 +520,7 @@ class _CreatePageState extends State<CreatePage> {
                                     children: [
                                       Radio(
                                         activeColor: Colors.red[800],
-                                        value: 6,
+                                        value: "Bolly-Aero",
                                         groupValue: workoutGenre,
                                         onChanged: (val) {
                                           setState(() {
@@ -587,7 +587,7 @@ class _CreatePageState extends State<CreatePage> {
                                             children: [
                                               Radio(
                                                 activeColor: Colors.red[800],
-                                                value: 1,
+                                                value: "Beginner",
                                                 groupValue: level,
                                                 onChanged: (val) {
                                                   setState(() {
@@ -611,7 +611,7 @@ class _CreatePageState extends State<CreatePage> {
                                             children: [
                                               Radio(
                                                 activeColor: Colors.red[800],
-                                                value: 2,
+                                                value: "Intermediate",
                                                 groupValue: level,
                                                 onChanged: (val) {
                                                   setState(() {
@@ -644,7 +644,7 @@ class _CreatePageState extends State<CreatePage> {
                                             children: [
                                               Radio(
                                                 activeColor: Colors.red[800],
-                                                value: 3,
+                                                value: "Advanced",
                                                 groupValue: level,
                                                 onChanged: (val) {
                                                   setState(() {
@@ -789,6 +789,8 @@ class _CreatePageState extends State<CreatePage> {
                           videoName: namecontroller.text,
                           description: descriptioncontroller.text,
                           genre: danceworkout,
+                          workoutGenre: workoutGenre,
+                          level: level,
                           imgurl: imgurl,
                           ytlink: ytlinkcontroller.text,
                         ).whenComplete(
