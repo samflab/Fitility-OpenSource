@@ -6,24 +6,34 @@ Future<void> saveVideoToDb({
   String videoName,
   String description,
   String genre,
+  String workoutGenre,
+  String level,
   String imgurl,
   String ytlink,
 }) async {
-  Map<String, dynamic> videoDatamap = {
-    "videoname": videoName,
-    "description": description,
-    "genre": genre,
-    "imgurl": imgurl,
-    "ytlink": ytlink,
-  };
-  if (genre == "Workout") {
-    final userRef = _db.collection("workout").document(videoName);
+  if (genre == "Dance") {
+    Map<String, dynamic> videoDatamap = {
+      "videoname": videoName,
+      "description": description,
+      "genre": genre,
+      "imgurl": imgurl,
+      "ytlink": ytlink,
+    };
+    final userRef = _db.collection("dance").document(videoName);
     if (!(await userRef.get()).exists) {
       await userRef.setData(videoDatamap);
     }
-  }
-  if (genre == "Dance") {
-    final userRef = _db.collection("dance").document(videoName);
+  } else if (genre == "Workout") {
+    Map<String, dynamic> videoDatamap = {
+      "videoname": videoName,
+      "description": description,
+      "genre": genre,
+      "workoutGenre": workoutGenre,
+      "level": level,
+      "imgurl": imgurl,
+      "ytlink": ytlink,
+    };
+    final userRef = _db.collection("workout").document(videoName);
     if (!(await userRef.get()).exists) {
       await userRef.setData(videoDatamap);
     }
