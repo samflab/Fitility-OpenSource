@@ -197,55 +197,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SizedBox(height: 20.0),
-
-              ////  Meal of the day  ////
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 0, vertical: 8.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          height: 20.0,
-                          width: 20.0,
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                'images/bullet.png',
-                                height: 12.0,
-                                width: 12.0,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Text(
-                          "Meal of the day",
-                          style: TextStyle(
-                            color: Color(0xff181818),
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'Rubik' 'Regular',
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    ////  Meal Card  ////
-                    VideoCard(
-                      videoImage: 'images/meal.png',
-                      videoTitle: "Meal Name",
-                      videoText:
-                          "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 15.0),
-
               ////  Bottom red bar  ////
               Container(
                 child: Row(
