@@ -13,7 +13,11 @@ class ModifyPage extends StatefulWidget {
 class _ModifyPageState extends State<ModifyPage> {
   int danceworkout = 1, workoutGenre = 1, level = 1;
   String videoName = "Select";
-  var category;
+
+  TextEditingController videoNameController = new TextEditingController();
+  TextEditingController descriptionController = new TextEditingController();
+  TextEditingController videoController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -124,7 +128,7 @@ class _ModifyPageState extends State<ModifyPage> {
                     StreamBuilder(
                         stream: Firestore.instance
                             .collection('dance')
-                            .orderBy('videoname')
+                            .orderBy('videoname', descending: false)
                             .snapshots(),
                         builder: (context, snapshot) {
                           if (!snapshot.hasData)
@@ -139,6 +143,13 @@ class _ModifyPageState extends State<ModifyPage> {
                                 onChanged: (value) {
                                   setState(() {
                                     videoName = value;
+                                    videoNameController.text = videoName;
+                                    snapshot.data.documents.map((document) {
+                                      if (document['videoname'] == videoName)
+                                        descriptionController.text =
+                                            document['description'];
+                                      videoController.text = document['ytlink'];
+                                    }).toList();
                                   });
                                 },
                                 icon: Icon(
@@ -164,9 +175,8 @@ class _ModifyPageState extends State<ModifyPage> {
                                               new DropdownMenuItem<String>(
                                             value: value['videoname'],
                                             child: new Container(
-                                              child: new Text(
-                                                value['videoname'],
-                                              ),
+                                              child:
+                                                  new Text(value['videoname']),
                                             ),
                                           ),
                                         )
@@ -174,7 +184,9 @@ class _ModifyPageState extends State<ModifyPage> {
                                     : DropdownMenuItem(
                                         value: 'null',
                                         child: new Container(
-                                            child: new Text('null'))),
+                                          child: new Text('null'),
+                                        ),
+                                      ),
                               ),
                             ),
                           );
@@ -220,6 +232,7 @@ class _ModifyPageState extends State<ModifyPage> {
                                     primaryColor: Colors.black,
                                   ),
                                   child: TextField(
+                                    controller: videoNameController,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w500),
@@ -281,6 +294,7 @@ class _ModifyPageState extends State<ModifyPage> {
                                     primaryColor: Colors.black,
                                   ),
                                   child: TextField(
+                                    controller: descriptionController,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w500),
@@ -797,6 +811,7 @@ class _ModifyPageState extends State<ModifyPage> {
                                     primaryColor: Colors.black,
                                   ),
                                   child: TextField(
+                                    controller: videoController,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w500),
