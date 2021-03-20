@@ -1,7 +1,29 @@
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitility/widgets/appbar.dart';
 import 'package:fitility/widgets/bottomNavigation.dart';
 import 'package:flutter/material.dart';
+
+class GetImages extends StatelessWidget {
+  final String dbName;
+
+  const GetImages({Key key, this.dbName}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return new StreamBuilder(
+        stream: Firestore.instance
+            .collection('slideshow')
+            .document(dbName)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return new Text("Loading");
+          }
+          var userDocument = snapshot.data;
+          return new Image.network(userDocument['imgUrl']);
+        });
+  }
+}
 
 class HomePage extends StatefulWidget {
   @override
@@ -55,14 +77,10 @@ class _HomePageState extends State<HomePage> {
                     showIndicator: true,
                     indicatorBgPadding: 10.0,
                     images: [
-                      Image.network(
-                          'https://firebasestorage.googleapis.com/v0/b/fitility.appspot.com/o/slideshow%2Fdance.jfif?alt=media&token=9a939f83-a1a9-41fa-9515-8d82708331d1'),
-                      Image.network(
-                          'https://firebasestorage.googleapis.com/v0/b/fitility.appspot.com/o/slideshow%2Fdance3.jpg?alt=media&token=090429db-45a5-4dce-a217-f923f17cff9b'),
-                      Image.network(
-                          'https://firebasestorage.googleapis.com/v0/b/fitility.appspot.com/o/slideshow%2Fdance2.jpg?alt=media&token=df6bbc55-c989-46a8-a0c6-89b479d69ed5'),
-                      Image.network(
-                          'https://firebasestorage.googleapis.com/v0/b/fitility.appspot.com/o/slideshow%2Fdance1.jpg?alt=media&token=d18c6cb8-e266-480a-a572-452a15458f69'),
+                      GetImages(dbName: 'images'),
+                      GetImages(dbName: 'image1'),
+                      GetImages(dbName: 'image2'),
+                      GetImages(dbName: 'image3'),
                     ],
                   ),
                 ),
