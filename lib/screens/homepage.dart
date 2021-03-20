@@ -31,6 +31,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List slideshowimages;
+  @override
+  void initState() {
+    setState(() {
+      slideshowimages = [
+        GetImages(dbName: 'images'),
+        GetImages(dbName: 'image1'),
+        GetImages(dbName: 'image2'),
+        GetImages(dbName: 'image3'),
+      ];
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,12 +90,7 @@ class _HomePageState extends State<HomePage> {
                     dotVerticalPadding: 10.0,
                     showIndicator: true,
                     indicatorBgPadding: 10.0,
-                    images: [
-                      GetImages(dbName: 'images'),
-                      GetImages(dbName: 'image1'),
-                      GetImages(dbName: 'image2'),
-                      GetImages(dbName: 'image3'),
-                    ],
+                    images: slideshowimages,
                   ),
                 ),
               ),
