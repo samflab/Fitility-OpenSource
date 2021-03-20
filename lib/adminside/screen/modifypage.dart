@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitility/adminside/screen/createpage.dart';
 import 'package:fitility/adminside/screen/deletepage.dart';
 import 'package:fitility/services/transition.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ModifyPage extends StatefulWidget {
@@ -11,6 +13,7 @@ class ModifyPage extends StatefulWidget {
 class _ModifyPageState extends State<ModifyPage> {
   int danceworkout = 1, workoutGenre = 1, level = 1;
   String videoName = "Select";
+  var category;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,46 +121,64 @@ class _ModifyPageState extends State<ModifyPage> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Expanded(
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton(
-                          icon: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: Colors.black,
-                            size: 30.0,
-                          ),
-                          dropdownColor: Colors.grey[100],
-                          isExpanded: true,
-                          isDense: true,
-                          hint: Text(
-                            videoName,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          items: [
-                            "Video 1",
-                            "Video 2",
-                            "Video 3",
-                            "Video 4",
-                            "Video 5",
-                            "Video 6",
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
+                    StreamBuilder(
+                        stream: Firestore.instance
+                            .collection('dance')
+                            .orderBy('videoname')
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData)
+                            return Center(
+                              child: CupertinoActivityIndicator(),
                             );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              videoName = value;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
+
+                          return Expanded(
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                value: videoName,
+                                onChanged: (value) {
+                                  setState(() {
+                                    videoName = value;
+                                  });
+                                },
+                                icon: Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: Colors.black,
+                                  size: 30.0,
+                                ),
+                                dropdownColor: Colors.grey[100],
+                                isExpanded: true,
+                                isDense: true,
+                                hint: Text(
+                                  videoName,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                items: snapshot.data != null
+                                    ? snapshot.data.documents
+                                        .map<DropdownMenuItem<String>>(
+                                          (value) =>
+                                              new DropdownMenuItem<String>(
+                                            value: value['videoname'],
+                                            child: new Container(
+                                              child: new Text(
+                                                value['videoname'],
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                        .toList()
+                                    : DropdownMenuItem(
+                                        value: 'null',
+                                        child: new Container(
+                                            child: new Text('null'))),
+                              ),
+                            ),
+                          );
+                        }),
                   ],
                 ),
               ),
