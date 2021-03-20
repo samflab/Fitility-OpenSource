@@ -88,18 +88,23 @@ class _DanceState extends State<Dance> {
                                         width: 13.0,
                                       ),
                                       SizedBox(width: 15.0),
-                                      AutoSizeText(
-                                        document['videoname'],
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontFamily: 'Rubik',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 18.0,
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.35,
+                                        child: AutoSizeText(
+                                          document['videoname'],
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontFamily: 'Rubik',
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 18.0,
+                                          ),
+                                          minFontSize: 15,
+                                          stepGranularity: 1,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
-                                        minFontSize: 12,
-                                        stepGranularity: 1,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
                                       ),
                                     ],
                                   ),
