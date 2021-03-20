@@ -55,6 +55,7 @@ class _DanceState extends State<Dance> {
                     children: snapshot.data.documents
                         .map((DocumentSnapshot document) {
                       String url = document['imgurl'];
+                      if (document['videoname'] == "Select") return Container();
                       return Column(
                         children: [
                           InkWell(
