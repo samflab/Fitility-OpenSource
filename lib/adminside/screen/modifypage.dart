@@ -127,7 +127,7 @@ class _ModifyPageState extends State<ModifyPage> {
                   children: <Widget>[
                     StreamBuilder(
                         stream: Firestore.instance
-                            .collection('dance')
+                            .collection('videos')
                             .orderBy('videoname', descending: false)
                             .snapshots(),
                         builder: (context, snapshot) {

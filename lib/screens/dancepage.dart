@@ -38,7 +38,10 @@ class _DanceState extends State<Dance> {
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
       child: StreamBuilder<QuerySnapshot>(
-          stream: Firestore.instance.collection('dance').snapshots(),
+          stream: Firestore.instance
+              .collection('videos')
+              .where("genre", isEqualTo: "Dance")
+              .snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
@@ -56,6 +59,7 @@ class _DanceState extends State<Dance> {
                         .map((DocumentSnapshot document) {
                       String url = document['imgurl'];
                       if (document['videoname'] == "Select") return Container();
+
                       return Column(
                         children: [
                           InkWell(

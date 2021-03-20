@@ -19,7 +19,7 @@ Future<void> saveVideoToDb({
       "imgurl": imgurl,
       "ytlink": ytlink,
     };
-    final userRef = _db.collection("dance").document(videoName);
+    final userRef = _db.collection("videos").document(videoName);
     if (!(await userRef.get()).exists) {
       await userRef.setData(videoDatamap);
     }
@@ -33,7 +33,7 @@ Future<void> saveVideoToDb({
       "imgurl": imgurl,
       "ytlink": ytlink,
     };
-    final userRef = _db.collection("workout").document(videoName);
+    final userRef = _db.collection("videos").document(videoName);
     if (!(await userRef.get()).exists) {
       await userRef.setData(videoDatamap);
     }
