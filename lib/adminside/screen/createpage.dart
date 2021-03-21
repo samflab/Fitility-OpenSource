@@ -4,6 +4,7 @@ import 'package:fitility/adminside/screen/adminpage.dart';
 import 'package:fitility/adminside/screen/deletepage.dart';
 import 'package:fitility/adminside/screen/modifypage.dart';
 import 'package:fitility/services/transition.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fitility/adminside/helper/database.dart';
@@ -804,6 +805,13 @@ class _CreatePageState extends State<CreatePage> {
                           },
                         );
                       }
+                      Fluttertoast.showToast(
+                          msg: "Deleted the Video",
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.BOTTOM,
+                          backgroundColor: Color(0xffdc2126),
+                          textColor: Colors.white,
+                          fontSize: 16.0);
                     },
                     child: Container(
                       alignment: Alignment.center,
