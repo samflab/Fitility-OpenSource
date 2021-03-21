@@ -39,3 +39,7 @@ Future<void> saveVideoToDb({
     }
   }
 }
+
+Future<void> deleteVideo(String jobId) {
+  return _db.collection('videos').document(jobId).delete();
+}

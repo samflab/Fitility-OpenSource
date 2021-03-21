@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fitility/adminside/helper/database.dart';
 import 'package:fitility/adminside/screen/createpage.dart';
 import 'package:fitility/adminside/screen/modifypage.dart';
 import 'package:fitility/services/transition.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class DeletePage extends StatefulWidget {
   @override
@@ -10,6 +14,10 @@ class DeletePage extends StatefulWidget {
 
 class _DeletePageState extends State<DeletePage> {
   String videoName = "Select";
+
+  TextEditingController videoNameController = new TextEditingController();
+  TextEditingController descriptionController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,46 +123,71 @@ class _DeletePageState extends State<DeletePage> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Expanded(
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton(
-                          icon: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: Colors.black,
-                            size: 30.0,
-                          ),
-                          dropdownColor: Colors.grey[100],
-                          isExpanded: true,
-                          isDense: true,
-                          hint: Text(
-                            videoName,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          items: [
-                            "Video 1",
-                            "Video 2",
-                            "Video 3",
-                            "Video 4",
-                            "Video 5",
-                            "Video 6",
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
+                    StreamBuilder(
+                        stream: Firestore.instance
+                            .collection('videos')
+                            .orderBy('videoname', descending: false)
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData)
+                            return Center(
+                              child: CupertinoActivityIndicator(),
                             );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              videoName = value;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
+
+                          return Expanded(
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                value: videoName,
+                                onChanged: (value) {
+                                  setState(() {
+                                    videoName = value;
+                                    videoNameController.text = videoName;
+                                    snapshot.data.documents.map((document) {
+                                      if (document['videoname'] == videoName)
+                                        descriptionController.text =
+                                            document['description'];
+                                    }).toList();
+                                  });
+                                },
+                                icon: Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: Colors.black,
+                                  size: 30.0,
+                                ),
+                                dropdownColor: Colors.grey[100],
+                                isExpanded: true,
+                                isDense: true,
+                                hint: Text(
+                                  videoName,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                items: snapshot.data != null
+                                    ? snapshot.data.documents
+                                        .map<DropdownMenuItem<String>>(
+                                          (value) =>
+                                              new DropdownMenuItem<String>(
+                                            value: value['videoname'],
+                                            child: new Container(
+                                              child:
+                                                  new Text(value['videoname']),
+                                            ),
+                                          ),
+                                        )
+                                        .toList()
+                                    : DropdownMenuItem(
+                                        value: 'null',
+                                        child: new Container(
+                                          child: new Text('null'),
+                                        ),
+                                      ),
+                              ),
+                            ),
+                          );
+                        }),
                   ],
                 ),
               ),
@@ -196,6 +229,7 @@ class _DeletePageState extends State<DeletePage> {
                                     primaryColor: Colors.black,
                                   ),
                                   child: TextField(
+                                    controller: videoNameController,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w500),
@@ -257,6 +291,7 @@ class _DeletePageState extends State<DeletePage> {
                                     primaryColor: Colors.black,
                                   ),
                                   child: TextField(
+                                    controller: descriptionController,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w500),
@@ -290,7 +325,22 @@ class _DeletePageState extends State<DeletePage> {
                       Container(
                         child: Center(
                           child: GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              deleteVideo(videoName);
+                              print("deleted video");
+                              setState(() {
+                                videoName = "Select";
+                                videoNameController.text = "";
+                                descriptionController.text = "";
+                              });
+                              Fluttertoast.showToast(
+                                  msg: "Deleted the Video",
+                                  toastLength: Toast.LENGTH_LONG,
+                                  gravity: ToastGravity.BOTTOM,
+                                  backgroundColor: Color(0xffdc2126),
+                                  textColor: Colors.white,
+                                  fontSize: 16.0);
+                            },
                             child: Container(
                               alignment: Alignment.center,
                               height: 50.0,
