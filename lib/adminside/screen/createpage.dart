@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fitility/adminside/screen/adminpage.dart';
 import 'package:fitility/adminside/screen/deletepage.dart';
@@ -786,6 +787,13 @@ class _CreatePageState extends State<CreatePage> {
                     onTap: () async {
                       if (namecontroller.text != null) {
                         await uploadImage(_imgfile);
+                        Fluttertoast.showToast(
+                            msg: "Adding video",
+                            toastLength: Toast.LENGTH_LONG,
+                            gravity: ToastGravity.BOTTOM,
+                            backgroundColor: Color(0xffdc2126),
+                            textColor: Colors.white,
+                            fontSize: 16.0);
                         saveVideoToDb(
                           videoName: namecontroller.text,
                           description: descriptioncontroller.text,
@@ -806,7 +814,7 @@ class _CreatePageState extends State<CreatePage> {
                         );
                       }
                       Fluttertoast.showToast(
-                          msg: "Deleted the Video",
+                          msg: "Added the Video",
                           toastLength: Toast.LENGTH_LONG,
                           gravity: ToastGravity.BOTTOM,
                           backgroundColor: Color(0xffdc2126),

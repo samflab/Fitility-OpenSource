@@ -13,7 +13,8 @@ class ModifyPage extends StatefulWidget {
 class _ModifyPageState extends State<ModifyPage> {
   int danceworkout = 1, workoutGenre = 1, level = 1;
   String videoName = "Select";
-
+  String url =
+      "https://firebasestorage.googleapis.com/v0/b/fitility.appspot.com/o/default-thumbnail.jpg?alt=media&token=2ed1d240-f825-43df-88ec-51438d5935f7";
   TextEditingController videoNameController = new TextEditingController();
   TextEditingController descriptionController = new TextEditingController();
   TextEditingController videoController = new TextEditingController();
@@ -145,10 +146,13 @@ class _ModifyPageState extends State<ModifyPage> {
                                     videoName = value;
                                     videoNameController.text = videoName;
                                     snapshot.data.documents.map((document) {
-                                      if (document['videoname'] == videoName)
+                                      if (document['videoname'] == videoName) {
                                         descriptionController.text =
                                             document['description'];
-                                      videoController.text = document['ytlink'];
+                                        videoController.text =
+                                            document['ytlink'];
+                                        url = document['imgurl'];
+                                      }
                                     }).toList();
                                   });
                                 },
@@ -778,6 +782,12 @@ class _ModifyPageState extends State<ModifyPage> {
                             Icon(Icons.add_a_photo, size: 30.0),
                           ],
                         ),
+                      ),
+                      SizedBox(height: 30.0),
+                      Image.network(
+                        url,
+                        height: 200,
+                        width: 200,
                       ),
                       SizedBox(height: 30.0),
                       Container(
