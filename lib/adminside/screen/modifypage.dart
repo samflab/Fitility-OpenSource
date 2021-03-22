@@ -11,10 +11,9 @@ class ModifyPage extends StatefulWidget {
 }
 
 class _ModifyPageState extends State<ModifyPage> {
-  int danceworkout = 1, workoutGenre = 1, level = 1;
+  String danceworkout = "Dance", workoutGenre = "Zumba", level = "Beginner";
   String videoName = "Select";
-  String url =
-      "https://firebasestorage.googleapis.com/v0/b/fitility.appspot.com/o/default-thumbnail.jpg?alt=media&token=2ed1d240-f825-43df-88ec-51438d5935f7";
+
   TextEditingController videoNameController = new TextEditingController();
   TextEditingController descriptionController = new TextEditingController();
   TextEditingController videoController = new TextEditingController();
@@ -151,7 +150,9 @@ class _ModifyPageState extends State<ModifyPage> {
                                             document['description'];
                                         videoController.text =
                                             document['ytlink'];
-                                        url = document['imgurl'];
+                                        danceworkout = document['genre'];
+                                        workoutGenre = document['workoutGenre'];
+                                        level = document["level"];
                                       }
                                     }).toList();
                                   });
@@ -361,7 +362,7 @@ class _ModifyPageState extends State<ModifyPage> {
                                   children: [
                                     Radio(
                                       activeColor: Colors.red[800],
-                                      value: 1,
+                                      value: "Dance",
                                       groupValue: danceworkout,
                                       onChanged: (val) {
                                         setState(() {
@@ -384,7 +385,7 @@ class _ModifyPageState extends State<ModifyPage> {
                                   children: [
                                     Radio(
                                       activeColor: Colors.red[800],
-                                      value: 2,
+                                      value: "Workout",
                                       groupValue: danceworkout,
                                       onChanged: (val) {
                                         setState(() {
@@ -407,7 +408,7 @@ class _ModifyPageState extends State<ModifyPage> {
                         ),
                       ),
                       SizedBox(height: 20.0),
-                      (danceworkout == 2)
+                      (danceworkout == "Workout")
                           ? Column(
                               children: [
                                 Container(
@@ -452,7 +453,7 @@ class _ModifyPageState extends State<ModifyPage> {
                                                   Radio(
                                                     activeColor:
                                                         Colors.red[800],
-                                                    value: 1,
+                                                    value: "Zumba",
                                                     groupValue: workoutGenre,
                                                     onChanged: (val) {
                                                       setState(() {
@@ -478,7 +479,7 @@ class _ModifyPageState extends State<ModifyPage> {
                                                   Radio(
                                                     activeColor:
                                                         Colors.red[800],
-                                                    value: 2,
+                                                    value: "Pillates",
                                                     groupValue: workoutGenre,
                                                     onChanged: (val) {
                                                       setState(() {
@@ -509,7 +510,7 @@ class _ModifyPageState extends State<ModifyPage> {
                                                   Radio(
                                                     activeColor:
                                                         Colors.red[800],
-                                                    value: 3,
+                                                    value: "Steppers",
                                                     groupValue: workoutGenre,
                                                     onChanged: (val) {
                                                       setState(() {
@@ -540,7 +541,7 @@ class _ModifyPageState extends State<ModifyPage> {
                                                   Radio(
                                                     activeColor:
                                                         Colors.red[800],
-                                                    value: 4,
+                                                    value: "HIIT",
                                                     groupValue: workoutGenre,
                                                     onChanged: (val) {
                                                       setState(() {
@@ -566,7 +567,7 @@ class _ModifyPageState extends State<ModifyPage> {
                                                   Radio(
                                                     activeColor:
                                                         Colors.red[800],
-                                                    value: 5,
+                                                    value: "Bootcamp",
                                                     groupValue: workoutGenre,
                                                     onChanged: (val) {
                                                       setState(() {
@@ -592,7 +593,7 @@ class _ModifyPageState extends State<ModifyPage> {
                                             children: [
                                               Radio(
                                                 activeColor: Colors.red[800],
-                                                value: 6,
+                                                value: "Bolly-Aero",
                                                 groupValue: workoutGenre,
                                                 onChanged: (val) {
                                                   setState(() {
@@ -663,7 +664,7 @@ class _ModifyPageState extends State<ModifyPage> {
                                                       Radio(
                                                         activeColor:
                                                             Colors.red[800],
-                                                        value: 1,
+                                                        value: "Beginner",
                                                         groupValue: level,
                                                         onChanged: (val) {
                                                           setState(() {
@@ -689,7 +690,7 @@ class _ModifyPageState extends State<ModifyPage> {
                                                       Radio(
                                                         activeColor:
                                                             Colors.red[800],
-                                                        value: 2,
+                                                        value: "Intermediate",
                                                         groupValue: level,
                                                         onChanged: (val) {
                                                           setState(() {
@@ -724,7 +725,7 @@ class _ModifyPageState extends State<ModifyPage> {
                                                       Radio(
                                                         activeColor:
                                                             Colors.red[800],
-                                                        value: 3,
+                                                        value: "Advanced",
                                                         groupValue: level,
                                                         onChanged: (val) {
                                                           setState(() {
@@ -782,12 +783,6 @@ class _ModifyPageState extends State<ModifyPage> {
                             Icon(Icons.add_a_photo, size: 30.0),
                           ],
                         ),
-                      ),
-                      SizedBox(height: 30.0),
-                      Image.network(
-                        url,
-                        height: 200,
-                        width: 200,
                       ),
                       SizedBox(height: 30.0),
                       Container(
