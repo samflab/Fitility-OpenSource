@@ -2,8 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitility/widgets/appbar.dart';
 import 'package:fitility/widgets/bottomNavigation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fitility/services/webview.dart';
+import 'package:flutter_svg/svg.dart';
 
 class DancePage extends StatefulWidget {
   @override
@@ -44,10 +46,28 @@ class _DanceState extends State<Dance> {
               .snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+            if (snapshot.hasError)
+              return new Column(
+                children: [
+                  SvgPicture.asset('error.svg'),
+                  Center(
+                    child: Text(
+                      'Something went wrong.\n Please try again later.',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'Rubik',
+                        fontSize: 16.0,
+                      ),
+                    ),
+                  )
+                ],
+              );
+
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
-                return new Text('Loading....');
+                return Center(
+                  child: new CupertinoActivityIndicator(),
+                );
               default:
                 return Scrollbar(
                   isAlwaysShown: true,

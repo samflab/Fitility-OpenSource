@@ -23,6 +23,7 @@ dependencies:
   auro_avatar:
   image_picker:
   path_provider: 
+  flutter_svg: ^0.19.3
 
 
 dev_dependencies:

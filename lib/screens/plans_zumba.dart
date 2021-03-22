@@ -6,6 +6,7 @@ import 'package:fitility/widgets/appbar.dart';
 import 'package:fitility/widgets/bottomNavigation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class PlansZumba extends StatefulWidget {
   @override
@@ -229,11 +230,26 @@ class _PlansZumbaState extends State<PlansZumba> {
                           .snapshots(),
                       builder: (BuildContext context, snapshot) {
                         if (snapshot.hasError) {
-                          return new Text('Error:${snapshot.error}');
+                          return new Column(
+                            children: [
+                              SvgPicture.asset('error.svg'),
+                              Center(
+                                child: Text(
+                                  'Something went wrong.\n Please try again later.',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Rubik',
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
                         }
                         switch (snapshot.connectionState) {
                           case ConnectionState.waiting:
-                            return new Text('Loading..');
+                            return Center(
+                                child: new CupertinoActivityIndicator());
                           default:
                             return MermershipPlan(
                               duration: snapshot.data['duration'],
@@ -249,11 +265,26 @@ class _PlansZumbaState extends State<PlansZumba> {
                           .snapshots(),
                       builder: (BuildContext context, snapshot) {
                         if (snapshot.hasError) {
-                          return new Text('Error:${snapshot.error}');
+                          return new Column(
+                            children: [
+                              SvgPicture.asset('error.svg'),
+                              Center(
+                                child: Text(
+                                  'Something went wrong.\n Please try again later.',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Rubik',
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
                         }
                         switch (snapshot.connectionState) {
                           case ConnectionState.waiting:
-                            return new Text('Loading..');
+                            return Center(
+                                child: new CupertinoActivityIndicator());
                           default:
                             return MermershipPlan(
                               duration: snapshot.data['duration'],
@@ -296,11 +327,26 @@ class _PlansZumbaState extends State<PlansZumba> {
                           .snapshots(),
                       builder: (BuildContext context, snapshot) {
                         if (snapshot.hasError) {
-                          return new Text('Error:${snapshot.error}');
+                          return new Column(
+                            children: [
+                              SvgPicture.asset('error.svg'),
+                              Center(
+                                child: Text(
+                                  'Something went wrong.\n Please try again later.',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Rubik',
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
                         }
                         switch (snapshot.connectionState) {
                           case ConnectionState.waiting:
-                            return new Text('Loading..');
+                            return Center(
+                                child: new CupertinoActivityIndicator());
                           default:
                             return MermershipPlan(
                               duration: snapshot.data['duration'],
@@ -316,11 +362,26 @@ class _PlansZumbaState extends State<PlansZumba> {
                           .snapshots(),
                       builder: (BuildContext context, snapshot) {
                         if (snapshot.hasError) {
-                          return new Text('Error:${snapshot.error}');
+                          return new Column(
+                            children: [
+                              SvgPicture.asset('error.svg'),
+                              Center(
+                                child: Text(
+                                  'Something went wrong.\n Please try again later.',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Rubik',
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
                         }
                         switch (snapshot.connectionState) {
                           case ConnectionState.waiting:
-                            return new Text('Loading..');
+                            return Center(
+                                child: new CupertinoActivityIndicator());
                           default:
                             return MermershipPlan(
                               duration: snapshot.data['duration'],
@@ -363,11 +424,26 @@ class _PlansZumbaState extends State<PlansZumba> {
                           .snapshots(),
                       builder: (BuildContext context, snapshot) {
                         if (snapshot.hasError) {
-                          return new Text('Error:${snapshot.error}');
+                          return new Column(
+                            children: [
+                              SvgPicture.asset('error.svg'),
+                              Center(
+                                child: Text(
+                                  'Something went wrong.\n Please try again later.',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Rubik',
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
                         }
                         switch (snapshot.connectionState) {
                           case ConnectionState.waiting:
-                            return new Text('Loading..');
+                            return Center(
+                                child: new CupertinoActivityIndicator());
                           default:
                             return MermershipPlan(
                               duration: snapshot.data['duration'],
@@ -383,11 +459,26 @@ class _PlansZumbaState extends State<PlansZumba> {
                           .snapshots(),
                       builder: (BuildContext context, snapshot) {
                         if (snapshot.hasError) {
-                          return new Text('Error:${snapshot.error}');
+                          return new Column(
+                            children: [
+                              SvgPicture.asset('error.svg'),
+                              Center(
+                                child: Text(
+                                  'Something went wrong.\n Please try again later.',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Rubik',
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
                         }
                         switch (snapshot.connectionState) {
                           case ConnectionState.waiting:
-                            return new Text('Loading..');
+                            return Center(
+                                child: new CupertinoActivityIndicator());
                           default:
                             return MermershipPlan(
                               duration: snapshot.data['duration'],
@@ -403,11 +494,26 @@ class _PlansZumbaState extends State<PlansZumba> {
                           .snapshots(),
                       builder: (BuildContext context, snapshot) {
                         if (snapshot.hasError) {
-                          return new Text('Error:${snapshot.error}');
+                          return new Column(
+                            children: [
+                              SvgPicture.asset('error.svg'),
+                              Center(
+                                child: Text(
+                                  'Something went wrong.\n Please try again later.',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Rubik',
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
                         }
                         switch (snapshot.connectionState) {
                           case ConnectionState.waiting:
-                            return new Text('Loading..');
+                            return Center(
+                                child: new CupertinoActivityIndicator());
                           default:
                             return MermershipPlan(
                               duration: snapshot.data['duration'],
@@ -450,11 +556,26 @@ class _PlansZumbaState extends State<PlansZumba> {
                           .snapshots(),
                       builder: (BuildContext context, snapshot) {
                         if (snapshot.hasError) {
-                          return new Text('Error:${snapshot.error}');
+                          return new Column(
+                            children: [
+                              SvgPicture.asset('error.svg'),
+                              Center(
+                                child: Text(
+                                  'Something went wrong.\n Please try again later.',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Rubik',
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
                         }
                         switch (snapshot.connectionState) {
                           case ConnectionState.waiting:
-                            return new Text('Loading..');
+                            return Center(
+                                child: new CupertinoActivityIndicator());
                           default:
                             return MermershipPlan(
                               duration: snapshot.data['duration'],
@@ -470,11 +591,26 @@ class _PlansZumbaState extends State<PlansZumba> {
                           .snapshots(),
                       builder: (BuildContext context, snapshot) {
                         if (snapshot.hasError) {
-                          return new Text('Error:${snapshot.error}');
+                          return new Column(
+                            children: [
+                              SvgPicture.asset('error.svg'),
+                              Center(
+                                child: Text(
+                                  'Something went wrong.\n Please try again later.',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Rubik',
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
                         }
                         switch (snapshot.connectionState) {
                           case ConnectionState.waiting:
-                            return new Text('Loading..');
+                            return Center(
+                                child: new CupertinoActivityIndicator());
                           default:
                             return MermershipPlan(
                               duration: snapshot.data['duration'],
@@ -490,11 +626,26 @@ class _PlansZumbaState extends State<PlansZumba> {
                           .snapshots(),
                       builder: (BuildContext context, snapshot) {
                         if (snapshot.hasError) {
-                          return new Text('Error:${snapshot.error}');
+                          return new Column(
+                            children: [
+                              SvgPicture.asset('error.svg'),
+                              Center(
+                                child: Text(
+                                  'Something went wrong.\n Please try again later.',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Rubik',
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
                         }
                         switch (snapshot.connectionState) {
                           case ConnectionState.waiting:
-                            return new Text('Loading..');
+                            return Center(
+                                child: new CupertinoActivityIndicator());
                           default:
                             return MermershipPlan(
                               duration: snapshot.data['duration'],
@@ -537,11 +688,26 @@ class _PlansZumbaState extends State<PlansZumba> {
                           .snapshots(),
                       builder: (BuildContext context, snapshot) {
                         if (snapshot.hasError) {
-                          return new Text('Error:${snapshot.error}');
+                          return new Column(
+                            children: [
+                              SvgPicture.asset('error.svg'),
+                              Center(
+                                child: Text(
+                                  'Something went wrong.\n Please try again later.',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Rubik',
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
                         }
                         switch (snapshot.connectionState) {
                           case ConnectionState.waiting:
-                            return new Text('Loading..');
+                            return Center(
+                                child: new CupertinoActivityIndicator());
                           default:
                             return MermershipPlan(
                               duration: snapshot.data['duration'],
