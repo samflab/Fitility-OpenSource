@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitility/screens/homepage.dart';
+import 'package:fitility/services/confirmEmail.dart';
 import 'package:fitility/services/messages.dart';
 import 'package:fitility/services/sharedpref.dart';
+import 'package:fitility/services/transition.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +12,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 FirebaseAuth auth = FirebaseAuth.instance;
 Firestore _db = Firestore.instance;
 final gSignIn = GoogleSignIn();
+
+Future confirmEmail(AuthResult s, BuildContext context) async {
+  if (!s.user.isEmailVerified) {
+    await s.user.sendEmailVerification();
+    Navigator.pushReplacement(
+      context,
+      FadeRoute(page: ConfirmEmail()),
+    );
+  } else {
+    Navigator.pushReplacement(
+      context,
+      FadeRoute(page: HomePage()),
+    );
+  }
+}
 
 Future<bool> googleSignIn() async {
   try {
@@ -95,6 +113,10 @@ Future<String> signIn(
     AuthResult result =
         await auth.signInWithEmailAndPassword(email: email, password: password);
     FirebaseUser user = result.user;
+
+    //EMAIL VERIFICATION
+    confirmEmail(result, context);
+
     String role = "user";
     String userFirstname = "";
     String userLastname = "";
