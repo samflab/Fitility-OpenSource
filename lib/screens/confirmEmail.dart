@@ -9,7 +9,7 @@ class ConfirmEmail extends StatelessWidget {
         child: Container(
           child: Center(
             child: Text(
-              "Please confirm your email with the link sent on your email ID\ntry signing in again later.",
+              "Please confirm your email with the link sent on your email ID\nTry signing in again later.",
               style: TextStyle(
                 fontFamily: 'Rubik',
                 fontSize: 16,

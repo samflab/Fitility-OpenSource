@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitility/screens/homepage.dart';
-import 'package:fitility/services/confirmEmail.dart';
+import 'package:fitility/screens/confirmEmail.dart';
 import 'package:fitility/services/messages.dart';
 import 'package:fitility/services/sharedpref.dart';
 import 'package:fitility/services/transition.dart';
