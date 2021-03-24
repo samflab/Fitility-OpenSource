@@ -13,6 +13,7 @@ class ModifyPage extends StatefulWidget {
 class _ModifyPageState extends State<ModifyPage> {
   String danceworkout = "Dance", workoutGenre = "Zumba", level = "Beginner";
   String videoName = "Select";
+  String imgurl;
 
   TextEditingController videoNameController = new TextEditingController();
   TextEditingController descriptionController = new TextEditingController();
@@ -153,6 +154,7 @@ class _ModifyPageState extends State<ModifyPage> {
                                         danceworkout = document['genre'];
                                         workoutGenre = document['workoutGenre'];
                                         level = document["level"];
+                                        imgurl = document["imgurl"];
                                       }
                                     }).toList();
                                   });
@@ -785,6 +787,14 @@ class _ModifyPageState extends State<ModifyPage> {
                         ),
                       ),
                       SizedBox(height: 30.0),
+                      (imgurl != null)
+                          ? Image.network(
+                              imgurl,
+                              height: 200,
+                              width: 200,
+                            )
+                          : Container(),
+                      SizedBox(height: 30),
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 25.0),
                         child: Row(
