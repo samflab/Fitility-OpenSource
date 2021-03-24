@@ -1,9 +1,14 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fitility/adminside/screen/createpage.dart';
 import 'package:fitility/adminside/screen/deletepage.dart';
 import 'package:fitility/services/transition.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
 
 class ModifyPage extends StatefulWidget {
   @override
@@ -14,6 +19,38 @@ class _ModifyPageState extends State<ModifyPage> {
   String danceworkout = "Dance", workoutGenre = "Zumba", level = "Beginner";
   String videoName = "Select";
   String imgurl;
+  File _imgfile;
+  final _picker = ImagePicker();
+
+  Future getImage() async {
+    final pickedImage = await _picker.getImage(
+      source: ImageSource.gallery,
+      imageQuality: 50,
+    );
+
+    File tempFile = File(pickedImage.path);
+    final Directory directory = await getApplicationDocumentsDirectory();
+
+    final String path = directory.path;
+
+    final String fileName = basename(pickedImage.path);
+    final String fileExtension = extension(pickedImage.path);
+
+    tempFile = await tempFile.copy('$path/$fileName$fileExtension');
+    setState(() {
+      _imgfile = tempFile;
+    });
+  }
+
+  Future uploadImage(File image) async {
+    String imgname = image.path.toString().split("/").last;
+    StorageReference firebaseStrorageRef =
+        FirebaseStorage.instance.ref().child(imgname);
+    StorageUploadTask uploadTask = firebaseStrorageRef.putFile(image);
+    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+    imgurl = await taskSnapshot.ref.getDownloadURL();
+    //print(imgurl);
+  }
 
   TextEditingController videoNameController = new TextEditingController();
   TextEditingController descriptionController = new TextEditingController();
@@ -155,6 +192,7 @@ class _ModifyPageState extends State<ModifyPage> {
                                         workoutGenre = document['workoutGenre'];
                                         level = document["level"];
                                         imgurl = document["imgurl"];
+                                        _imgfile = null;
                                       }
                                     }).toList();
                                   });
@@ -782,18 +820,29 @@ class _ModifyPageState extends State<ModifyPage> {
                               ],
                             ),
                             SizedBox(width: 50.0),
-                            Icon(Icons.add_a_photo, size: 30.0),
+                            IconButton(
+                              onPressed: () {
+                                getImage();
+                              },
+                              icon: Icon(Icons.add_a_photo, size: 30.0),
+                            ),
                           ],
                         ),
                       ),
                       SizedBox(height: 30.0),
-                      (imgurl != null)
-                          ? Image.network(
-                              imgurl,
+                      (_imgfile != null)
+                          ? Image.file(
+                              _imgfile,
                               height: 200,
                               width: 200,
                             )
-                          : Container(),
+                          : (imgurl != null)
+                              ? Image.network(
+                                  imgurl,
+                                  height: 200,
+                                  width: 200,
+                                )
+                              : Container(),
                       SizedBox(height: 30),
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 25.0),
