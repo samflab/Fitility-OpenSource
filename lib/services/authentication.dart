@@ -115,7 +115,7 @@ Future<String> signIn(
     FirebaseUser user = result.user;
 
     //EMAIL VERIFICATION
-    confirmEmail(result, context);
+    //confirmEmail(result, context);
 
     String role = "user";
     String userFirstname = "";

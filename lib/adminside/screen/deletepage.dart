@@ -230,6 +230,7 @@ class _DeletePageState extends State<DeletePage> {
                                   ),
                                   child: TextField(
                                     controller: videoNameController,
+                                    enabled: false,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w500),
@@ -292,6 +293,7 @@ class _DeletePageState extends State<DeletePage> {
                                   ),
                                   child: TextField(
                                     controller: descriptionController,
+                                    enabled: false,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w500),
@@ -330,8 +332,8 @@ class _DeletePageState extends State<DeletePage> {
                               print("deleted video");
                               setState(() {
                                 videoName = "Select";
-                                videoNameController.text = "";
-                                descriptionController.text = "";
+                                videoNameController.clear();
+                                descriptionController.clear();
                               });
                               Fluttertoast.showToast(
                                   msg: "Deleted the Video",

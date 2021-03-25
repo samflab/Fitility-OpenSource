@@ -26,6 +26,31 @@ Future<void> saveVideoToDb({
   }
 }
 
-Future<void> deleteVideo(String jobId) {
-  return _db.collection('videos').document(jobId).delete();
+Future<void> deleteVideo(String video) {
+  return _db.collection('videos').document(video).delete();
+}
+
+Future<void> updateVideo({
+  String videoName,
+  String description,
+  String genre,
+  String workoutGenre,
+  String level,
+  String imgurl,
+  String ytlink,
+}) async {
+  Map<String, dynamic> updateVideo = {
+    "videoname": videoName,
+    "description": description,
+    "genre": genre,
+    "workoutGenre": workoutGenre,
+    "level": level,
+    "imgurl": imgurl,
+    "ytlink": ytlink,
+  };
+
+  return await _db
+      .collection("videos")
+      .document(videoName)
+      .updateData(updateVideo);
 }

@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:fitility/adminside/helper/database.dart';
 import 'package:fitility/adminside/screen/createpage.dart';
 import 'package:fitility/adminside/screen/deletepage.dart';
 import 'package:fitility/services/transition.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
@@ -278,6 +280,7 @@ class _ModifyPageState extends State<ModifyPage> {
                                   ),
                                   child: TextField(
                                     controller: videoNameController,
+                                    enabled: false,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w500),
@@ -909,7 +912,30 @@ class _ModifyPageState extends State<ModifyPage> {
                       Container(
                         child: Center(
                           child: GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              updateVideo(
+                                videoName: videoNameController.text,
+                                description: descriptionController.text,
+                                genre: danceworkout,
+                                workoutGenre: workoutGenre,
+                                level: level,
+                                imgurl: imgurl,
+                                ytlink: videoController.text,
+                              ).whenComplete(() => Fluttertoast.showToast(
+                                  msg: "Updated the Video",
+                                  toastLength: Toast.LENGTH_LONG,
+                                  gravity: ToastGravity.BOTTOM,
+                                  backgroundColor: Color(0xffdc2126),
+                                  textColor: Colors.white,
+                                  fontSize: 16.0));
+                              setState(() {
+                                videoName = "Select";
+                                videoNameController.clear();
+                                descriptionController.clear();
+                                videoController.clear();
+                                imgurl = null;
+                              });
+                            },
                             child: Container(
                               alignment: Alignment.center,
                               height: 50.0,
