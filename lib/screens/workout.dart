@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fitility/services/webview.dart';
 import 'package:fitility/widgets/appbar.dart';
 import 'package:fitility/widgets/bottomNavigation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class WorkoutScreen extends StatefulWidget {
@@ -15,6 +18,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
       isSteppers = false,
       isBodyaero = false,
       isBootcamp = false;
+  final ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,136 +161,296 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                 ),
               ),
               isAll
-                  ? Column(
-                      children: [
-                        Videocard(
-                          text: "Lorem Ipsum",
-                          image: 'images/pic1.png',
-                          level: "Beginner",
-                        ),
-                        Videocard(
-                          text: "Lorem Ipsum",
-                          image: 'images/pic2.png',
-                          level: "Beginner",
-                        ),
-                        Videocard(
-                          text: "Lorem Ipsum",
-                          image: 'images/pic3.png',
-                          level: "Beginner",
-                        ),
-                        Videocard(
-                          text: "Lorem Ipsum",
-                          image: 'images/pic1.png',
-                          level: "Beginner",
-                        ),
-                        Videocard(
-                          text: "Lorem Ipsum",
-                          image: 'images/pic2.png',
-                          level: "Beginner",
-                        ),
-                        Videocard(
-                          text: "Lorem Ipsum",
-                          image: 'images/pic3.png',
-                          level: "Beginner",
-                        ),
-                      ],
-                    )
+                  ? StreamBuilder<QuerySnapshot>(
+                      stream: Firestore.instance
+                          .collection('videos')
+                          .where('genre', isEqualTo: 'Workout')
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError)
+                          return Text("Something went wrong");
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return Center(child: CupertinoActivityIndicator());
+                          default:
+                            return new Scrollbar(
+                              isAlwaysShown: true,
+                              controller: _scrollController,
+                              child: new ListView(
+                                controller: _scrollController,
+                                shrinkWrap: true,
+                                children: snapshot.data.documents
+                                    .map((DocumentSnapshot document) {
+                                  return InkWell(
+                                    onTap: () {
+                                      _handleURLButtonPress(
+                                          context,
+                                          document['ytlink'],
+                                          document['videoname']);
+                                    },
+                                    child: new Videocard(
+                                      text: document['videoname'],
+                                      image: document['imgurl'],
+                                      level: document['level'],
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            );
+                        }
+                      })
                   : Container(),
               isZubma
-                  ? Column(
-                      children: [
-                        Videocard(
-                          text: "Lorem Ipsum",
-                          image: 'images/pic3.png',
-                          level: "Beginner",
-                        ),
-                        Videocard(
-                          text: "Lorem Ipsum",
-                          image: 'images/pic2.png',
-                          level: "Beginner",
-                        ),
-                        Videocard(
-                          text: "Lorem Ipsum",
-                          image: 'images/pic1.png',
-                          level: "Beginner",
-                        ),
-                      ],
-                    )
+                  ? StreamBuilder<QuerySnapshot>(
+                      stream: Firestore.instance
+                          .collection('videos')
+                          .where('genre', isEqualTo: 'Workout')
+                          .where('workoutGenre', isEqualTo: 'Zumba')
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError)
+                          return new Text("Something's wrong");
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return Center(
+                              child: new CupertinoActivityIndicator(),
+                            );
+                          default:
+                            return Scrollbar(
+                              isAlwaysShown: true,
+                              controller: _scrollController,
+                              child: new ListView(
+                                  controller: _scrollController,
+                                  shrinkWrap: true,
+                                  children: snapshot.data.documents
+                                      .map((DocumentSnapshot document) {
+                                    return InkWell(
+                                      onTap: () {
+                                        _handleURLButtonPress(
+                                            context,
+                                            document['ytlink'],
+                                            document['videoname']);
+                                      },
+                                      child: new Videocard(
+                                        text: document['videoname'],
+                                        image: document['imgurl'],
+                                        level: document['level'],
+                                      ),
+                                    );
+                                  }).toList()),
+                            );
+                        }
+                      })
                   : Container(),
               isPillates
-                  ? Column(
-                      children: [
-                        Videocard(
-                          text: "Lorem Ipsum",
-                          image: 'images/pic1.png',
-                          level: "Beginner",
-                        ),
-                      ],
-                    )
+                  ? StreamBuilder<QuerySnapshot>(
+                      stream: Firestore.instance
+                          .collection('videos')
+                          .where('genre', isEqualTo: 'Workout')
+                          .where('workoutGenre', isEqualTo: 'Pillates')
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError)
+                          return new Text("Something's wrong");
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return Center(
+                              child: new CupertinoActivityIndicator(),
+                            );
+                          default:
+                            return Scrollbar(
+                              isAlwaysShown: true,
+                              controller: _scrollController,
+                              child: new ListView(
+                                  controller: _scrollController,
+                                  shrinkWrap: true,
+                                  children: snapshot.data.documents
+                                      .map((DocumentSnapshot document) {
+                                    return InkWell(
+                                      onTap: () {
+                                        _handleURLButtonPress(
+                                            context,
+                                            document['ytlink'],
+                                            document['videoname']);
+                                      },
+                                      child: new Videocard(
+                                        text: document['videoname'],
+                                        image: document['imgurl'],
+                                        level: document['level'],
+                                      ),
+                                    );
+                                  }).toList()),
+                            );
+                        }
+                      })
                   : Container(),
               isHIIT
-                  ? Column(
-                      children: [
-                        Videocard(
-                          text: "Lorem Ipsum",
-                          image: 'images/pic2.png',
-                          level: "Beginner",
-                        ),
-                        Videocard(
-                          text: "Lorem Ipsum",
-                          image: 'images/pic3.png',
-                          level: "Beginner",
-                        ),
-                      ],
-                    )
+                  ? StreamBuilder<QuerySnapshot>(
+                      stream: Firestore.instance
+                          .collection('videos')
+                          .where('genre', isEqualTo: 'Workout')
+                          .where('workoutGenre', isEqualTo: 'HIIT')
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError)
+                          return new Text("Something's wrong");
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return Center(
+                              child: new CupertinoActivityIndicator(),
+                            );
+                          default:
+                            return Scrollbar(
+                              isAlwaysShown: true,
+                              controller: _scrollController,
+                              child: new ListView(
+                                  controller: _scrollController,
+                                  shrinkWrap: true,
+                                  children: snapshot.data.documents
+                                      .map((DocumentSnapshot document) {
+                                    return InkWell(
+                                      onTap: () {
+                                        _handleURLButtonPress(
+                                            context,
+                                            document['ytlink'],
+                                            document['videoname']);
+                                      },
+                                      child: new Videocard(
+                                        text: document['videoname'],
+                                        image: document['imgurl'],
+                                        level: document['level'],
+                                      ),
+                                    );
+                                  }).toList()),
+                            );
+                        }
+                      })
                   : Container(),
               isSteppers
-                  ? Column(
-                      children: [
-                        Videocard(
-                          text: "Lorem Ipsum",
-                          image: 'images/pic1.png',
-                          level: "Beginner",
-                        ),
-                      ],
-                    )
+                  ? StreamBuilder<QuerySnapshot>(
+                      stream: Firestore.instance
+                          .collection('videos')
+                          .where('genre', isEqualTo: 'Workout')
+                          .where('workoutGenre', isEqualTo: 'Steppers')
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError)
+                          return new Text("Something's wrong");
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return Center(
+                              child: new CupertinoActivityIndicator(),
+                            );
+                          default:
+                            return Scrollbar(
+                              isAlwaysShown: true,
+                              controller: _scrollController,
+                              child: new ListView(
+                                  controller: _scrollController,
+                                  shrinkWrap: true,
+                                  children: snapshot.data.documents
+                                      .map((DocumentSnapshot document) {
+                                    return InkWell(
+                                      onTap: () {
+                                        _handleURLButtonPress(
+                                            context,
+                                            document['ytlink'],
+                                            document['videoname']);
+                                      },
+                                      child: new Videocard(
+                                        text: document['videoname'],
+                                        image: document['imgurl'],
+                                        level: document['level'],
+                                      ),
+                                    );
+                                  }).toList()),
+                            );
+                        }
+                      })
                   : Container(),
               isBodyaero
-                  ? Column(
-                      children: [
-                        Videocard(
-                          text: "Lorem Ipsum",
-                          image: 'images/pic1.png',
-                          level: "Beginner",
-                        ),
-                        Videocard(
-                          text: "Lorem Ipsum",
-                          image: 'images/pic1.png',
-                          level: "Beginner",
-                        ),
-                        Videocard(
-                          text: "Lorem Ipsum",
-                          image: 'images/pic3.png',
-                          level: "Beginner",
-                        ),
-                      ],
-                    )
+                  ? StreamBuilder<QuerySnapshot>(
+                      stream: Firestore.instance
+                          .collection('videos')
+                          .where('genre', isEqualTo: 'Workout')
+                          .where('workoutGenre', isEqualTo: 'Body-Aero')
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError)
+                          return new Text("Something's wrong");
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return Center(
+                              child: new CupertinoActivityIndicator(),
+                            );
+                          default:
+                            return Scrollbar(
+                              isAlwaysShown: true,
+                              controller: _scrollController,
+                              child: new ListView(
+                                  controller: _scrollController,
+                                  shrinkWrap: true,
+                                  children: snapshot.data.documents
+                                      .map((DocumentSnapshot document) {
+                                    return InkWell(
+                                      onTap: () {
+                                        _handleURLButtonPress(
+                                            context,
+                                            document['ytlink'],
+                                            document['videoname']);
+                                      },
+                                      child: new Videocard(
+                                        text: document['videoname'],
+                                        image: document['imgurl'],
+                                        level: document['level'],
+                                      ),
+                                    );
+                                  }).toList()),
+                            );
+                        }
+                      })
                   : Container(),
               isBootcamp
-                  ? Column(
-                      children: [
-                        Videocard(
-                          text: "Lorem Ipsum",
-                          image: 'images/pic2.png',
-                          level: "Beginner",
-                        ),
-                        Videocard(
-                          text: "Lorem Ipsum",
-                          image: 'images/pic1.png',
-                          level: "Beginner",
-                        ),
-                      ],
-                    )
+                  ? StreamBuilder<QuerySnapshot>(
+                      stream: Firestore.instance
+                          .collection('videos')
+                          .where('genre', isEqualTo: 'Workout')
+                          .where('workoutGenre', isEqualTo: 'Bootcamp')
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError)
+                          return new Text("Something's wrong");
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return Center(
+                              child: new CupertinoActivityIndicator(),
+                            );
+                          default:
+                            return Scrollbar(
+                              isAlwaysShown: true,
+                              controller: _scrollController,
+                              child: new ListView(
+                                  controller: _scrollController,
+                                  shrinkWrap: true,
+                                  children: snapshot.data.documents
+                                      .map((DocumentSnapshot document) {
+                                    return InkWell(
+                                      onTap: () {
+                                        _handleURLButtonPress(
+                                            context,
+                                            document['ytlink'],
+                                            document['videoname']);
+                                      },
+                                      child: new Videocard(
+                                        text: document['videoname'],
+                                        image: document['imgurl'],
+                                        level: document['level'],
+                                      ),
+                                    );
+                                  }).toList()),
+                            );
+                        }
+                      })
                   : Container(),
             ],
           ),
@@ -392,7 +556,7 @@ class Videocard extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.only(right: 10.0),
-            child: Image.asset(
+            child: Image.network(
               image,
               height: 50.0,
               width: 90.0,
@@ -402,4 +566,13 @@ class Videocard extends StatelessWidget {
       ),
     );
   }
+}
+
+void _handleURLButtonPress(BuildContext context, String url, String title) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => WebViewContainer(url, title),
+    ),
+  );
 }

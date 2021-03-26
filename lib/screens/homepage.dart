@@ -176,6 +176,7 @@ class _HomePageState extends State<HomePage> {
                             .collection("videos")
                             .where("genre", isEqualTo: "Workout")
                             .orderBy("createdOn", descending: true)
+                            .limit(5)
                             .snapshots(),
                         builder: (context, snapshot) {
                           if (snapshot.hasError)
