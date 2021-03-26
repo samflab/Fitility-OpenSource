@@ -77,81 +77,18 @@ class _DanceState extends State<Dance> {
                     shrinkWrap: true,
                     children: snapshot.data.documents
                         .map((DocumentSnapshot document) {
-                      String url = document['imgurl'];
+                      String url = document['ytlink'];
                       if (document['videoname'] == "Select") return Container();
 
-                      return Column(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              _handleURLButtonPress(
-                                context,
-                                document['ytlink'],
-                                document['videoname'],
-                              );
-                            },
-                            child: new Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: 20.0, vertical: 10.0),
-                              height: 80.0,
-                              decoration: BoxDecoration(
-                                color: Color(0xffffffff),
-                                border: Border.all(
-                                  color: Color(0xffeceff1),
-                                ),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Row(
-                                    children: [
-                                      Image.asset(
-                                        'images/bullet.png',
-                                        width: 13.0,
-                                      ),
-                                      SizedBox(width: 15.0),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.35,
-                                        child: AutoSizeText(
-                                          document['videoname'],
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontFamily: 'Rubik',
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 18.0,
-                                          ),
-                                          minFontSize: 15,
-                                          stepGranularity: 1,
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                      right: 25.0,
-                                      top: 13,
-                                      bottom: 12.0,
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      child: Image.network(
-                                        url,
-                                        height: 53.0,
-                                        width: 100.0,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
+                      return InkWell(
+                        onTap: () {
+                          _handleURLButtonPress(
+                              context, url, document['videoname']);
+                        },
+                        child: DanceCard(
+                          text: document['videoname'],
+                          image: document['imgurl'],
+                        ),
                       );
                     }).toList(),
                   ),
@@ -171,57 +108,64 @@ void _handleURLButtonPress(BuildContext context, String url, String title) {
   );
 }
 
-// class DanceCard extends StatelessWidget {
-//   final String text, image;
-//   const DanceCard({
-//     this.text,
-//     this.image,
-//     Key key,
-//   }) : super(key: key);
+class DanceCard extends StatelessWidget {
+  final String text, image;
+  const DanceCard({
+    this.text,
+    this.image,
+    Key key,
+  }) : super(key: key);
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-//       height: 80.0,
-//       decoration: BoxDecoration(
-//         color: Color(0xffffffff),
-//         border: Border.all(
-//           color: Color(0xffeceff1),
-//         ),
-//         borderRadius: BorderRadius.circular(10.0),
-//       ),
-//       child: Row(
-//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//         children: [
-//           Row(
-//             children: [
-//               Image.asset(
-//                 'images/bullet.png',
-//                 width: 13.0,
-//               ),
-//               SizedBox(width: 15.0),
-//               Text(
-//                 text,
-//                 style: TextStyle(
-//                   color: Colors.black,
-//                   fontFamily: 'Rubik',
-//                   fontWeight: FontWeight.w500,
-//                   fontSize: 18.0,
-//                 ),
-//               ),
-//             ],
-//           ),
-//           Container(
-//             padding: EdgeInsets.only(right: 20.0),
-//             child: Image.asset(
-//               image,
-//               height: 55.0,
-//               width: 100.0,
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      height: 80.0,
+      decoration: BoxDecoration(
+        color: Color(0xffffffff),
+        border: Border.all(
+          color: Color(0xffeceff1),
+        ),
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Image.asset(
+                'images/bullet.png',
+                width: 13.0,
+              ),
+              SizedBox(width: 15.0),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.35,
+                child: AutoSizeText(
+                  text,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'Rubik',
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18.0,
+                  ),
+                  minFontSize: 15,
+                  stepGranularity: 1,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+          Container(
+            padding: EdgeInsets.only(right: 20.0),
+            child: Image.network(
+              image,
+              height: 55.0,
+              width: 100.0,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
