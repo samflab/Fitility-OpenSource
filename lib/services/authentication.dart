@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fitility/screens/homepage.dart';
-import 'package:fitility/screens/confirmEmail.dart';
+
 import 'package:fitility/services/messages.dart';
 import 'package:fitility/services/sharedpref.dart';
-import 'package:fitility/services/transition.dart';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,20 +13,82 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 FirebaseAuth auth = FirebaseAuth.instance;
 Firestore _db = Firestore.instance;
 final gSignIn = GoogleSignIn();
+AuthResult result;
+bool check = false;
 
-Future confirmEmail(AuthResult s, BuildContext context) async {
-  if (!s.user.isEmailVerified) {
-    await s.user.sendEmailVerification();
-    Navigator.pushReplacement(
-      context,
-      FadeRoute(page: ConfirmEmail()),
+Widget confirmEmailBox() {
+  if (check) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Container(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                Text(
+                  "Please verify your email. Email verification link has been sent to your email ID",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  child: GestureDetector(
+                    onTap: () {
+                      result.user.sendEmailVerification();
+                      Fluttertoast.showToast(
+                          msg: "Sent the link",
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.BOTTOM,
+                          backgroundColor: Color(0xffdc2126),
+                          textColor: Colors.white,
+                          fontSize: 16.0);
+                    },
+                    child: Container(
+                      height: 40.0,
+                      width: 120.0,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Resend Link",
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 20.0,
+                            fontFamily: 'Rubik',
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          decoration: new BoxDecoration(
+            borderRadius: new BorderRadius.circular(10.0),
+            color: Colors.red,
+          ),
+        ),
+      ),
     );
-  } else {
-    Navigator.pushReplacement(
-      context,
-      FadeRoute(page: HomePage()),
-    );
+  } else
+    return Container();
+}
+
+Future<bool> confirmEmail(AuthResult result, BuildContext context) async {
+  if (!result.user.isEmailVerified) {
+    await result.user.sendEmailVerification();
+    check = true;
   }
+  return check;
 }
 
 Future<bool> googleSignIn() async {
@@ -94,6 +157,7 @@ Future<bool> signUp({
     await SharedPrefHelper().saveUserRole("user");
     print(email);
     print(password);
+    confirmEmail(result, context);
     return Future.value(true);
   } catch (e) {
     String error = e

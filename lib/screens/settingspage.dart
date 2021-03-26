@@ -4,10 +4,12 @@ import 'package:fitility/services/sharedpref.dart';
 import 'package:fitility/services/transition.dart';
 import 'package:flutter/material.dart';
 import 'package:auro_avatar/auro_avatar.dart';
+
 class SettingsPage extends StatefulWidget {
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
+
 class _SettingsPageState extends State<SettingsPage> {
   bool isAccountActive = false, isSupportActive = false;
   bool isNameEditing = false, isPhoneEditing = false;
@@ -33,11 +35,13 @@ class _SettingsPageState extends State<SettingsPage> {
       phoneController.text = (userPhone != null) ? userPhone : "Not Available";
     });
   }
+
   @override
   void initState() {
     onloadPage();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +79,8 @@ class _SettingsPageState extends State<SettingsPage> {
                           children: [
                             Row(
                               children: <Widget>[
-                                InitialNameAvatar( (userLastName != "")
+                                InitialNameAvatar(
+                                  (userLastName != "")
                                       ? userFullName
                                       : userFirstName,
                                   circleAvatar: true,
@@ -104,6 +109,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
               SizedBox(height: 15.0),
+              confirmEmailBox(),
               GestureDetector(
                 onTap: () {
                   setState(() {
@@ -190,7 +196,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                         GestureDetector(
                                           onTap: () {
                                             setState(() {
-                                              if (isNameEditing && (nameController.text.trim() !=
+                                              if (isNameEditing &&
+                                                  (nameController.text.trim() !=
                                                       userFullName) &&
                                                   ((' '
                                                           .allMatches(
@@ -203,7 +210,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                                   userId,
                                                   nameController.text.trim(),
                                                 ).whenComplete(
-                                                  () async {if (nameController.text
+                                                  () async {
+                                                    if (nameController.text
                                                             .trim()
                                                             .indexOf(" ") >=
                                                         0) {
