@@ -1,13 +1,21 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fitility/screens/dancepage.dart';
+import 'package:fitility/screens/diet_veg.dart';
+import 'package:fitility/screens/plans_zumba.dart';
+import 'package:fitility/screens/workout.dart';
+import 'package:fitility/services/transition.dart';
+import 'package:fitility/services/webview.dart';
 import 'package:fitility/widgets/appbar.dart';
 import 'package:fitility/widgets/bottomNavigation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class GetImages extends StatelessWidget {
   final String dbName;
 
   const GetImages({Key key, this.dbName}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return new StreamBuilder(
@@ -31,6 +39,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController1 = ScrollController();
   List slideshowimages;
   @override
   void initState() {
@@ -57,7 +67,7 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Container(
           color: Color(0xffeceff1),
-          width: MediaQuery.of(context).size.width,
+          width: double.infinity,
           padding: EdgeInsets.all(20.0),
           child: Column(
             children: [
@@ -65,10 +75,38 @@ class _HomePageState extends State<HomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CategoryTile(categoryname: "Workout"),
-                  CategoryTile(categoryname: "Dance"),
-                  CategoryTile(categoryname: "Diet"),
-                  CategoryTile(categoryname: "Plan"),
+                  InkWell(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          FadeRoute(page: WorkoutScreen()),
+                        );
+                      },
+                      child: CategoryTile(categoryname: "Workout")),
+                  InkWell(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          FadeRoute(page: DancePage()),
+                        );
+                      },
+                      child: CategoryTile(categoryname: "Dance")),
+                  InkWell(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          FadeRoute(page: DietVeg()),
+                        );
+                      },
+                      child: CategoryTile(categoryname: "Diet")),
+                  InkWell(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          FadeRoute(page: PlansZumba()),
+                        );
+                      },
+                      child: CategoryTile(categoryname: "Plan")),
                 ],
               ),
               SizedBox(height: 10.0),
@@ -78,8 +116,9 @@ class _HomePageState extends State<HomePage> {
                 margin: EdgeInsets.symmetric(vertical: 15.0),
                 child: SizedBox(
                   height: 180.0,
+                  width: MediaQuery.of(context).size.width * 0.99,
                   child: Carousel(
-                    boxFit: BoxFit.fitWidth,
+                    boxFit: BoxFit.cover,
                     autoplay: true,
                     animationCurve: Curves.fastOutSlowIn,
                     animationDuration: Duration(milliseconds: 1000),
@@ -132,30 +171,44 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
-
-                    ////  Video1  ////
-                    VideoCard(
-                      videoImage: 'images/pic1.png',
-                      videoTitle: "Video Title",
-                      videoText:
-                          "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-                    ),
-
-                    ////  video2  ////
-                    VideoCard(
-                      videoImage: 'images/pic2.png',
-                      videoTitle: "Video Title",
-                      videoText:
-                          "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-                    ),
-
-                    ////  video3  ////
-                    VideoCard(
-                      videoImage: 'images/pic3.png',
-                      videoTitle: "Video Title",
-                      videoText:
-                          "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-                    ),
+                    StreamBuilder<QuerySnapshot>(
+                        stream: Firestore.instance
+                            .collection("videos")
+                            .where("genre", isEqualTo: "Workout")
+                            .orderBy("createdOn", descending: true)
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError)
+                            return Text("Something went wrong");
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.waiting:
+                              return CupertinoActivityIndicator();
+                            default:
+                              return Scrollbar(
+                                  isAlwaysShown: true,
+                                  controller: _scrollController1,
+                                  child: new ListView(
+                                    controller: _scrollController1,
+                                    shrinkWrap: true,
+                                    children: snapshot.data.documents
+                                        .map((DocumentSnapshot document) {
+                                      return InkWell(
+                                        onTap: () {
+                                          _handleURLButtonPress(
+                                              context,
+                                              document['ytlink'],
+                                              document['videoname']);
+                                        },
+                                        child: VideoCard(
+                                          videoImage: document['imgurl'],
+                                          videoTitle: document['videoname'],
+                                          videoText: document['description'],
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ));
+                          }
+                        }),
                   ],
                 ),
               ),
@@ -198,28 +251,44 @@ class _HomePageState extends State<HomePage> {
                     ),
 
                     ////  Video1  ////
-                    VideoCard(
-                      videoImage: 'images/pic1.png',
-                      videoTitle: "Video Title",
-                      videoText:
-                          "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-                    ),
-
-                    ////  video2  ////
-                    VideoCard(
-                      videoImage: 'images/pic2.png',
-                      videoTitle: "Video Title",
-                      videoText:
-                          "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-                    ),
-
-                    ////  video3  ////
-                    VideoCard(
-                      videoImage: 'images/pic3.png',
-                      videoTitle: "Video Title",
-                      videoText:
-                          "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-                    ),
+                    StreamBuilder<QuerySnapshot>(
+                        stream: Firestore.instance
+                            .collection("videos")
+                            .where("genre", isEqualTo: "Dance")
+                            .orderBy("createdOn", descending: true)
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError)
+                            return Text("Something went wrong");
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.waiting:
+                              return CupertinoActivityIndicator();
+                            default:
+                              return Scrollbar(
+                                  isAlwaysShown: true,
+                                  controller: _scrollController,
+                                  child: new ListView(
+                                    controller: _scrollController,
+                                    shrinkWrap: true,
+                                    children: snapshot.data.documents
+                                        .map((DocumentSnapshot document) {
+                                      return InkWell(
+                                        onTap: () {
+                                          _handleURLButtonPress(
+                                              context,
+                                              document['ytlink'],
+                                              document['videoname']);
+                                        },
+                                        child: VideoCard(
+                                          videoImage: document['imgurl'],
+                                          videoTitle: document['videoname'],
+                                          videoText: document['description'],
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ));
+                          }
+                        }),
                   ],
                 ),
               ),
@@ -261,7 +330,7 @@ class VideoCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Image.asset(
+          Image.network(
             videoImage,
             height: 55.0,
             width: 100,
@@ -335,4 +404,13 @@ class CategoryTile extends StatelessWidget {
       ),
     );
   }
+}
+
+void _handleURLButtonPress(BuildContext context, String url, String title) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => WebViewContainer(url, title),
+    ),
+  );
 }

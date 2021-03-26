@@ -242,7 +242,10 @@ class _SigninState extends State<Signin> {
                                 "Login successful\nWelcome to Fitility",
                                 context);
                             //print("Logged in as normal user");
-
+                            Navigator.pushReplacement(
+                              context,
+                              FadeRoute(page: HomePage()),
+                            );
                           } else if (role == "admin") {
                             await messageBoxDialog(
                                 "Login successful , Welcome Admin", context);

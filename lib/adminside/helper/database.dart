@@ -19,6 +19,7 @@ Future<void> saveVideoToDb({
     "level": level,
     "imgurl": imgurl,
     "ytlink": ytlink,
+    "createdOn": FieldValue.serverTimestamp()
   };
   final userRef = _db.collection("videos").document(videoName);
   if (!(await userRef.get()).exists) {
