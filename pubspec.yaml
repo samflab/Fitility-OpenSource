@@ -1,5 +1,5 @@
 name: fitility
-description: A new Flutter application.
+description: A fitness app
 version: 1.0.0+1
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -20,10 +20,10 @@ dependencies:
   auto_size_text:
   carousel_pro: ^1.0.0
   fluttertoast: ^7.1.6
-  auro_avatar:
   image_picker:
   path_provider: 
   flutter_svg: ^0.19.3
+  ff_contact_avatar: ^0.1.1
 
 
 dev_dependencies:

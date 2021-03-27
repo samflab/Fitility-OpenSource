@@ -3,7 +3,7 @@ import 'package:fitility/services/authentication.dart';
 import 'package:fitility/services/sharedpref.dart';
 import 'package:fitility/services/transition.dart';
 import 'package:flutter/material.dart';
-import 'package:auro_avatar/auro_avatar.dart';
+import 'package:ff_contact_avatar/ff_contact_avatar.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -79,15 +79,15 @@ class _SettingsPageState extends State<SettingsPage> {
                           children: [
                             Row(
                               children: <Widget>[
-                                InitialNameAvatar(
-                                  (userLastName != "")
+                                FFContactAvatar(
+                                  name: (userLastName != "")
                                       ? userFullName
                                       : userFirstName,
-                                  circleAvatar: true,
-                                  backgroundColor: Colors.white,
-                                  foregroundColor: Colors.red.shade700,
-                                  padding: 35.0,
-                                  textSize: 25.0,
+                                  showBadge: true,
+                                  theme: FFContactAvatarTheme(
+                                    backgroundColor: Colors.white,
+                                    foregroundColor: Colors.red.shade700,
+                                  ),
                                 ),
                                 SizedBox(width: 10.0),
                                 Text(
