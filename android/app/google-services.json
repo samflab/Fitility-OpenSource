@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:65668889316:android:f5c2c91b4d77ebf71acaf1",
         "android_client_info": {
-          "package_name": "com.rfda.fitility"
+          "package_name": "com.example.fitility"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "65668889316-go7af1a10npgi4medbf059n9nn7b87p4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.rfda.fitility",
+            "package_name": "com.example.fitility",
             "certificate_hash": "a9214d4a02714e06e4f9b7ff1fbf83e9b6c9b11c"
           }
         },

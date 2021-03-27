@@ -22,8 +22,8 @@ dependencies:
   fluttertoast: ^7.1.6
   image_picker:
   path_provider: 
+  flutter_initicon: ^1.0.3
   flutter_svg: ^0.19.3
-  ff_contact_avatar: ^0.1.1
 
 
 dev_dependencies:
