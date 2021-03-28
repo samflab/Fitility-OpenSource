@@ -105,7 +105,10 @@ class _SigninState extends State<Signup> {
                                   const EdgeInsets.only(left: 40.0, top: 10.0),
                               child: TextFormField(
                                 autocorrect: true,
+                                keyboardType: TextInputType.text,
                                 controller: firstNameController,
+                                textCapitalization: TextCapitalization.words,
+                                autofocus: true,
                                 decoration: InputDecoration(
                                   contentPadding: new EdgeInsets.symmetric(
                                       vertical: 15.0, horizontal: 10.0),
@@ -171,7 +174,9 @@ class _SigninState extends State<Signup> {
                                   const EdgeInsets.only(top: 10.0, right: 40.0),
                               child: TextFormField(
                                 autocorrect: true,
+                                keyboardType: TextInputType.text,
                                 controller: lastNameController,
+                                textCapitalization: TextCapitalization.words,
                                 decoration: InputDecoration(
                                   contentPadding: new EdgeInsets.symmetric(
                                       vertical: 15.0, horizontal: 10.0),
@@ -237,6 +242,7 @@ class _SigninState extends State<Signup> {
                         padding: const EdgeInsets.only(left: 40.0, right: 40.0),
                         child: TextFormField(
                           autocorrect: true,
+                          keyboardType: TextInputType.emailAddress,
                           controller: emailController,
                           decoration: InputDecoration(
                             contentPadding: new EdgeInsets.symmetric(
@@ -300,6 +306,7 @@ class _SigninState extends State<Signup> {
                         padding: const EdgeInsets.only(left: 40.0, right: 40.0),
                         child: TextFormField(
                           autocorrect: true,
+                          keyboardType: TextInputType.number,
                           controller: phoneController,
                           decoration: InputDecoration(
                             contentPadding: new EdgeInsets.symmetric(
@@ -363,6 +370,7 @@ class _SigninState extends State<Signup> {
                         padding: const EdgeInsets.only(left: 40.0, right: 40.0),
                         child: TextFormField(
                           controller: passwordController,
+                          keyboardType: TextInputType.text,
                           obscureText: true,
                           decoration: InputDecoration(
                             contentPadding: new EdgeInsets.symmetric(

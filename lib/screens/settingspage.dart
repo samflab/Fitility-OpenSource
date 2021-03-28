@@ -493,6 +493,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: GestureDetector(
                   onTap: () {
                     signOut().whenComplete(() {
+                      Navigator.pop(context, true);
                       Navigator.pushReplacement(
                         context,
                         FadeRoute(page: Signin()),

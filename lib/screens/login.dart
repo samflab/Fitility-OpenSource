@@ -99,6 +99,8 @@ class _SigninState extends State<Signin> {
                         child: TextFormField(
                           autocorrect: true,
                           controller: emailController,
+                          autofocus: true,
+                          keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             contentPadding: new EdgeInsets.symmetric(
                                 vertical: 15.0, horizontal: 10.0),
